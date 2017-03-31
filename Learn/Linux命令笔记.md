@@ -1,0 +1,17 @@
+a.	找出/tmp目录中，内容有hello world 的所有文件。
+   grep -l ‘hello world’ /tmp/*
+b.	找出/work目录中，文件后缀名为.cpp的所有文件。
+   find /work *.cpp
+c.	查看本机的当前网络连接状况。
+   ifconfig
+d.	查看当前系统中的所有进程。
+   ps -aux
+
+2017-02-17
+df -hl 查看磁盘剩余空间
+
+df -h 查看每个根路径的分区大小
+
+du -sh [目录名] 返回该目录的大小
+
+du -sm [文件夹] 返回该文件夹总M数
