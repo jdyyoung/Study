@@ -1,0 +1,350 @@
+系统变量“MAKELEVEL”
+如果我们的make有一个嵌套执行的动作（参见前面的“嵌套使用make”），那么，这个变量会记录了我们的当前Makefile的调用层数。
+
+CFLAGS 环境变量
+
+
+2017-02-12
+makefile中“$”相关
+
+makefile中的自动化变量$@,$%,$ - taxue505 - 博客园
+http://www.cnblogs.com/yangquanhui/p/4937494.html
+
+自动化变量
+
+makefile变量的基础：
+变量声明需要初值
+使用时变量名前加$，最好把变量名用（）或者{}括起
+使用真实的字符“$” ，用“$$”
+"目标"  “依赖”  “命令”
+变量   宏替换  伪目标
+
+
+makefile显示命令：
+make会默认把执行的命令行在命令执行前输出到屏幕上
+在命令行前使用“@”字符使命令不被make显示出来
+
+PS：
+make  -n或者--just-print   只显示命令，但不执行命令
+make  -s或者--slient   全面禁止命令显示
+make  -B 让所有目标总是重新建立 
+make  -d  打印调试信息
+make  -C   改变目录
+$ make -C ../make-dir/
+
+make -I  --include-dir  make就会在这个参数所指定的目录下去寻找其它Makefile
+
+make -f 或者--file  将其它文件看作 Makefile 	
+$make -f my_makefile
+
+02-14
+让make自动推导：
+“隐晦规则”：只要make看到一个[.o]文件，它就会自动的把[.c]文件加在依赖关系中，如果make找到一个whatever.o，那么whatever.c，就会是whatever.o的依赖文件。并且 cc -c whatever.c 也会被推导出来
+
+引用其它的Makefile：
+include  的用法
+
+如果目录<prefix>;/include（一般是：/usr/local/bin或/usr/include）存在的话，make也会去找
+
+
+makefile命令执行:
+如果你要让上一条命令的结果应用在下一条命令时，你应该使用分号分隔这两条命令
+
+
+makefile命令出错:
+忽略命令的出错,可以在Makefile的命令行前加一个减号“-”（在Tab键之后），标记为不管命令出不出错都认为是成功的
+
+
+嵌套执行make:
+模块编译和分段编译
+总控Makefile”，总控Makefile的变量可以传递到下级的Makefile中（如果你显示的声明），但是不会覆盖下层的Makefile中所定义的变量，除非指定了“-e”参数。
+
+要传递变量到下级Makefile中，可以使用这样的声明：
+export	<variable ...>;
+不想让某些变量传递到下级Makefile中，可以这样声明：
+unexport <variable ...>;
+
+export	variable = value
+等价于：
+variable = value
+export variable
+等价于：
+export variable := value
+等价于：
+variable := value
+export variable
+
+传递所有的变量，只要一个export就行，表示传递所有的变量
+
+注意:有两个变量，一个是SHELL，一个是MAKEFLAGS，这两个变量不管你是否export，其总是要传递到下层 Makefile中，特别是MAKEFILES变量，其中包含了make的参数信息，如果执行“总控Makefile”时有make参数或是在上层 Makefile中定义了这个变量，那么MAKEFILES变量将会是这些参数，并会传递到下层Makefile中，这是一个系统级的环境变量。
+
+但是make命令中的有几个参数并不往下传递，它们是“-C”,“-f”,“-h”“-o”和“-W”
+
+比较有用的参数，“-w”或是“--print-directory”会在make的过程中输出一些信息，能看到目前的工作目录
+
+使用“-C”参数来指定make下层Makefile时，“-w”会被自动打开的。如果参数中有“-s”（“--slient”）或是“--no-print-directory”，那么，“-w”总是失效的。
+
+
+makefile定义命令包：
+如果Makefile中出现一些相同命令序列，可以为这些相同的命令序列定义一个变量。定义这种命令序列的语法以“define”开始，以“endef”结束
+但不要和Makefile中的变量重名！！！
+
+02-17
+makefile变量中的变量:
+第一种方式，也就是简单的使用“=”号
+在“=”左侧是变量，右侧是变量的值，右侧变量的值可以定义在文件的任何一处，也就是说，右侧中的变量不一定非要是已定义好的值，其也可以使用后面定义的值。
+
+另一种方法使用的是“:=”
+这种方法，前面的变量不能使用后面的变量，只能使用前面已定义好了的变量。
+
+系统变量“MAKELEVEL”，其意思是，如果我们的make有一个嵌套执行的动作，那么，这个变量会记录了我们的当前Makefile的调用层数。
+
+空变量的定义
+nullstring :=
+space := $(nullstring) # end of the line
+
+操作符是“?=”
+FOO ?=  bar
+如果FOO没有被定义过，那么变量FOO的值就是“bar”，如果FOO先前被定义过，那么这条语句将什么也不做
+
+
+makefile变量高级用法:
+变量值的替换
+$(var:a=b)”或是“${var:a=b}”，其意思是，把变量“var”中所有以“a”字串“结尾”的“a”替换成“b”字串。这里的“结尾”意思是“空格”或是“结束符”。
+
+另外一种变量替换的技术是以“静态模式”
+foo := a.o b.o c.o
+bar := $(foo:%.o=%.c)
+这依赖于被替换字串中的有相同的模式，模式中必须包含一个“%”字符
+
+第二种高级用法是——“把变量的值再当成变量
+subst函数把“variable1”中的所有“1”字串替换成“2”字串，于是，“variable1”变成 “variable2”，再取其值
+
+“把变量的值再当成变量”这种技术，同样可以用在操作符的左边
+
+
+makefile追加变量值:
+使用“+=”操作符给变量追加值
+如果变量之前没有定义过，那么，“+=”会自动变成“=”，如果前面有变量定义，那么“+=”会继承于前次操作的赋值符。如果前一次的是“:=”，那么“+=”会以“:=”作为其赋值符
+
+
+override 指示符:
+如果有变量是通常make的命令行参数设置的，那么Makefile中对这个变量的赋值会被忽略。如果你想在Makefile中设置这类参数的值，那么，你可以使用“override”指示符
+override <variable>; = <value>;
+override <variable>; := <value>;
+override <variable>; += <more text>;
+对于多行的变量定义，我们用define指示符，在define指示符前，也同样可以使用override指示符
+
+
+makefile多行变量：
+设置变量值的方法是使用define关键字。使用define关键字设置变量的值可以有换行，这有利于定义一系列的命令（前面我们讲过“命令包”的技术就是利用这个关键字）。
+define指示符后面跟的是变量的名字，而重起一行定义变量的值，定义是以endef 关键字结束。其工作方式和“=”操作符一样。变量的值可以包含函数、命令、文字，或是其它变量。因为命令需要以[Tab]键开头，所以如果你用define定义的命令变量中没有以[Tab]键开头，那么make 就不会把其认为是命令！
+
+
+makefile环境变量：
+make运行时的系统环境变量可以在make开始运行时被载入到Makefile文件中，但是如果Makefile中已定义了这个变量，或是这个变量由make命令行带入，那么系统的环境变量的值将被覆盖。（如果make指定了“-e”参数，那么，系统环境变量将覆盖Makefile中定义的变量）
+
+makefile目标变量：
+目标变量     局部变量
+
+makefile模式变量：
+模式变量：可以给定一种“模式”，可以把变量定义在符合这种模式的所有目标上。
+make的“模式”一般是至少含有一个“%”的，所以，以如下方式给所有以[.o]结尾的目标定义目标变量：
+%.o : CFLAGS = -O
+
+03-04
+函数来处理变量
+
+函数的调用语法：
+$(<function> <arguments>) 或${<function> <arguments>} 括号或者大括号要统一
+
+参数间以逗号“,”分隔
+函数名与参数之间以“空格”分隔
+
+函数subst，替换函数：三个参数，第一个是被替换字符串，第二个参数替换的字符串，第三个参数是替换操作作用的字串
+
+字符串处理函数：11个
+subst	patsubst   strip	findstring	filter	filter-out	sort	word	wordlist	words	firstword	
+$(subst <from>,<to>,<text>)
+名称：字符串替换函数——subst
+功能：把字串<text>中的<from>字符创替换成<to>
+返回：函数返回被替换过后的字符串
+
+$(patsubst <pattern>,<replacement>,<text>)
+名称：模式字符串替换函数——patsubst。
+功能：查找<text>中的单词（单词以“空格”、“Tab”或“回车”“换行”分隔）是否符合模式<pattern>，如果匹配的话，则以<replacement>替换。这里，<pattern>可以包括通配符 “%”，表示任意长度的字串。如果<replacement>中也包含“%”，那么，<replacement>中的这个 “%”将是<pattern>中的那个“%”所代表的字串。（可以用“\”来转义，以“\%”来表示真实含义的“%”字符）
+返回：函数返回被替换过后的字符串。
+
+$(strip <string>)
+名称：去空格函数——strip。
+功能：去掉<string>;字串中开头和结尾的空字符。
+返回：返回被去掉空格的字符串值。
+
+$(findstring <find>,<in>)
+名称：查找字符串函数——findstring。
+功能：在字串<in>中查找<find>字串。
+返回：如果找到，那么返回<find>，否则返回空字符串。
+
+$(filter <pattern...>,<text>)
+名称：过滤函数——filter。
+功能：以<pattern>模式过滤<text>字符串中的单词，保留符合模式<pattern>的单词。可以有多个模式。
+返回：返回符合模式<pattern>;的字串。
+
+$(filter-out <pattern...>,<text>)
+名称：反过滤函数——filter-out。
+功能：以<pattern>模式过滤<text>字符串中的单词，去除符合模式<pattern>的单词。可以有多个模式。
+返回：返回不符合模式<pattern>的字串
+
+$(sort <list>)
+名称：排序函数——sort。
+功能：给字符串<list>中的单词排序（升序）。
+返回：返回排序后的字符串。
+示例：$(sort foo bar lose)返回“bar foo lose” 。
+备注：sort函数会去掉<list>中相同的单词。
+
+$(word <n>,<text>)
+名称：取单词函数——word。
+功能：取字符串<text>中第<n>个单词。（从一开始）
+返回：返回字符串<text>中第<n>个单词。如果<n>比<text>中的单词数要大，那么返回空字符串。
+
+
+$(wordlist <ss>,<e>,<text>)  
+名称：取单词串函数——wordlist。
+功能：从字符串<text>中取从<ss>开始到<e>的单词串。<ss>和<e>是一个数字。
+返回：返回字符串<text>中从<ss>到<e>的单词字串。如果<ss>比<text>中的单词数要大，那么返回空字符串。如果<e>大于<text>的单词数，那么返回从<ss>开始，到<text>结束的单词串。
+
+$(words <text>)
+名称：单词个数统计函数——words。
+功能：统计<text>中字符串中的单词个数。
+返回：返回<text>中的单词数。
+
+$(firstword <text>)
+名称：首单词函数——firstword。
+功能：取字符串<text>中的第一个单词。
+返回：返回字符串<text>的第一个单词。
+
+
+文件名操作函数：7个
+dir	notdir	suffix	basename	addsuffix	addprefix	join
+$(dir <names...>) 
+名称：取目录函数——dir。
+功能：从文件名序列<names>中取出目录部分。目录部分是指最后一个反斜杠（“/”）之前的部分。如果没有反斜杠，那么返回“./”。
+返回：返回文件名序列<names>的目录部分。
+
+$(notdir <names...>) 
+名称：取文件函数——notdir。
+功能：从文件名序列<names>中取出非目录部分。非目录部分是指最後一个反斜杠（“/”）之后的部分。
+返回：返回文件名序列<names>的非目录部分。
+
+$(suffix <names...>) 
+名称：取後缀函数——suffix。
+功能：从文件名序列<names>中取出各个文件名的后缀。
+返回：返回文件名序列<names>的后缀序列，如果文件没有后缀，则返回空字串。
+
+$(basename <names...>)
+名称：取前缀函数——basename。
+功能：从文件名序列<names>中取出各个文件名的前缀部分。
+返回：返回文件名序列<names>的前缀序列，如果文件没有前缀，则返回空字串。
+
+$(addsuffix <suffix>,<names...>) 
+名称：加后缀函数——addsuffix。
+功能：把后缀<suffix>加到<names>中的每个单词后面。
+返回：返回加过后缀的文件名序列。
+
+$(addprefix <prefix>,<names...>) 
+名称：加前缀函数——addprefix。
+功能：把前缀<prefix>加到<names>中的每个单词后面。
+返回：返回加过前缀的文件名序列。
+
+$(join <list1>,<list2>)
+名称：连接函数——join。
+功能：把<list2>中的单词对应地加到<list1>的单词后面。如果<list1>的单词个数要比<list2>的多，那么，<list1>中的多出来的单词将保持原样。如果<list2>的单词个数要比<list1>多，那么，<list2>多出来的单词将被复制到<list2>中。
+返回：返回连接过后的字符串。
+示例：$(join aaa bbb , 111 222 333)返回值是“aaa111 bbb222 333”。
+
+
+forach函数：
+
+
+if函数：
+
+call函数：
+
+origin函数：
+
+shell函数：
+
+控制make函数：
+error	warning
+
+makefile关键字哪些？
+
+
+2017-03-27
+1）变量：
+宏  扩展  文本字符串  展开
+makefile：目标，依赖目标，命令
+变量命名  大小写搭配
+自动化变量
+
+2）变量的基础：
+$  ()  {}  $$
+
+3）变量中的变量：
+ “=” 可在任意地方赋值，但注意递归定义
+ “:=” 只能使用前面已经定义好了的变量
+ “?=” 如果没有定义过，则定义成当前值；如果已经定义过，则什么也没做
+ 
+ 4）空格的定义，使用注释符
+ nullstring :=
+ space := $(nullstring) # end of the line
+ 
+ 5）变量的高级用法：
+ 变量值的替换：以a结尾替换成b;静态模式
+ 把变量的值再当成变量
+ 
+ 6）追加变量值：
+ "+=":继承前面 "="与":="
+ 
+ 7）override指示符：
+ 变量在make的命令行参数设置，则makefile中赋值被忽略
+ 避免忽略：前头加override
+ 也可在define指示符前添加
+ 
+ 8）多行命令：
+ 关键字define  echo endef
+ 
+ 9）环境变量：（重点）
+ 系统环境变量
+ make运行时的系统环境变量可以在make开始运行时被载入到Makefile文件中，但是如果Makefile中已定义了这个变量，或是这个变量由make命令行带入，那么系统的环境变量的值将被覆盖。（如果make指定了“-e”参数，那么，系统环境变量将覆盖Makefile中定义的变量）
+
+因此，如果我们在环境变量中设置了“CFLAGS”环境变量，那么我们就可以在所有的Makefile中使用这个变量了。这对于我们使用统一的编译参数有比较大的好处。如果Makefile中定义了CFLAGS，那么则会使用Makefile中的这个变量，如果没有定义则使用系统环境变量的值，一个共性和个性的统一，很像“全局变量”和“局部变量”的特性。
+
+当make嵌套调用时（参见前面的“嵌套调用”章节），上层Makefile中定义的变量会以系统环境变量的方式传递到下层的Makefile 中。当然，默认情况下，只有通过命令行设置的变量会被传递。而定义在文件中的变量，如果要向下层Makefile传递，则需要使用export关键字来声明。
+
+10）目标变量：
+全局变量
+自动化变量：规则型变量
+
+局部变量
+<target ...> : <variable-assignment>;
+<target ...> : overide <variable-assignment>
+
+11）模式变量：
+至少一个“%”
+<pattern ...>; : <variable-assignment>;
+<pattern ...>; : override <variable-assignment>;
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
