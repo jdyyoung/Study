@@ -1,0 +1,92 @@
+2017-1-20
+!!!特别注意shell脚本的空格！！！
+变量赋值的等号左右没空格，没空格，没空格！
+双引号围起来字符串，引号与字符串之间没空格，没空格，没空格！
+
+1. 等号赋值两边不能有空格
+2. 命令与选项之间需要空格
+3. 管道两边空格可有可无
+
+[  ]:有空格
+{ }：有空格
+
+
+Shell 编程：Bash空格的那点事_linux shell_脚本之家
+http://www.jb51.net/article/60328.htm
+
+linux shell的here document用法(cat << EOF)
+linux shell的here document用法(cat << EOF) - Linux操作系统：Ubuntu_Centos_Debian - 红黑联盟
+http://www.2cto.com/os/201307/231010.html
+
+2017-1-22
+;之后可以没空格
+
+关于等号“=”：用来表示变量赋值则等号两边没空格；
+用来表示相等时则等号两边有空格
+
+cd  到某个文件夹下
+mkdir  创建新文件夹
+git init  初始化仓库
+git remote add origin git@server-name:path/repo-name.git  关联远程仓库
+
+
+git clone  ssh://git@192.168.0.18:30001/secure_mcu/pcf7961.git     克隆到本地   只用这条语句就OK
+
+
+2017-04-01
+根文件系统中：注意自己添加文件的管理，做一个表格，
+总的来说就是重视文档的管理。
+
+UC
+动态库文件：.so
+共享库的使用要求配置环境变量LD_LIBRARY_PATH的值，
+主要解决运行时找不到共享库的问题
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
+   
+静态库的生成
+vi add.c
+
+gcc -c -fpic/* 小模式，代码少*/ add.c   //生成.o目标（编译）文件
+
+gcc -shared add.o -o libadd.so                //生成.so共享库文件
+
+共享库的使用：
+vi main.c
+
+gcc -c main.c //生成.o目标（编译）文件
+
+/*gcc main.o -l 库名 -L 库文件所在的路径*/
+gcc main.o -l add -L  .   //主目标调用共享库生成可执行文件
+
+注意库名与库文件名，库名没后缀！！！
+
+共享库的动态加载
+1)dlopen()
+2)dlerror()
+3)dlsym()
+用nm命令查看动态库文件提供哪些调用：
+nm -D /usr/lib/libz.so
+
+声明一个函数指针用于接收返回值
+4)dlclose()
+注意：编译链接时需要增加选项 -ldl
+
+静态库文件：.a
+静态库的的生成：
+vi  add.c
+
+gcc -c add.c
+
+/*ar  -r/*插入*/ 库名.a 目标文件*/
+ar -r libadd.a add.o 
+
+静态库的使用：
+vi main.c
+
+gcc -c main.c
+
+/*gcc main.o -l 库名 -L 库文件所在的路径*/
+gcc main.o -l add -L .
+
+
+
