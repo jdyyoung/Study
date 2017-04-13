@@ -1,0 +1,172 @@
+find & grep
+
+find命令用于：在一个目录（及子目录）中搜索文件
+
+find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path…] [expression]
+常用简化：
+find [path…] [expression]
+path：find命令所查找的目录路径。例如用.来表示当前目录，用/来表示系统根目录
+expression：expression可以分为——“-options [-print -exec -ok …]”
+
+-options，指定find命令的常用选项，下节详细介绍
+-print，find命令将匹配的文件输出到标准输出
+-exec，find命令对匹配的文件执行该参数所给出的shell命令。
+相应命令的形式为’command’ {  } ;，注意{   }和；之间的空格
+
+find ./ -size 0 -exec rm {} ; 删除文件大小为零的文件 
+（还可以以这样做：rm -i find ./ -size 0  或 find ./ -size 0 | xargs rm -f &）
+	
+为了用ls -l命令列出所匹配到的文件，可以把ls -l命令放在find命令的-exec选项中：
+	find . -type f -exec ls -l {  } ;
+在/logs目录中查找更改时间在5日以前的文件并删除它们：
+	find /logs -type f -mtime +5 -exec rm {  } ;
+	
+-ok，和exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，
+在执行每一个命令之前，都会给出提示，让用户来确定是否执行。
+find . -name “*.conf”  -mtime +5 -ok rm {  } ; 
+在当前目录中查找所有文件名以.LOG结尾、更改时间在5日以上的文件，并删除它们，只不过在删除之前先给出提示
+
+find命令的常用选项
+1. -name
+按照文件名查找文件
+
+2. -perm
+按照文件权限查找文件
+
+3.-prune
+
+4.-user
+
+5.-group
+
+6.-mtime -n   +n
+按照文件的更改时间查找文件
+-n表示文件更改时间距现在n天以内
++n表示文件更改时间距现在n天以前
+
+7.-nogroup
+
+8.-nouser
+
+9.-newer file1 ! file2
+查找更改时间比文件file1新但比文件file2旧的文件
+
+10.-type
+查找某一类型的文件
+	b-块设备文件
+	d-目录
+	c-字符设备文件
+	p-管道文件
+	l-符号链接文件
+	f-普通文件
+	
+11.-size
+
+12.-depth
+
+13.-mouth
+
+14.-follow
+
+find与xargs
+在使用find命令的-exec选项处理匹配到的文件时， find命令将所有匹配到的文件一起传递给exec执行。但有些系统对能够传递给exec的命令长度有限制，这样在find命令运行几分钟之后，就会出现溢出错误。错误信息通常是“参数列太长”或“参数列溢出”。这就是xargs命令的用处所在，特别是与find命令一起使用。
+
+find命令把匹配到的文件传递给xargs命令，而xargs命令每次只获取一部分文件而不是全部，不像-exec选项那样。这样它可以先处理最先获取的一部分文件，然后是下一批，并如此继续下去。
+
+grep命令
+搜索文本
+grep (global search regular expression(RE) and print out the line,全面搜索正则表达式并把行打印出来)是一种强大的文本搜索工具，它能使用正则表达式搜索文本
+
+grep [OPTIONS] PATTERN [FILE…]
+grep [OPTIONS] [-e PATTERN | -f FILE] [FILE…]
+
+grep正则表达式元字符集(基本集)
+^ 锚定行的开始 如：’^grep’匹配所有以grep开头的行。
+$ 锚定行的结束 如：’grep$’匹配所有以grep结尾的行。
+…………
+
+grep命令的常用选项及实例
+
+-?
+
+同时显示匹配行上下的？行，如：grep -2 pattern filename同时显示匹配行的上下2行。
+
+-b，–byte-offset
+
+打印匹配行前面打印该行所在的块号码。
+
+-c,–count
+
+只打印匹配的行数，不显示匹配的内容。
+
+-f File，–file=File
+
+从文件中提取模板。空文件中包含0个模板，所以什么都不匹配。
+
+-h，–no-filename
+
+当搜索多个文件时，不显示匹配文件名前缀。
+
+-i，–ignore-case
+
+忽略大小写差别。
+
+-q，–quiet
+
+取消显示，只返回退出状态。0则表示找到了匹配的行。
+
+-l，–files-with-matches
+
+打印匹配模板的文件清单。
+
+-L，–files-without-match
+
+打印不匹配模板的文件清单。
+
+-n，–line-number
+
+在匹配的行前面打印行号。
+
+-s，–silent
+
+不显示关于不存在或者无法读取文件的错误信息。
+
+-v，–revert-match
+
+反检索，只显示不匹配的行。
+
+-w，–word-regexp
+
+如果被引用，就把表达式做为一个单词搜索。
+
+-V，–version
+
+显示软件版本信息。
+
+=====
+
+ls -l | grep ‘^a’ 通过管道过滤ls -l输出的内容，只显示以a开头的行。
+
+grep ‘test’ d* 显示所有以d开头的文件中包含test的行。
+
+grep ‘test’ aa bb cc 显示在aa，bb，cc文件中匹配test的行。
+
+grep ‘[a-z]’ aa 显示所有包含每个字符串至少有5个连续小写字符的字符串的行。
+
+grep ‘w(es)t.*’ aa 如果west被匹配，则es就被存储到内存中，并标记为1，然后搜索任意个字符(.*)，这些字符后面紧跟着另外一个es()，找到就显示该行。如果用egrep或grep -E，就不用””号进行转义，直接写成’w(es)t.*’就可以了。
+
+grep -i pattern files ：不区分大小写地搜索。默认情况区分大小写
+
+grep -l pattern files ：只列出匹配的文件名，
+
+grep -L pattern files ：列出不匹配的文件名，
+
+grep -w pattern files ：只匹配整个单词，而不是字符串的一部分(如匹配‘magic’，而不是‘magical’)，
+
+grep -C number pattern files ：匹配的上下文分别显示[number]行，
+
+grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行，
+
+grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。
+
+

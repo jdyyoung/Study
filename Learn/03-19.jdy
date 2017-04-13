@@ -1,4 +1,7 @@
-在  下载内核linux-4.2.tar.xz
+在 
+Linux内核4.2正式发布：新增100万行代码 - 51CTO.COM
+http://os.51cto.com/art/201509/490066.htm
+下载内核linux-4.2.tar.xz
 移至虚拟机共享文件夹
 Ubuntu 下解压
 # xz -d ***.tar.xz  //先解压xz 
@@ -20,7 +23,7 @@ make zImage
 
 
 
-
+编译过程出现的问题：
 /tmp/ccG4imw5.s: Assembler messages:
 /tmp/ccG4imw5.s:515: Error: garbage following instruction -- `dsb nshst'
 /tmp/ccG4imw5.s:530: Error: garbage following instruction -- `dsb nsh'
@@ -29,15 +32,22 @@ make: *** [arch/arm/kernel] 错误 2
 
 解决：
 网上查资料获知编译器问题
-到   下载较新版的编译器（解压版的）
+到官网http://www.linaro.org/downloads/ 下载较新版的编译器（解压版的）
 
 设置交叉编译器环境变量
 sudo vim /etc/environment 
 在“PATH” 添加编译器的bin路径
+/home/tarena/opt/EmbedSky/4.4.6/bin
+ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/home/tarena/opt/EmbedSky/4.4.6/bin"
+
 
 启动交叉编译器环境变量
 source /etc/environment
 
 验证：arm-linux-gcc -v //查看是否安装版本的编译器
 
+
+开发板重启，tftp下载内核成功
+却卡在
+Starting kernel ...
 
