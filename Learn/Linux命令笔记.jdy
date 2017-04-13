@@ -31,4 +31,17 @@ tail
 shell之shift
 shell之file  显示文件信息
 shell之let  让…进行数学运算
+wc
+cut
+read
+sort
+uniq
+expr
+tee
+basename
+dirname
+head
+tail
+sed
+awk
 
