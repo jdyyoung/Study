@@ -15,3 +15,8 @@ df -h 查看每个根路径的分区大小
 du -sh [目录名] 返回该目录的大小
 
 du -sm [文件夹] 返回该文件夹总M数
+
+2017-04-13
+shell之shift
+shell之file  显示文件信息
+shell之let  让…进行数学运算
