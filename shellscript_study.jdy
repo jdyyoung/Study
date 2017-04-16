@@ -61,6 +61,118 @@ shellscript  study
 1.here documents
 	1.1 here documents的特殊用法
 	短破折号-；单引号' '；双引号“ ”；冒号：
+     
+     3个用处：
+     变量块的设定
+     多行注释
+     打包源代码
+ 
+ 2.双引号与单引号
+    2.1反短斜线` `  :命令的输出作为一整体（一内容）
+ 
+ 3.流程控制
+  3.1 if语句
+  中括号 "[  ]"  表示条件测试
+  注意要确保方括号的空格
+  
+  快捷操作符&&   //逻辑判断短路原则
+  快捷操作符 ||
+  
+  注意：等号=两边要有空格
+  
+  使用花括号以匿名函数的形式将两个命令放到一起作为一个命令使用
+  
+   3.2  case语句
+   特殊的变量$1
+   
+   这里的case语句类比C语言的switch……case+ braek的用法
+   
+   case  内容1  in
+       内容2)
+       内容3;;
+   seac
+   内容1与内容2相同，则执行内容3，然后语句结束
+   
+   3.3 select语句
+   擅长于交互式使用
+   用户可以从一组的值中进行选择
+   select var in ... ; do
+   break
+   done
+   .... now $var can be used ....
+   
+   3.4 loop语句
+     while-loop语句：
+      
+     while 表达式; do
+     something
+     done
+     当表达式为真，则执行something
+     
+     for-loop语句：
+      
+     for var in 范围; do
+     something
+     done
+     
+     当参数var在范围之内，则执行something
+     例如：for var in A B C ; do 
+     将分别打印ABC到屏幕上：
+     #!/bin/sh
+     for var in A B C ; do
+       echo "var is $var"
+     done
+     
+     for day in Monday Tuesday Wednesday Thursday Friday Saturday Sunda
+     do
+     ……
+     done 
+     
+     例如：
+     for rpmpackage in $*; do
+     ……
+     done
+
+     例如：
+     for(( integer = 1; integer <= 7; integer++ ))
+     do
+        echo -n "$integer "
+     done
+
+
+
+   
+ 2017-04-16
+ 条件测试
+ shell脚本中的条件测试if中的-z到-d的意思 - jackyechina的专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/jackyechina/article/details/52814497
+
+文件表达式
+if [ -f  file ]    如果文件存在
+if [ -d ...   ]    如果目录存在
+if [ -s file  ]    如果文件存在且非空 
+if [ -r file  ]    如果文件存在且可读
+if [ -w file  ]    如果文件存在且可写
+if [ -x file  ]    如果文件存在且可执行   
+
+整数变量表达式
+if [ int1 -eq int2 ]    如果int1等于int2   
+if [ int1 -ne int2 ]    如果不等于    
+if [ int1 -ge int2 ]       如果>=
+if [ int1 -gt int2 ]       如果>
+if [ int1 -le int2 ]       如果<=
+if [ int1 -lt int2 ]       如果<
+   
+
+   字符串变量表达式
+If  [ $a = $b ]                 如果string1等于string2
+                                字符串允许使用赋值号做等号
+if  [ $string1 !=  $string2 ]   如果string1不等于string2       
+if  [ -n $string  ]             如果string 非空(非0），返回0(true)  
+if  [ -z $string  ]             如果string 为空
+if  [ $sting ]                  如果string 非空，返回0 (和-n类似)  
+   
+shell脚本的函数
 
 
 
