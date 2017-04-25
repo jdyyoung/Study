@@ -1,0 +1,42 @@
+2017-04-24
+编写硬件库程序，最终生成动态库
+编写头文件.h、源文件.c、Makefile文件、测试文件
+
+头文件框架格式：
+关于__cplusplus的预编译
+
+头文件
+
+调试宏，pr_debug……
+
+
+其他宏定义
+
+数据结构
+
+函数声明，记得注释：功能、参数、返回值
+
+源文件.c:函数的实现，注意对每个形参必须先进行判断；调试信息的打印；
+
+linux串口通信
+利用Linux串口变成机制，实现对串波特率、数据位、校验位、停止位的配置，
+并封装串口接收消息和发送消息的API。
+基本文件操作：open(),close(),read(),write();
+
+内置的一些宏：
+* 在linux内核中,struct ktermios结构的c_cflags共有5个位用来标注波特率,其中位CBAUDEX表明使用的是POSIX标准波特率还是扩展波特率,
+POSIX规定了16个标准波特率,为B0,B50,B75,B110,B134,B150,B200,B300,B600,B1200,B1800,B2400,B4800,B9600,B19200,B38400*/
+static int speed_arr[] = {B115200,B38400,B19200,B9600,B4800,B2400,B1200,B300};
+
+内置的结构体：
+struct termios opt;
+
+
+新学习的函数：
+isatty()
+tcgetattr()
+tcflush()
+cfsetispeed()
+cfsetospeed()
+tcsetattr()
+

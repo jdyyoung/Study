@@ -183,5 +183,29 @@ http://wiki.lemaker.org/MT7601/zh-hans
 【L】小米随身WiFi，Linux下AP热点驱动（开源） - sumang_87的专栏 - 博客频道 - CSDN.NET
 http://blog.csdn.net/sumang_87/article/details/38168877
 
+04-17
+问题：
+
+dnsmasq: failed to create listening socket for 192.168.1.110: Cannot assign requested address
 
 
+
+/home/mjpg-streamer # vi start.sh 
+/home/mjpg-streamer # ./start.sh 
+MJPG-streamer [111]: starting application
+MJPG Streamer Version.: 2.0
+MJPG-streamer [111]: MJPG Streamer Version.: 2.0
+
+ERROR: could not find input plugin
+MJPG-streamer [111]: ERROR: could not find input plugin
+
+       Perhaps you want to adjust the search path with:
+MJPG-streamer [111]:        Perhaps you want to adjust the search path with:
+
+       # export LD_LIBRARY_PATH=/path/to/plugin/folder
+MJPG-streamer [111]:        # export LD_LIBRARY_PATH=/path/to/plugin/folder
+
+       dlopen: libjpeg.so.62: cannot open shared object file: No such file or directory
+MJPG-streamer [111]:        dlopen: libjpeg.so.62: cannot open shared object file: No such file or directory
+
+/home/mjpg-streamer # ls
