@@ -334,6 +334,27 @@ $  ()  {}  $$
 至少一个“%”
 <pattern ...>; : <variable-assignment>;
 <pattern ...>; : override <variable-assignment>;
+
+
+05-08
+makefile定义模式规则
+
+"%"表示长度任意的非空字符串
+
+$@:
+
+$<:
+
+$?:
+
+$^:
+
+$+:
+
+$*:
+
+
+
  
  
  
