@@ -23,6 +23,9 @@ make zImage
 
 
 
+
+
+
 编译过程出现的问题：
 /tmp/ccG4imw5.s: Assembler messages:
 /tmp/ccG4imw5.s:515: Error: garbage following instruction -- `dsb nshst'
@@ -50,4 +53,60 @@ source /etc/environment
 开发板重启，tftp下载内核成功
 却卡在
 Starting kernel ...
+
+
+
+错误：
+arch/arm/mach-s5pv210/mach-aquila.c:96: error: variable 'aquila_fb_win0' has initializer but incomplete type
+arch/arm/mach-s5pv210/mach-aquila.c:97: error: unknown field 'win_mode' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:97: error: extra brace group at end of initializer
+arch/arm/mach-s5pv210/mach-aquila.c:97: error: (near initialization for 'aquila_fb_win0')
+arch/arm/mach-s5pv210/mach-aquila.c:106: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:106: warning: (near initialization for 'aquila_fb_win0')
+arch/arm/mach-s5pv210/mach-aquila.c:107: error: unknown field 'max_bpp' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:107: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:107: warning: (near initialization for 'aquila_fb_win0')
+arch/arm/mach-s5pv210/mach-aquila.c:108: error: unknown field 'default_bpp' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:108: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:108: warning: (near initialization for 'aquila_fb_win0')
+arch/arm/mach-s5pv210/mach-aquila.c:111: error: variable 'aquila_fb_win1' has initializer but incomplete type
+arch/arm/mach-s5pv210/mach-aquila.c:112: error: unknown field 'win_mode' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:112: error: extra brace group at end of initializer
+arch/arm/mach-s5pv210/mach-aquila.c:112: error: (near initialization for 'aquila_fb_win1')
+arch/arm/mach-s5pv210/mach-aquila.c:121: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:121: warning: (near initialization for 'aquila_fb_win1')
+arch/arm/mach-s5pv210/mach-aquila.c:122: error: unknown field 'max_bpp' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:122: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:122: warning: (near initialization for 'aquila_fb_win1')
+arch/arm/mach-s5pv210/mach-aquila.c:123: error: unknown field 'default_bpp' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:123: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:123: warning: (near initialization for 'aquila_fb_win1')
+arch/arm/mach-s5pv210/mach-aquila.c:126: error: variable 'aquila_lcd_pdata' has initializer but incomplete type
+arch/arm/mach-s5pv210/mach-aquila.c:127: error: unknown field 'win' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:127: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:127: warning: (near initialization for 'aquila_lcd_pdata')
+arch/arm/mach-s5pv210/mach-aquila.c:128: error: unknown field 'win' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:128: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:128: warning: (near initialization for 'aquila_lcd_pdata')
+arch/arm/mach-s5pv210/mach-aquila.c:129: error: unknown field 'vidcon0' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:129: error: 'VIDCON0_VIDOUT_RGB' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:129: error: 'VIDCON0_PNRMODE_RGB' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:129: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:129: warning: (near initialization for 'aquila_lcd_pdata')
+arch/arm/mach-s5pv210/mach-aquila.c:130: error: unknown field 'vidcon1' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:130: error: 'VIDCON1_INV_HSYNC' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:130: error: 'VIDCON1_INV_VSYNC' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:131: error: 'VIDCON1_INV_VCLK' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:131: error: 'VIDCON1_INV_VDEN' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:131: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:131: warning: (near initialization for 'aquila_lcd_pdata')
+arch/arm/mach-s5pv210/mach-aquila.c:132: error: unknown field 'setup_gpio' specified in initializer
+arch/arm/mach-s5pv210/mach-aquila.c:132: error: 's5pv210_fb_gpio_setup_24bpp' undeclared here (not in a function)
+arch/arm/mach-s5pv210/mach-aquila.c:132: warning: excess elements in struct initializer
+arch/arm/mach-s5pv210/mach-aquila.c:132: warning: (near initialization for 'aquila_lcd_pdata')
+arch/arm/mach-s5pv210/mach-aquila.c: In function 'aquila_machine_init':
+arch/arm/mach-s5pv210/mach-aquila.c:672: error: implicit declaration of function 's3c_fb_set_platdata'
+make[1]: *** [arch/arm/mach-s5pv210/mach-aquila.o] 错误 1
+make: *** [arch/arm/mach-s5pv210] 错误 2
+
 

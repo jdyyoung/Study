@@ -1,0 +1,20 @@
+terminal hotkey:
+
+ctrl+alt+t     打开新的终端窗口
+ctrl+shift+q  关闭当前终端窗口
+ctrl+shift+t  在当前终端窗口新建标签页
+ctrl+shift+w 关闭当前终端标签页窗口
+ctrl+shift+c 复制
+ctrl+shift+v 粘贴
+
+ctrl+super+up  终端窗口最大化
+ctrl+super+down  终端窗口还原
+
+crtl+a	移动到命令行首
+crtl+e	移动到命令行尾
+Ctrl+w 删除光标处到行首的字符
+Ctrl+k	删除光标处到行尾的字符
+Ctrl+u	删除整个命令行文本字符
+ctrl+l（小写L）：清屏
+
+
