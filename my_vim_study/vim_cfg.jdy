@@ -1,0 +1,84 @@
+手把手教你把Vim改装成一个IDE编程环境(图文) - 吴垠的专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/wooin/article/details/1858917
+
+
+1.vim入门教程
+shell命令：vimtutor
+
+示范源码是vim7.1的源码：vim-7.1.tar.bz2
+
+用<>括起来的符号比如<C-T>, <C-S-A>之类，可以在
+vim中输入 :help keycodes(冒号，vim用于命令模式)得到解释
+
+2.中文帮助手册的安装
+文件：vimcdoc-1.8.0.tar.gz
+解压后其中有个doc文件夹, 将其中的内容全部复制到~/.vim/doc, 或者vim安装目录下的doc目录中, 此时vim中的help信息已经是中文的
+
+在vim中输入:help    即可查看
+
+3.Ctags插件
+插件文件：ctags-5.8.tar.gz
+解压安装:
+$ tar -xzvf ctags-5.6.tar.gz
+$ cd ctags-5.6
+$ make
+$sudo make install   // 需要root权限  输入密码
+在源码目录最上层的目录下运行命令: ctags -R
+
+示例：
+以 vim71 的源码目录做演示
+$ cd	~/vim71
+$ ctags -R
+~/vim71目录下会生成一个 tags 文件, 现在用vim打开 ~/vim71/src/main.c
+$ vim ~/vim71/src/main.c
+再在vim中运行命令:
+:set tags=~/vim71/tags
+
+"Ctrl+]", 光标会自动跳转到其定义处
+"Ctrl+t",返回原处
+
+4.Taglist插件
+从Taglist窗口查看当前文件中的所有宏, 全局变量, 函数名等
+前提先装Ctags插件！！！
+
+vim中taglist使用(比较详细的) - QuietHeart的专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/vaqeteart/article/details/4146618
+
+vim插件taglist的安装和使用 - G_BrightBoy的专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/g_brightboy/article/details/16843899
+
+
+插件文件：taglist_46.zip
+在 ~/.vim  目录下解压文件
+在vim中输入
+ :helptags ~/.vim/doc
+:help taglist.txt
+即可查看taglist自带的帮助文件
+
+在~/.vimrc文件中添加下面两句:
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+用vim打开一个c源文件:
+源文件窗口与Taglist窗口切换：Ctrl+w+w或者Ctrl+w+h
+$ vim ~/vim/src/main.c
+进入vim后用下面的命令打开taglist窗口:
+:Tlist(:TlistOpen, :TlistToggle)
+
+关闭窗口：
+:Tlist (:TlistClose, :TlistToggle)
+
+<CR>          跳到光标下tag所定义的位置，用鼠标双击此tag功能也一样（但要在vimrc文件中打开此项功能）
+o                 在一个新打开的窗口中显示光标下tag
+<Space>      显示光标下tag的原型定义
+u             更新taglist窗口中的tag
+s             更改排序方式，在按名字排序和按出现顺序排序间切换
+x             taglist窗口放大和缩小，方便查看较长的tag
++             打开一个折叠，同zo
+-             将tag折叠起来，同zc
+*             打开所有的折叠，同zR
+=            将所有tag折叠起来，同zM
+[[            跳到前一个文件
+]]            跳到后一个文件
+q            关闭taglist窗口
+<F1>      显示帮助
