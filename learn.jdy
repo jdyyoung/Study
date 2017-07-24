@@ -37,3 +37,13 @@ https://zhidao.baidu.com/question/562787193486137204.html
 
 如果输入$ ssh -T git@github.com
 出现错误提示：Permission denied (publickey).因为新生成的key不能加入ssh就会导致连接不上github。
+
+
+2017-07-22
+执行$umount /mnt
+出现：
+umount: can't umount /mnt: Device or resource busy
+
+ 执行$mount /dev/sda /mnt
+ 出现：
+FAT-fs (sda): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!

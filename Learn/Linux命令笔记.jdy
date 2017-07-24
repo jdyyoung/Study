@@ -51,5 +51,11 @@ wget [OPTION]... [URL]...
 Wget用法、参数解释的比较好的一个文章 - EndAll的专栏 - 博客频道 - CSDN.NET
 http://blog.csdn.net/endall/article/details/1571220
 
+20170710
+Linux 故障处理：无论机器是否有问题，通过/var/log 来简单查看。
+从许多日志文件中发现该怎样进行下去。/var/log/messages
+tail  -f /var/log*,其中*是想打开的文件
 
+linux系统/var/log目录下的信息详解 - wangkangluo1 - 博客园
+http://www.cnblogs.com/wangkangluo1/archive/2012/06/05/2536212.html
 
