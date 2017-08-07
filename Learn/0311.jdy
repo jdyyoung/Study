@@ -95,3 +95,6 @@ $sudo /etc/init.d/nfs-kernel-server restart
 
 п╤ть
 	 sudo umount /tmp
+
+tftp$sudo mount -t nfs localhost:/opt/rootfs/led_drv.ko /usr
+mount.nfs: mount point /usr is not a directory
