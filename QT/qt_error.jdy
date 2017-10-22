@@ -1,0 +1,3 @@
+/opt/project/ehome/client/ehome_login/LoginDlg.cpp:27: ´íÎó:'class Ui::LoginDlg' has no member named 'state'
+
+/opt/project/ehome/client/ehome_login/main.cpp:14: ´íÎó:incomplete type 'QLocale' used in nested name specifier

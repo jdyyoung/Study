@@ -1,1 +1,7 @@
 ##Standard C Language Study##
+
+20170815
+×Ö·û´®Ñ§Ï°£º
+char str1[]="abc";
+char str2[5]="abc";
+char* str3 ="abc";

@@ -11,7 +11,7 @@ expression：expression可以分为——“-options [-print -exec -ok …]”
 -options，指定find命令的常用选项，下节详细介绍
 -print，find命令将匹配的文件输出到标准输出
 -exec，find命令对匹配的文件执行该参数所给出的shell命令。
-相应命令的形式为’command’ {  } ;，注意{   }和；之间的空格
+相应命令的形式为’command’ {} ;，//注意:1.command 与{}之间有空格，{}内没有空格，{}和;之间有空格
 
 find ./ -size 0 -exec rm {} ; 删除文件大小为零的文件 
 （还可以以这样做：rm -i find ./ -size 0  或 find ./ -size 0 | xargs rm -f &）
@@ -19,7 +19,7 @@ find ./ -size 0 -exec rm {} ; 删除文件大小为零的文件
 为了用ls -l命令列出所匹配到的文件，可以把ls -l命令放在find命令的-exec选项中：
 	find . -type f -exec ls -l {  } ;
 在/logs目录中查找更改时间在5日以前的文件并删除它们：
-	find /logs -type f -mtime +5 -exec rm {  } ;
+	find /logs -type f -mtime +5 -exec rm {} ;
 	
 -ok，和exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，
 在执行每一个命令之前，都会给出提示，让用户来确定是否执行。

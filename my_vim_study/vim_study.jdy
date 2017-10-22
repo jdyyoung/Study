@@ -9,7 +9,7 @@
 多行注释与取消：
 
 插入注释：
-1、Ctrl + V：进入列模式
+1、Ctrl + V：进入列模式//正常在行首进入可视块模式；类推~
 2、↑↓选择要注释的行
 3、按大写“I”，进入插入模式，输入注释符// 或者 # 
 4、按两下ESC键
@@ -109,4 +109,18 @@ I：大小写敏感
 :s#vivian/#sky/#         替换当前行第一个 vivian/ 为 sky/
 
 :%s+/oradata/apras/+/user01/apras1+ （使用+ 来 替换 / ）： /oradata/apras/替换成/user01/apras1/
+
+
+2017-09-04
+【利器】Vim配置成IDE方案以及使用 - jiange_zh的博客 - CSDN博客
+http://blog.csdn.net/jiange_zh/article/details/52572406
+
+
+快速对齐
+“=”: 对齐所选的代码//crtl + v  进入可视块模式 ，选好可视块，然后按“=”
+
+临时退出vim
+ctrl-z 临时退出vim到后台，退出时会得到一个任务编号：
+通过 fg %任务编号 恢复到前台（fg是frontground的意思，同理有bg，background为后台运行）。
+
 

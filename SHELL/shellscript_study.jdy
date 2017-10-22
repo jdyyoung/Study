@@ -1,0 +1,341 @@
+http://www.cnblogs.com/xuejie/archive/2013/02/17/2914310.html
+2017-1-20
+!!!特别注意shell脚本的空格！！！
+变量赋值的等号左右没空格，没空格，没空格！
+双引号围起来字符串，引号与字符串之间没空格，没空格，没空格！
+
+1. 等号赋值两边不能有空格
+2. 命令与选项之间需要空格!!!
+3. 管道两边空格可有可无
+
+[  ]:有空格
+{ }：有空格  //170515  最好是两边有空格
+
+
+Shell 编程：Bash空格的那点事_linux shell_脚本之家
+http://www.jb51.net/article/60328.htm
+
+linux shell的here document用法(cat << EOF)
+linux shell的here document用法(cat << EOF) - Linux操作系统：Ubuntu_Centos_Debian - 红黑联盟
+http://www.2cto.com/os/201307/231010.html
+
+2017-1-22
+//  ;之后可以没空格
+
+关于等号“=”：用来表示变量赋值则等号两边没空格；
+用来表示相等时则等号两边有空格
+
+在case ... in
+...) do something here ;;
+esac
+"$1: zip archive"*) unzip "$1" ;;
+冒号前没空格，冒号后有空格
+右括号之前最好是不要有空格，否则影响运行速度
+
+2017-1-23
+特殊变量
+$#表示包含参数的个数
+$*$* 是以一个单字符串显示所有向脚本传递的参数，与位置变量不同，参数可超过9个
+$? 是显示最后命令的退出状态，0表示没有错误，其他表示有错误
+$@是当前所有的入参 
+$$ 是脚本运行的当前进程ID号
+$1
+$0: 表示当前脚本的名称
+
+shell 之shift
+shell 之let
+sed命令
+awk命令
+
+[ $# -lt 3 ]
+-lt 即 less than,小于
+ http://www.dutycode.com/post-46.html
+
+chmod u+x hello
+chmod是权限管理命令change the permissions mode of a file的缩写。。
+u代表所有者，x代表执行权限。 + 表示增加权限。
+
+
+2017-04-13
+shellscript  study
+1.here documents
+	1.1 here documents的特殊用法
+	短破折号-；单引号' '；双引号“ ”；冒号：
+     
+     3个用处：
+     变量块的设定
+     多行注释
+     打包源代码
+ 
+ 2.双引号与单引号
+    2.1反短斜线` `  :命令的输出作为一整体（一内容）
+ 
+ 3.流程控制
+  3.1 if语句
+  中括号 "[  ]"  表示条件测试
+  注意要确保方括号的空格
+  
+  快捷操作符&&   //逻辑判断短路原则
+  快捷操作符 ||
+  
+  注意：等号=两边要有空格
+  
+  使用花括号以匿名函数的形式将两个命令放到一起作为一个命令使用
+  
+   3.2  case语句
+   特殊的变量$1
+   
+   这里的case语句类比C语言的switch……case+ braek的用法
+   
+   case  内容1  in
+       内容2)
+       内容3;;
+   seac
+   内容1与内容2相同，则执行内容3，然后语句结束
+   
+   3.3 select语句
+   擅长于交互式使用
+   用户可以从一组的值中进行选择
+   select var in ... ; do
+   break
+   done
+   .... now $var can be used ....
+   
+   3.4 loop语句
+     while-loop语句：
+      
+     while 表达式; do
+     something
+     done
+     当表达式为真，则执行something
+     
+     for-loop语句：
+      
+     for var in 范围; do
+     something
+     done
+     
+     当参数var在范围之内，则执行something
+     例如：for var in A B C ; do 
+     将分别打印ABC到屏幕上：
+     #!/bin/sh
+     for var in A B C ; do
+       echo "var is $var"
+     done
+     
+     for day in Monday Tuesday Wednesday Thursday Friday Saturday Sunda
+     do
+     ……
+     done 
+     
+     例如：
+     for rpmpackage in $*; do
+     ……
+     done
+
+     例如：
+     for(( integer = 1; integer <= 7; integer++ ))
+     do
+        echo -n "$integer "
+     done
+
+
+
+   
+ 2017-04-16
+ 条件测试
+ shell脚本中的条件测试if中的-z到-d的意思 - jackyechina的专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/jackyechina/article/details/52814497
+
+文件表达式6个：
+1、if [ -f  file ]    如果文件存在   //file
+2、if [ -d ...   ]    如果目录存在   //directory
+3、if [ -s file  ]    如果文件存在且非空 //symbol
+4、if [ -r file  ]    如果文件存在且可读
+5、if [ -w file  ]    如果文件存在且可写
+6、if [ -x file  ]    如果文件存在且可执行   
+
+整数变量表达式6个：
+1、if [ int1 -eq int2 ]    如果int1等于int2   //equal
+2、if [ int1 -ne int2 ]    如果不等于  //no equal  
+3、if [ int1 -ge int2 ]       如果>=   //greater  equal
+4、if [ int1 -gt int2 ]       如果>     //greater than
+5、if [ int1 -le int2 ]       如果<=   //less equal
+6、if [ int1 -lt int2 ]       如果<     //less  than
+   
+
+   字符串变量表达式5个：
+1、if  [ $a = $b ]                 如果string1等于string2
+                                字符串允许使用赋值号做等号
+2、if  [ $string1 !=  $string2 ]   如果string1不等于string2       
+3、if  [ -n $string  ]             如果string 非空(非0），返回0(true)  
+4、if  [ -z $string  ]             如果string 为空
+5、if  [ $sting ]                  如果string 非空，返回0 (和-n类似)  
+   
+shell脚本的函数
+
+2017-05-03
+shift妙用之解决shell编程中的入参问题_linux shell_脚本之家
+http://www.jb51.net/article/40260.htm
+
+
+shift妙用之解决shell编程中的入参问题
+
+$#是入参的个数， 
+$@是当前所有的入参 
+$0是脚本的名字 
+$1是第一个入参，$2是第二个入参
+
+Bash定义了$1到$9，一共9个位置变量
+shift会将入参右移
+
+until [ ]
+do
+
+……
+
+done
+
+store_input???
+
+2017,05,15
+awk: awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。
+cat file.txt | awk -F, '{print $1","$3}'这里我们使用，作为字段分割符，同时打印第一个和第三个字段。
+如果该文件内容如下： Adam Bor, 34, IndiaKerry Miller, 22, USA命令输出结果为：Adam Bor, IndiaKerry Mille
+
+"-F,"其中-F是选项后面紧跟它指定的分隔符
+
+学习AWK的一些常用用法：
+1、从文本文件中提取字段
+
+？？：管道的消化吸收；继续空格、双引号、单引号、反短划线、大括号等学习总结；
+？？：'{   }' 与{  }、|、>、`  `
+
+管道：能通过管道的部分，”|“前部分是要进行操作的部分
+
+2017,05,16
+shellscript中变量相关
+1、常用：
+字符串变量：
+a="hello world"  //"="赋值时等号左右没有空格；当等值判断时两边必须有空格
+
+整型变量
+b=100
+
+访问变量：$
+使用花括号来告诉shell我们要的变量
+num=2
+echo "this is the ${num}nd"
+这将打印： this is the 2nd
+
+变量与双引号、单引号
+单引号可以防止任何变量扩展；双引号可以防止通配符扩展但允许变量扩展。
+
+特殊的变量
+$*/$@：包含了所有输入的命令行参数值
+$1~$9:命令行的相应参数,编写带参数的脚本,当参数值大于9时，需要使用{}括起来
+$#:表示包含参数的个数
+$$ :Shell本身的PID（ProcessID）
+$0 :Shell本身的文件名
+$? :最后运行的命令的结束代码（返回值）
+shift的灵活使用
+
+HERE Document定义块变量
+2017-08-03
+shell脚本变量 - Abnor - 博客园
+http://www.cnblogs.com/xiaojiang1025/p/5958497.html
+
+数组
+shell使用形如arr=(var1 var2...)的形式定义，即元素使用空格分开，使用${arr[n]}访问数组编号为n的元素
+
+2017-08-04
+shell之函数
+1.可以带关键字function fun()定义，也可直接fun()定义，不带任何参数
+2.参数返回，可以显示加：return返回；如果不加，将以最后一条命令运行结果作为返回值。
+  return后跟数值n(0-255).
+3.shell脚本是从上到下逐条运行，必须在使用函数前，定义声明函数；
+4.shell中单括号里面是看作命令语句，shell中函数看作一种命令。//重点！！！
+5.函数返回值只能通过$?获得，直接使用=获取将获得空值。
+6.定义的函数名可以与系统命令同名，优先执行系统命令(也就是在当前的shell文件定义好的地方查找)
+7.函数有全局变量和局部变量，全局变量定义在函数调用之前，可以用关键字declare声明；
+局部变量定义在函数里头，必须用关键字local声明；
+8.我的理解：shell 操作对象是命令.//重点！！！
+9.函数递归
+
+2017-0808
+Here documents的用法：
+格式：
+  命令<<Here
+  ……
+  ……
+  ……
+  Here
+  
+注意：Here 是一个标记，可以是任何字符串。
+          后一个Here的最后一定不能有空格！！！
+          
+用法：
+1、定义一段变量
+m1=$(cat <<Here
+...
+...
+...
+Here
+)
+注：可以在Here 加上'  '和"  "，与普通变量意义一样，防扩展！
+
+2、定义一段注释
+：<<Here
+...
+...
+...
+Here
+
+注：冒号表示什么都不做
+
+3、打包原始代码
+cat<<Here >hello.c
+...
+...
+...
+Here
+
+
+
+
+2017-09-12
+流程控制//if与then同一行
+if ...;then
+...
+elif ...;then
+...
+else
+...
+fi
+
+通常用“[]”来表示条件测试，注意确保与方括号保持一个空格！！！
+？？？“[[]]”与“[]”区别？
+整数变量表达式用“[[]]”,所以尽可能用“[[]]”
+
+2017-09-28
+set -e
+set -x
+
+echo $(ls)  与 echo `ls` 等价
+命令的执行结果作为变量值,可用这两种方法
+(命令)  相当于执行这个命令
+
+1.利用RANDOM取随机数
+   shell有一个环境变量RANDOM,范围是0--32767
+   echo $RANDOM
+
+
+
+
+
+
+
+
+
+
+
