@@ -1,0 +1,106 @@
+":imap <HOME> \^
+
+"2017_09_05 jdy add
+"以下两行设置winmanager
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm :WMToggle<cr>
+
+"以下两行设置taglist
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+"以下三行设置cscope
+:set cscopequickfix=s-,c-,d-,i-,t-,e-
+nmap <F6> :cn<cr>
+nmap <F7> :cp<cr>
+
+
+"2017_06_27 jdy 添加
+
+" 映射全选+复制 ctrl+a
+ map <C-A> ggVGY
+ map! <C-A> <Esc>ggVGY
+ map <F12> gg=G
+
+"代码补全 
+ set completeopt=preview,menu 
+
+set foldenable          " 允许折叠  
+set foldmethod=manual   " 手动折叠
+
+" 自动缩进
+set autoindent
+set cindent
+" Tab键的宽度
+set tabstop=4
+" 统一缩进为4
+set softtabstop=4
+set shiftwidth=4
+
+set nu  "显示行号
+
+syntax on "语法高亮
+set guifont=DejaVu\ Sans\ Mono\ 12
+set expandtab
+set guioptions-=T
+set nobackup
+"set formatoptions=tcrqn
+set formatoptions-=cro
+set cindent
+set smartindent
+set incsearch
+set autoindent
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese
+
+
+"Show matching bracets
+set showmatch
+"
+""Get out of VI's compatible mode
+set nocompatible
+
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=0
+    set cst
+    set nocsverb
+    " add any database in current directory
+         if filereadable("cscope.out")
+             cs add cscope.out
+    "             " else add database pointed to by
+    "             environment
+                     elseif $CSCOPE_DB != ""
+    cs add $CSCOPE_DB
+endif
+set csverb
+set cscopetag
+set cscopequickfix=s-,g-,c-,d-,t-,e-,f-,i-
+nmap <C-c><C-s> :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-t> :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-e> :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-c><C-f> :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-c><C-i> :cs find i <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-c><C-d> :cs find d <C-R>=expand("<cword>")<CR><CR>
+endif
+
+"Have the mouse enabled all the time
+"set mouse=a
+"
+""Set to auto read when a file is changed from the outside
+set autoread
+
+"Enable filetype plugin
+filetype plugin indent on
+colo desert
+set hlsearch
+
+"let Tlist_Ctags_Cmd = '/usr/bin/ctags-exuberant' 
+
+nnoremap <silent> <F9> :TlistToggle<CR>
+"let Tlist_Use_Right_Window=1
+colorscheme delek 
+"colorscheme evening
+set ruler

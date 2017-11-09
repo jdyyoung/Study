@@ -1,9 +1,11 @@
  DIY vim，我的vim要求：
  1.折叠
- 2.对符自动不全
+ 2.对符自动补全
  3.块缩进与取消缩进；快速对齐？
  4.块注释与取消注释；两种
  5.定义跳转
+       "Ctrl+]", 光标会自动跳转到其定义处
+      "Ctrl+t",返回原处
  6.列出所搜索的内容，并能选中跳转
  7.自动不全
  8.模板作者注释，快捷键
@@ -63,7 +65,7 @@ http://blog.csdn.net/vaqeteart/article/details/4146618
 vim插件taglist的安装和使用 - G_BrightBoy的专栏 - 博客频道 - CSDN.NET
 http://blog.csdn.net/g_brightboy/article/details/16843899
 
-
+列出函数表、宏表。变量表
 插件文件：taglist_46.zip
 在 ~/.vim  目录下解压文件
 在vim中输入
@@ -123,3 +125,31 @@ x
 
 在normal状态下输入"wm",
 左上边是netrw窗口, 左下边是TagList窗口, 当再次输入"wm"命令时这两个窗口又关闭了
+
+
+2017-10-31
+Vim（1） 编译与错误定位 - skywalkerVVV的专栏 - CSDN博客
+http://blog.csdn.net/skywalkervvv/article/details/6208201
+
+1）设置参数makeprg
+:set makeprg=gcc\ test1.c\ -otest1
+2):make  执行编译
+3):cw   打开quickfix窗口
+
+可以使用命令控制 在quickfix窗口中跳动 如下所示
+例如
+cn （next）下一条
+cp  (previous) 上一条
+cw  (显示warning)
+cc  显示错误
+col 前一个旧的错误 勘误表
+col 后一个旧的勘误表
+cnew 后一个较新的错误列表 ( :help :cnew )
+
+2017-11-1
+vi/vim使用进阶: 剑不离手 – quickfix – 易水博客
+http://easwy.com/blog/archives/advanced-vim-skills-quickfix-mode/
+
+Vim配置及说明——IDE编程环境 - zhongcq - 博客园
+http://www.cnblogs.com/zhongcq/p/3642794.html#toc_1.5
+

@@ -329,7 +329,21 @@ echo $(ls)  与 echo `ls` 等价
    shell有一个环境变量RANDOM,范围是0--32767
    echo $RANDOM
 
+2017-10-29
+shell中各种括号的作用()、(())、[]、[[]]、{} - CSDN博客
+http://blog.csdn.net/taiyang1987912/article/details/39551385
 
+shell脚本变量 - Abnor - 博客园
+http://www.cnblogs.com/xiaojiang1025/p/5958497.html
+
+Shell for&while 循环详细总结_Linux编程_Linux公社-Linux系统门户网站
+http://www.linuxidc.com/Linux/2012-02/53030.htm
+
+
+
+!!!重点!!!
+shell中加双括号可以类似C语言用法
+循环，判断，自加……
 
 
 

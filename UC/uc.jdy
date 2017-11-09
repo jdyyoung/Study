@@ -1,0 +1,11 @@
+2017-10-29
+gcc 编译选项-fPIC/-fpic:
+-fPIC 作用于编译阶段，告诉编译器产生与位置无关代码(Position Independent Code，则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意
+位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+
+gcc 生成动态库时-fpic选项是什么意思 - CSDN博客
+http://blog.csdn.net/wishfly/article/details/45694231
+
+大模式和小模式的区别在哪里:-fPIC和-fpic的区别? - C/C++-ChinaUnix.net
+http://bbs.chinaunix.net/thread-4063737-1-1.html
+
