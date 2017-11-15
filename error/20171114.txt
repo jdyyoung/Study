@@ -1,0 +1,112 @@
+//--------------------Build for Generic Linux / macOS:-------------------------------
+1.已经注册amazon开发者帐号，在alexa Obtain Your Product ID, Cliend ID, and Client Secret
+2.修改<absolute-path-to-build-directory>/Integration/AlexaClientSDKConfig.json
+	其中，根据jason文件描述在amazon下载好相关文件：https://developer.amazon.com/docs/alexa-voice-service/ux-design-overview.html#sounds
+
+3.cd into your build directory
+
+4.cmake <path-to-source-code>
+
+5.From the build directory, run make
+
+6.~/sugr/build$python AuthServer/AuthServer.py
+	会把token填到~/sugr/build/Integration/AlexaClientSDKConfig.json 
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------error---------------------------------------------------------------
+
+[ 64%] Linking CXX executable AbstractKeywordDetectorTest
+[ 64%] Built target AbstractKeywordDetectorTest
+Scanning dependencies of target SENSORY
+[ 65%] Building CXX object KWD/Sensory/src/CMakeFiles/SENSORY.dir/SensoryKeywordDetector.cpp.o
+In file included from /home/young/sugr/avs-device-sdk/KWD/Sensory/src/SensoryKeywordDetector.cpp:22:0:
+/home/young/sugr/avs-device-sdk/KWD/Sensory/include/Sensory/SensoryKeywordDetector.h:32:18: fatal error: snsr.h: 没有那个文件或目录
+compilation terminated.
+KWD/Sensory/src/CMakeFiles/SENSORY.dir/build.make:62: recipe for target 'KWD/Sensory/src/CMakeFiles/SENSORY.dir/SensoryKeywordDetector.cpp.o' failed
+make[2]: *** [KWD/Sensory/src/CMakeFiles/SENSORY.dir/SensoryKeywordDetector.cpp.o] Error 1
+CMakeFiles/Makefile2:4340: recipe for target 'KWD/Sensory/src/CMakeFiles/SENSORY.dir/all' failed
+make[1]: *** [KWD/Sensory/src/CMakeFiles/SENSORY.dir/all] Error 2
+Makefile:138: recipe for target 'all' failed
+make: *** [all] Error 2
+
+处理：
+~/sugr/build$cmake /home/young/sugr/avs-device-sdk -DSENSORY_KEY_WORD_DETECTOR=OFF
+~/sugr/build$make
+
+那么怎么编译有唤醒词功能？
+cmake /home/young/sugr/avs-device-sdk -DSENSORY_KEY_WORD_DETECTOR=ON -DSENSORY_KEY_WORD_DETECTOR_LIB_PATH=/home/young/sugr/avs-device-sdk-build/alexa-rpi/lib/libsnsr.a -DSENSORY_KEY_WORD_DETECTOR_INCLUDE_DIR=/home/young/sugr/avs-device-sdk-build/alexa-rpi/include     ？？？？
+----------------------------------------------------------------------------------------------------------
+
+[100%] Linking CXX executable SampleApp
+/usr/bin/ld: 找不到 -lasound
+collect2: error: ld returned 1 exit status
+SampleApp/src/CMakeFiles/SampleApp.dir/build.make:350: recipe for target 'SampleApp/src/SampleApp' failed
+make[2]: *** [SampleApp/src/SampleApp] Error 1
+CMakeFiles/Makefile2:6299: recipe for target 'SampleApp/src/CMakeFiles/SampleApp.dir/all' failed
+make[1]: *** [SampleApp/src/CMakeFiles/SampleApp.dir/all] Error 2
+Makefile:138: recipe for target 'all' failed
+make: *** [all] Error 2
+~/sugr/build$
+
+处理：
+在软件编译过程中，经常会碰到类似这样的编译错误：
+/usr/bin/ld: cannot find -lhdf5
+这表示找不到库文件 libhdf5.so，若是其它库文件，则是 cannot find -lxxx 了，其中 xxx 是库文件的名字。
+解决：~/sugr/build$sudo apt-get install  libasound-dev
+
+------------------------------------------------------------------------------------
+~/sugr/build$python AuthServer/AuthServer.py
+The refresh request failed with the response code 400. This might be due to a bad refresh token or bad client data. We will continue with getting a refresh token, discarding the one in the file.
+
+ * Running on http://127.0.0.1:3000/ (Press CTRL+C to quit)
+
+//------------------------------------------------------------------
+~/sugr/build$cmake /home/young/sugr/avs-device-sdk -DNETWORK_INTEGRATION_TESTS=ON –DNETWORK_INTERFACE=wlp3s0
+cmake: /usr/local/lib/libcurl.so.4: no version information available (required by cmake)
+CMake Error: The source directory "/home/young/sugr/build/–DNETWORK_INTERFACE=wlp3s0" does not exist.
+Specify --help for usage, or press the help button on the CMake GUI.
+~/sugr/build$
+
+
+Running app with log level: DEBUG9
+2017-11-14 07:55:30.156 [  1] E AlexaClientSdkInit:initializeFailed:reason=curlDoesNotSupportHTTP2
+Failed to initialize SDK!
+Failed to initialize SampleApplication
+Failed to create to SampleApplication!
+处理：安装curl支持http2
+文章：
+
+
+~/sugr/build/SampleApp/src$TZ=UTC ./SampleApp /home/young/sugr/build/Integration  DEBUG9
+Running app with log level: DEBUG9
+2017-11-14 09:00:54.377 [  1] E ConfigurationNode:initializeFailed:reason=parseFailure,offset=0,message=The document is empty.
+2017-11-14 09:00:54.377 [  1] E AlexaClientSdkInit:initializeFailed:reason=ConfigurationNode\:\:initializeFailed
+Failed to initialize SDK!
+Failed to initialize SampleApplication
+Failed to create to SampleApplication!
+------------------------------------------------------------------------------------------------------
+~/sugr/build/SampleApp/src$TZ=UTC ./SampleApp /home/young/sugr/build/Integration/AlexaClientSDKConfig.json  DEBUG1
+Running app with log level: DEBUG1
+2017-11-14 11:14:06.421 [  1] I ConfigurationNode:initializeSuccess
+2017-11-14 11:14:06.462 [  1] E AuthDelegate:initFailed:reason=missingConfigurationValue,key=refreshToken
+段错误 (核心已转储)
+处理：检查确认Json文件
+
+
+
+
+
+
+
+
+

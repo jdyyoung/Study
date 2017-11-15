@@ -47,3 +47,448 @@ umount: can't umount /mnt: Device or resource busy
  执行$mount /dev/sda /mnt
  出现：
 FAT-fs (sda): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!
+
+
+//-----------------------sugr---------------2017-11-11------------------------------------------
+apt-cache
+
+apt-cache policy package_name
+显示软件包的安装状态和版本信息.
+
+linux中apt-cache命令的用法 - 时光漂流瓶
+http://www.9usb.net/200811/linux-apt-cache.html
+
+//------------------------sugr-----------2017-11-11-------------------libgpg-error---------------
+~/Downloads/libgpg-error-1.6$sudo make
+make  all-recursive
+make[1]: Entering directory '/home/young/Downloads/libgpg-error-1.6'
+Making all in m4
+make[2]: Entering directory '/home/young/Downloads/libgpg-error-1.6/m4'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/young/Downloads/libgpg-error-1.6/m4'
+Making all in src
+make[2]: Entering directory '/home/young/Downloads/libgpg-error-1.6/src'
+mawk -f ./mkstrtable.awk -v textidx=3 \
+	./err-sources.h.in >err-sources.h
+mawk -f ./mkstrtable.awk -v textidx=3 \
+	./err-codes.h.in >err-codes.h
+mawk -f ./mkerrnos.awk ./errnos.in >code-to-errno.h
+mawk -f ./mkerrcodes1.awk ./errnos.in >_mkerrcodes.h
+gcc -E _mkerrcodes.h | grep GPG_ERR_ | mawk -f ./mkerrcodes.awk >mkerrcodes.h
+rm _mkerrcodes.h
+gcc -I. -I. -o mkerrcodes ./mkerrcodes.c
+In file included from ./mkerrcodes.c:26:0:
+./mkerrcodes.h:9:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_E2BIG" },
+     ^
+./mkerrcodes.h:10:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EACCES" },
+     ^
+./mkerrcodes.h:11:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EADDRINUSE" },
+     ^
+./mkerrcodes.h:12:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EADDRNOTAVAIL" },
+     ^
+./mkerrcodes.h:13:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EADV" },
+     ^
+./mkerrcodes.h:14:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EAFNOSUPPORT" },
+     ^
+./mkerrcodes.h:15:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EAGAIN" },
+     ^
+./mkerrcodes.h:16:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EALREADY" },
+     ^
+./mkerrcodes.h:17:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADE" },
+     ^
+./mkerrcodes.h:18:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADF" },
+     ^
+./mkerrcodes.h:19:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADFD" },
+     ^
+./mkerrcodes.h:20:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADMSG" },
+     ^
+./mkerrcodes.h:21:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADR" },libgpg-error
+     ^
+./mkerrcodes.h:22:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADRQC" },
+     ^
+./mkerrcodes.h:23:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBADSLT" },
+     ^
+./mkerrcodes.h:24:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBFONT" },
+     ^
+./mkerrcodes.h:25:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EBUSY" },
+     ^
+./mkerrcodes.h:26:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECANCELED" },
+     ^
+./mkerrcodes.h:27:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECHILD" },
+     ^
+./mkerrcodes.h:28:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECHRNG" },
+     ^
+./mkerrcodes.h:29:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECOMM" },
+     ^
+./mkerrcodes.h:30:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECONNABORTED" },
+     ^
+./mkerrcodes.h:31:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECONNREFUSED" },
+     ^
+./mkerrcodes.h:32:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ECONNRESET" },
+     ^
+./mkerrcodes.h:33:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDEADLK" },
+     ^
+./mkerrcodes.h:34:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDEADLOCK" },
+     ^
+./mkerrcodes.h:35:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDESTADDRREQ" },
+     ^
+./mkerrcodes.h:36:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDOM" },
+     ^
+./mkerrcodes.h:37:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDOTDOT" },
+     ^
+./mkerrcodes.h:38:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EDQUOT" },
+     ^
+./mkerrcodes.h:39:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EEXIST" },
+     ^
+./mkerrcodes.h:40:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EFAULT" },
+     ^
+./mkerrcodes.h:41:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EFBIG" },
+     ^
+./mkerrcodes.h:42:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EHOSTDOWN" },
+     ^
+./mkerrcodes.h:43:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EHOSTUNREACH" },
+     ^
+./mkerrcodes.h:44:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EIDRM" },
+     ^
+./mkerrcodes.h:45:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EILSEQ" },
+     ^
+./mkerrcodes.h:46:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EINPROGRESS" },
+     ^
+./mkerrcodes.h:47:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EINTR" },
+     ^
+./mkerrcodes.h:48:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EINVAL" },
+     ^
+./mkerrcodes.h:49:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EIO" },
+     ^
+./mkerrcodes.h:50:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EISCONN" },
+     ^
+./mkerrcodes.h:51:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EISDIR" },
+     ^
+./mkerrcodes.h:52:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EISNAM" },
+     ^
+./mkerrcodes.h:53:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EL2HLT" },
+     ^
+./mkerrcodes.h:54:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EL2NSYNC" },
+     ^
+./mkerrcodes.h:55:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EL3HLT" },
+     ^
+./mkerrcodes.h:56:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EL3RST" },
+     ^
+./mkerrcodes.h:57:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELIBACC" },
+     ^
+./mkerrcodes.h:58:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELIBBAD" },
+     ^
+./mkerrcodes.h:59:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELIBEXEC" },
+     ^
+./mkerrcodes.h:60:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELIBMAX" },
+     ^
+./mkerrcodes.h:61:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELIBSCN" },
+     ^
+./mkerrcodes.h:62:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELNRNG" },
+     ^
+./mkerrcodes.h:63:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ELOOP" },
+     ^
+./mkerrcodes.h:64:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EMEDIUMTYPE" },
+     ^
+./mkerrcodes.h:65:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EMFILE" },
+     ^
+./mkerrcodes.h:66:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EMLINK" },
+     ^
+./mkerrcodes.h:67:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EMSGSIZE" },
+     ^
+./mkerrcodes.h:68:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EMULTIHOP" },
+     ^
+./mkerrcodes.h:69:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENAMETOOLONG" },
+     ^
+./mkerrcodes.h:70:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENAVAIL" },
+     ^
+./mkerrcodes.h:71:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENETDOWN" },
+     ^
+./mkerrcodes.h:72:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENETRESET" },
+     ^
+./mkerrcodes.h:73:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENETUNREACH" },
+     ^
+./mkerrcodes.h:74:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENFILE" },
+     ^
+./mkerrcodes.h:75:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOANO" },
+     ^
+./mkerrcodes.h:76:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOBUFS" },
+     ^
+./mkerrcodes.h:77:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOCSI" },
+     ^
+./mkerrcodes.h:78:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENODATA" },
+     ^
+./mkerrcodes.h:79:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENODEV" },
+     ^
+./mkerrcodes.h:80:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOENT" },
+     ^
+./mkerrcodes.h:81:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOEXEC" },
+     ^
+./mkerrcodes.h:82:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOLCK" },
+     ^
+./mkerrcodes.h:83:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOLINK" },
+     ^
+./mkerrcodes.h:84:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOMEDIUM" },
+     ^
+./mkerrcodes.h:85:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOMEM" },
+     ^
+./mkerrcodes.h:86:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOMSG" },
+     ^
+./mkerrcodes.h:87:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENONET" },
+     ^
+./mkerrcodes.h:88:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOPKG" },
+     ^
+./mkerrcodes.h:89:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOPROTOOPT" },
+     ^
+./mkerrcodes.h:90:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOSPC" },
+     ^
+./mkerrcodes.h:91:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOSR" },
+     ^
+./mkerrcodes.h:92:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOSTR" },
+     ^
+./mkerrcodes.h:93:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOSYS" },
+     ^
+./mkerrcodes.h:94:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTBLK" },
+     ^
+./mkerrcodes.h:95:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTCONN" },
+     ^
+./mkerrcodes.h:96:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTDIR" },
+     ^
+./mkerrcodes.h:97:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTEMPTY" },
+     ^
+./mkerrcodes.h:98:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTNAM" },
+     ^
+./mkerrcodes.h:99:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTSOCK" },
+     ^
+./mkerrcodes.h:100:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTSUP" },
+     ^
+./mkerrcodes.h:101:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTTY" },
+     ^
+./mkerrcodes.h:102:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENOTUNIQ" },
+     ^
+./mkerrcodes.h:103:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ENXIO" },
+     ^
+./mkerrcodes.h:104:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EOPNOTSUPP" },
+     ^
+./mkerrcodes.h:105:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EOVERFLOW" },
+     ^
+./mkerrcodes.h:106:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPERM" },
+     ^
+./mkerrcodes.h:107:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPFNOSUPPORT" },
+     ^
+./mkerrcodes.h:108:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPIPE" },
+     ^
+./mkerrcodes.h:109:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPROTO" },
+     ^
+./mkerrcodes.h:110:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPROTONOSUPPORT" },
+     ^
+./mkerrcodes.h:111:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EPROTOTYPE" },
+     ^
+./mkerrcodes.h:112:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ERANGE" },
+     ^
+./mkerrcodes.h:113:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EREMCHG" },
+     ^
+./mkerrcodes.h:114:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EREMOTE" },
+     ^
+./mkerrcodes.h:115:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EREMOTEIO" },
+     ^
+./mkerrcodes.h:116:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ERESTART" },
+     ^
+./mkerrcodes.h:117:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EROFS" },
+     ^
+./mkerrcodes.h:118:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESHUTDOWN" },
+     ^
+./mkerrcodes.h:119:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESOCKTNOSUPPORT" },
+     ^
+./mkerrcodes.h:120:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESPIPE" },
+     ^
+./mkerrcodes.h:121:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESRCH" },
+     ^
+./mkerrcodes.h:122:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESRMNT" },
+     ^
+./mkerrcodes.h:123:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESTALE" },
+     ^
+./mkerrcodes.h:124:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ESTRPIPE" },
+     ^
+./mkerrcodes.h:125:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ETIME" },
+     ^
+./mkerrcodes.h:126:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ETIMEDOUT" },
+     ^
+./mkerrcodes.h:127:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ETOOMANYREFS" },
+     ^
+./mkerrcodes.h:128:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_ETXTBSY" },
+     ^
+./mkerrcodes.h:129:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EUCLEAN" },
+     ^
+./mkerrcodes.h:130:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EUNATCH" },
+     ^
+./mkerrcodes.h:131:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EUSERS" },
+     ^
+./mkerrcodes.h:132:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EWOULDBLOCK" },
+     ^
+./mkerrcodes.h:133:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EXDEV" },
+     ^
+./mkerrcodes.h:134:5: error: expected expression before ‘,’ token
+   { , "GPG_ERR_EXFULL" },
+     ^
+Makefile:850: recipe for target 'mkerrcodes' failed
+make[2]: *** [mkerrcodes] Error 1
+make[2]: Leaving directory '/home/young/Downloads/libgpg-error-1.6/src'
+Makefile:309: recipe for target 'all-recursive' failed
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory '/home/young/Downloads/libgpg-error-1.6'
+Makefile:239: recipe for target 'all' failed
+make: *** [all] Error 2
+~/Downloads/libgpg-error-1.6$
+
+
+
+libgpg-error-1.12 openwrt 编译错误-mfc42d-ChinaUnix博客
+http://blog.chinaunix.net/uid-192452-id-5760047.html
+
+
+//--------------------------------------------
+checking for SQLITE... no
+configure: error: Package requirements (sqlite3) were not met:
+
+No package 'sqlite3' found
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables SQLITE_CFLAGS
+and SQLITE_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+~/Downloads/libsoup-2.60.0$make
+make: *** 没有指明目标并且找不到 makefile。 停止。
+~/Downloads/libsoup-2.60.0$
+
+//-----------------------------------------------
+
+
+
