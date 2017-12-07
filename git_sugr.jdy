@@ -1,0 +1,40 @@
+origin/master   本地master   origin是远程仓库，远程仓库的master分支，例如git clone后有了本地master分支
+sugr/sense     本地sense   仓库sugr  叫做sense的主分支
+换个字眼脑子没转过来
+
+然后在本地主分支sense下
+git  checkout -b dev   //创建开发分支，并切换到开发分支下
+修改代码...
+git add -A
+git  commit  -m "xxx"//已经提交到开发分支
+
+//开发分支提交完后，根据邮件先同步在合并开发分支
+git checkout sense  //切换到主分支
+
+//同步远程仓库最新代码，合并develop，提交gerrit审核
+git fetch sugr sense //"sugr sense“中间是空格
+git rebase sugr/sense  //这里把git  pull 拆分成git  fetch  和git rebase  ，而git  pull 底层是做了git  fetch 和 git merge   ，还有在确定的时候用 git pull？？？
+
+git checkout sense  //切换到主分支
+git merge dev   //把dev开发分支合并到最新sense主分支   邮件说不推荐merge的方法，用rebase的方法？？？：git rebase dev？？？
+
+//接下来准备把主分支推到远程仓库的sense分支,sugr/sense
+//#针对单个git仓库远程提交
+git push sugr sense    
+
+//#针对所有git仓库远程提交
+repo upload  
+
+
+git stash
+
+git stash pop
+
+
+
+
+
+
+
+把当前sense分支推到远程仓库：
+开发分支合并好到sense分支，
