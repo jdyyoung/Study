@@ -9,3 +9,76 @@ http://blog.csdn.net/wishfly/article/details/45694231
 大模式和小模式的区别在哪里:-fPIC和-fpic的区别? - C/C++-ChinaUnix.net
 http://bbs.chinaunix.net/thread-4063737-1-1.html
 
+//------------------------------20171215----------------------------------
+select，poll，epoll都是IO多路复用的机制。I/O多路复用就通过一种机制，可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作
+poll函数:
+头文件：
+	#include<poll.h>
+函数体：
+	int poll(struct pollfd *fds, nfds_t nfds, int timeout);
+功能：
+	监视并等待多个文件描述符的属性变化
+	
+参数：
+	fds:指向一个结构体数组的第0个元素的指针，每个数组元素都是一个struct pollfd结
+	构，用于指定测试某个给定的fd的条件
+	
+		struct pollfd{  
+		    int fd;         //文件描述符  
+		    short events;   //等待的事件  
+		    short revents;  //实际发生的事件  
+		};  
+
+		fd：每一个 pollfd 结构体指定了一个被监视的文件描述符，可以传递多个结构
+		体，指示 poll() 监视多个文件描述符。
+		events：指定监测fd的事件（输入、输出、错误），每一个事件有多个取值，
+		POLLIN：读事件
+		POLLOUT：写事件
+		POLLERR：错误事件
+
+		revents：
+	     revents域是文件描述符的操作结果事件，内核在调用返回时设置这个域。
+		events 域中请求的任何事件都可能在 revents 域中返回.
+		
+	注意：每个结构体的events域是由用户来设置，告诉内核我们关注的是什么，而 revents 域是返回时内核设置的，以说明对该描述符发生了什么事件。
+
+	nfds:用来指定第一个参数数组元素个数
+		
+	timeout: 指定等待的毫秒数，无论 I/O 是否准备好，poll() 都会返回.
+		-1：永远等待，直到事件发生
+		0：立即返回
+		>0:等待指定数目的毫秒数
+
+返回值：
+成功时，poll() 返回结构体中 revents 域不为 0 的文件描述符个数；如果在超时前没有任何事件发生，poll()返回 0；失败时，poll() 返回 -1。	
+	
+Linux网络编程——I/O复用之poll函数 - CSDN博客
+http://blog.csdn.net/lianghe_work/article/details/46534029
+
+//---------------------------------------
+
+Linux inotify功能及实现原理 - CSDN博客
+http://blog.csdn.net/myarrow/article/details/7096460
+
+
+inotify_init
+inotify_add_watch
+inotify_event
+input_manager_t
+
+ 
+ 
+//-----------------------------20171219-----------------------
+uinput:?用户空间虚拟输入事件_AirAir_新浪博客
+http://blog.sina.com.cn/s/blog_64fb9b920102v8ab.html
+
+使用/dev/uinput的简要介绍（含demo程序） - ZHONGkunjia的专栏 - CSDN博客
+http://m.blog.csdn.net/zhongkunjia/article/details/75142699
+
+Linux /dev/uinput - CSDN博客
+http://blog.csdn.net/myarrow/article/details/12105973
+
+查看/dev/input/eventX是什么类型的事件， cat /proc/bus/input/devices
+
+
+

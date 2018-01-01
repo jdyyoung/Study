@@ -1,0 +1,13 @@
+通过minicom使开发板与PC之间互相传文件：
+
+
+arm linux通过串口与PC互相传送文件_百度文库
+https://wenku.baidu.com/view/3da54e4e5727a5e9846a615f.html
+
+用minicom在Linux主机和开发板之间传递文件 - 嵌入式学徒之斋 - CSDN博客
+http://blog.csdn.net/wangjiaweiwei/article/details/44591315
+
+（原创）使用minicom实现PC和开发板传送文件 (包括Linux下minicom的配置和使用方法) - 陈小虎的日志 - 网易博客
+http://chenxiaohu612.blog.163.com/blog/static/19221428620123785552567/
+
+

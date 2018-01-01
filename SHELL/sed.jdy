@@ -16,3 +16,7 @@ sed [参数] [语法]  [文件名] ：命令执行后标准输出
 	
 	s：替换，选定的字符串替换（部分替换）
 	sed -i 's/Ruby//g' ab
+	
+linux之sed用法 - 东方雨中漫步者 - 博客园
+https://www.cnblogs.com/dong008259/archive/2011/12/07/2279897.html
+

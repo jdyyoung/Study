@@ -347,6 +347,13 @@ shell中加双括号可以类似C语言用法
 
 
 
+2018.01.01
+
+${VALUE%.*}或${VALUE%%.*}：删除VALUE字符串中以分隔符“.”匹配的右边字符，保留左边字符。
+
+SHELL字符串处理技巧（${}、##、%%） - pmars - 博客园
+https://www.cnblogs.com/pmars/archive/2013/02/17/2914444.html
+
 
 
 
