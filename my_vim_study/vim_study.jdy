@@ -187,3 +187,60 @@ Vim命令合集 - perlman - 博客园
 https://www.cnblogs.com/softwaretesting/archive/2011/07/12/2104435.html
 
 //-------------------------------------------------------------------------------------------------------------
+
+//=======2018.01.04=====================
+vim 的搜索及替换
+
+搜索替换的范围。如果没有指定范围，则只在当前行进行搜索替换。
+
+在所有行进行搜索替换。范围符号%表示在所有行进行搜索替换。:%s/from/to/就是在全文查找from并替换为to。 
+在指定的行上进行搜索替换。:1,50s/from/to/表示在第1行和第50行之间（包括1和50行）进行搜索和替换。:45s/from/to/表示仅仅在第45行进行搜索和替换。而"1,$"行号范围和“%“是等价的。
+
+im 多行注释
+:20,30 s/^/#/g 第20到30行用 # 注释掉。
+:20,30 s/^#//g 取消注释
+:4,10 s/^[^I ]\+// 去掉行首的空白字符
+用 . 表示当前行。
+:.,30 s/^/#/g
+可以看到 vim 命令针对当前行，在前面加个范围就可以针对多行。
+
+让vim显示空格,及tab字符 vim 多行注释（转） - withChengChen - 博客园
+https://www.cnblogs.com/likeatree/p/3933890.html
+
+//================2018.01.04=======================
+vim 插入模式backspace键无法删除字符的问题：
+解决这个问题只需要两个步骤：
+
+去掉有关Vi的一致性模式，避免之前版本的Bug，在命令模式下： 
+set nocompatible 
+
+设置backspace的工作方式： 
+set backspace=indent,eol,start "indent缩进，eol行尾，start刚开始插入
+
+vim学习笔记（1） - 简书
+https://www.jianshu.com/p/5a403fb15777
+
+解决Vim/Gvim插入模式下backspace按键无法删除字符的问题 - CSDN博客
+http://blog.csdn.net/u010381648/article/details/52244801
+
+vim使用总结 - 一步一脚印 - CSDN博客
+http://blog.csdn.net/callinglove/article/details/51868170
+
+vim 退格键（backspace）不能用 - shaojun - 博客园
+https://www.cnblogs.com/shaojun/archive/2011/01/28/1946632.html
+
+//----------------------------------------------------------
+设置tab键为可见字符>---，末尾有空格显示-
+首先确保tab键不会被空格替换，也就是
+不能设置softtabstop和expandtab
+可以如下设置：
+set shiftwidth=4
+set tabstop=4
+set list
+set listchars=tab:>-,trail:-
+
+Vim Tab使用技巧 - 山涧鸟鸣 - 博客园
+https://www.cnblogs.com/panliang188/archive/2010/04/20/1715836.html
+
+【转载】vim的shiftwidth、tabstop、softtabstop区别 - Leo Forest - 博客园
+https://www.cnblogs.com/Leo-Forest/archive/2012/04/06/2435237.html
