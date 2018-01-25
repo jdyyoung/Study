@@ -29,11 +29,13 @@ Ctrl + v 进入块选择模式，选中你要删除的行首的注释符号，注意// 要选中两个，选好之
 vim自定义快捷键注释C程序-linux_zeng-ChinaUnix博客
 http://blog.chinaunix.net/uid-26403440-id-3067403.html
 vim C/C++注释代码 - C语言知识库
-http://lib.csdn.net/article/c/27288
 
 折叠与打开：
 vim代码折叠功能 - zcube - CSDN博客
 http://blog.csdn.net/zcube/article/details/42325741
+
+vim折叠设置（转载） - welkinwalker - 博客园
+https://www.cnblogs.com/welkinwalker/archive/2011/05/30/2063587.html
 
 在括号处zf%，创建从当前行起到对应的匹配的括号上去（（），{}，[]，等）。
 
@@ -244,3 +246,20 @@ https://www.cnblogs.com/panliang188/archive/2010/04/20/1715836.html
 
 【转载】vim的shiftwidth、tabstop、softtabstop区别 - Leo Forest - 博客园
 https://www.cnblogs.com/Leo-Forest/archive/2012/04/06/2435237.html
+
+//====================2018.01.05==============================
+vim高亮光标所在行 默认高亮效果是底边横线，如何改成背景高亮 - SegmentFault
+https://segmentfault.com/q/1010000007832028
+
+如何配置个性化vim？_百度知道
+https://zhidao.baidu.com/question/1669845921794204227.html
+
+
+我用vim 的时候，如果第一行用得//注释，打完一行后，敲回车，换到第二行会自动的出现//符号。_百度知道
+https://zhidao.baidu.com/question/390121304.html
+
+[转]Vim 复制粘贴探秘 - HelloSUN - 博客园
+https://www.cnblogs.com/jianyungsun/archive/2011/03/19/1988855.html
+
+修改VIM恶心的注释自动格式化 - ayanmw - 博客园
+https://www.cnblogs.com/ayanmw/p/3432005.html
