@@ -1,0 +1,29 @@
+WPA:WiFi Protected Access
+
+wpa_cli status
+wpa_cli PING  //通则回复PONG
+wpa_cli reconfig //修改wpa_supplicant.conf 文件后执行
+
+cat /proc/net/dev   //查看驱动提供的网络接口名称。如：wlan0、wlan1
+
+
+
+wifi则在驱动运行后加载xxx.bin的固件
+ble则在驱动运行后加载xxx.hcd的固件
+
+ss=`killall -0 wpa_supplicant > /dev/zero 2>&1 ; echo $?`  //检查wpa_supplicant进程存在
+首先，检查驱动是否存在lsmod 
+插入驱动insmod  //插入驱动的另一种方法modprobe
+//rmmod 驱动
+
+echo "/etc/wifi/6255/fw_bcm43455c0_ag.bin" > /sys/module/dhd/parameters/firmware_path//把固件路径导入
+echo "/etc/wifi/6255/nvram.txt" >  /sys/module/dhd/parameters/nvram_path //把相关配置文件路径导入
+
+ifconfig wlan0 up //加载wlan0的网口
+//ifconfig wlan0  down //卸载wlan0的网口
+
+/usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf -B //加载配置文件
+
+udhcpc -i wlan0 //动态分配IP
+
+

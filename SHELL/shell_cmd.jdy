@@ -81,6 +81,10 @@ cut -c 6-
 件相关联：标准输入stdin，标准输出stdout和标准错误stderr，三个系统文件的文件描述符分别为0，1和2
 linux shell 中 2＞&1的含义_linux shell_脚本之家
 http://www.jb51.net/article/34249.htm
+//2018-01-27:
+详解shell中>/dev/null 2>&1到底是什么_linux shell_脚本之家
+http://www.jb51.net/article/106373.htm
+
 
 //--------------------------------------------------------------------------------
 top
@@ -104,6 +108,13 @@ tree 只列出目录：
    
 Linux只列出目录的几种方式_百度经验
 https://jingyan.baidu.com/article/77b8dc7fc395796175eab64f.html
+
+//--------------2018-01-27---------------------------------------------------------
+ss=`killall -0 wpa_supplicant > /dev/zero 2>&1 ; echo $?`
+用killall -0监控服务的注意事项 - CSDN博客
+http://blog.csdn.net/wjj547670933/article/details/44535761
+
+
 
 
 

@@ -1,0 +1,246 @@
+   0 ssh -p 14401
+   1 ifconfig
+   2 ped
+   3 pwd
+   4 ls
+   5 cd /pwd
+   6 pwd
+   7 cd /root
+   8 ls
+   9 aplay /usr/share/avs/alexa_sounds/microphone_off.wav 
+  10 ps
+  11 aplay /usr/share/avs/alexa_sounds/microphone_off.wav 
+  12 ÿ
+  13 aplay /usr/share/avs/alexa_sounds/microphone_off.wav 
+  14 pwd
+  15 ls
+  16 ifconfig
+  17 ÿ
+  18 ifconfig
+  19 vi /etc/init.d/S42wifi 
+  20 vi /etc/init.d/S44bluetooth 
+  21 reboot
+  22 ifconfig
+  23 history
+  24 ifconfig
+  25 aplay /usr/share/avs/alexa_sounds/microphone_off.wav 
+  26 pwd
+  27 cd /root
+  28 ld
+  29 ls
+  30 ./aml_getevent 
+  31 cat /proc/bus/input/devices
+  32 ./aml_getevent 
+  33 ls /usr/bin/set_source.sh 
+  34 cat /usr/bin/set_source.sh 
+  35 ÿþ
+  36 ps | grep "app"
+  37 cat /etc/wifi/ap_name 
+  38 ps | grep "app"
+  39 viã etc/adckey/adckey_function.sh 
+  40 vi /etc/adckey/adckey_function.sh 
+  41 cd /etc/
+  42 ls
+  43 cd wifi/
+  44 ls
+  45 ps | grep "app"
+  46 ps | grep "server"
+  47 ps | grep "bsa_server"
+  48 ps | grep "app"
+  49 ps | grep "bsa_server"
+  50 ps | grep "app"
+  51 ps | grep "bsa_server"
+  52 ps | grep "app"
+  53 ps | grep "bsa_server"
+  54 ps | grep "app"
+  55 ps | grep "bsa_server"
+  56 ps | grep "app"
+  57 ps | grep "bsa_server"
+  58 ps | grep "app"
+  59 ps | grep "bsa_server"
+  60 ps | grep "app"
+  61 ps | grep "bsa_server"
+  62 ps | grep "app"
+  63 ps | grep "bsa_server"
+  64 ps | grep "app"
+  65 ps | grep "bsa_server"
+  66 ps | grep "app"
+  67 ps | grep "bsa_server"
+  68 ps | grep "app"
+  69 ps | grep "bsa_server"
+  70 ps | grep "app"
+  71 ps | grep "bsa_server"
+  72 ps | grep "app"
+  73 ps | grep "bsa_server"
+  74 ps | grep "app"
+  75 ps | grep "bsa_server"
+  76 ps | grep "app"
+  77 ps | grep "bsa_server"
+  78 ps | grep "app"
+  79 ps | grep "bsa_server"
+  80 ps | grep "app"
+  81 ps | grep "bsa_server"
+  82 ps | grep "app"
+  83 cd /var/run/
+  84 ls
+  85 vi bsa_server.pid 
+  86 vi app_musicBox.pid 
+  87 vi wpa_supplicant.pid 
+  88 ls
+  89 cd hostapd/
+  90 ls
+  91 cd wlan
+  92 ls -l
+  93 cd ..
+  94 ls
+  95 cd run/
+  96 ls
+  97 cat /etc/source_mode 
+  98 ls /usr/bin/set_source.sh 
+  99 vi /usr/bin/set_source.sh 
+ 100 reboot
+ 101 ls /usr/bin/bsa_server 
+ 102 ls /usr/bin/app_musicBox 
+ 103 ls /usr/bin/app_
+ 104 ps 
+ 105 wpa_cli reconfig
+ 106 iwconfig
+ 107 ifconfig
+ 108 iwconfig
+ 109 vi /etc/wifi/na
+ 110 vi /etc/wpa_supplicant.conf
+ 111 wpa_cli reconfig
+ 112 ifconfiug
+ 113 ifconfig
+ 114 ifconfig wlan0 up
+ 115 ifconfig wlan0 down
+ 116 ifconfig wlan0 up
+ 117 lsmod
+ 118 ls /lib/modules/
+ 119 ls /lib/modules/4.9.54/
+ 120 ls /lib/modules/4.9.54/kernel/
+ 121 ls /lib/modules/4.9.54/kernel/net/bridge/
+ 122 ls /lib/modules/4.9.54/kernel/broadcom/
+ 123 ls /lib/modules/4.9.54/kernel/broadcom/wifi/dhd.ko 
+ 124 lsmod
+ 125 modprobe dhd
+ 126 rmmod dhd
+ 127 lsmod
+ 128 modprobe dhd
+ 129 cd /lib
+ 130 find 
+ 131 find  ./ -name "*.bin"
+ 132 cd /etc/
+ 133 find  ./ -name "*.bin"
+ 134 find  ./ -name "*.hcd"
+ 135 ifconifg
+ 136 ifconfig
+ 137 lsmod
+ 138 ifconfig wlan0 up
+ 139 ifconfig
+ 140 ifconfig wlan0 up
+ 141 cat /proc/net/dev
+ 142 ifconfig wlan0 up
+ 143 ifconfig
+ 144 ls /etc/wifi/fw_bcm43455c0_ag.bin
+ 145 find /etc/ -name "*.bin"
+ 146 ls /sys/module/
+ 147 cat /etc/wifi/config.txt
+ 148 ls /sys/module/dhd/
+ 149 ls /sys/module/dhd/parameters/
+ 150 cat /sys/module/dhd/parameters/firmware_path 
+ 151 ls /etc/wifi/6255/fw_bcm43455c0_ag.bin 
+ 152 echo "/etc/wifi/6255/fw_bcm43455c0_ag.bin" > /sys/module/dhd/parameters/firmware_path
+ 153 cat /sys/module/dhd/parameters/firmware_path 
+ 154 echo "/etc/wifi/6255/fw_bcm43455c0_ag.bin" > /sys/module/dhd/parameters/firmware_path
+ 155 cat /sys/module/dhd/parameters/firmware_path 
+ 156 ls /etc/wifi/6255/nvram.txt 
+ 157 echo "# ls /etc/wifi/6255/nvram.txt 
+ 158 echo "/etc/wifi/6255/nvram.txt" >  /sys/module/dhd/parameters/nvram_path 
+ 159 ifconfig wlan0 up
+ 160 ifconfig
+ 161 wl 
+ 162 wl -h
+ 163 wl
+ 164 ifconfig
+ 165 /usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant
+ 166 /usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf -B
+ 167 ps 
+ 168 ps | grep wap
+ 169 ps | grep wpa
+ 170 ifconfig
+ 171 wpa_cli 
+ 172 wpa_cli PING
+ 173 wpa_cli status
+ 174 ifconfig
+ 175 udhcpc -i wlan0
+ 176 ifconfig
+ 177 udhcpc -i wlan0
+ 178 ping qq.conm
+ 179 ping qq.com
+ 180 wpa
+ 181 wpa_cli 
+ 182 wpa_cli PING
+ 183 wpa_cli status
+ 184 udhcpc -i wlan0
+ 185 ifconfig
+ 186 ls /etc/wifi/6255/
+ 187 history
+ 188 ifconfig wlan0 down
+ 189 ls /etc/wifi/6255/fw_bcm43455c0_ag_apsta.bin 
+ 190 echo "/etc/wifi/6255/fw_bcm43455c0_ag_apsta.bin" > /sys/module/dhd/parameters/firmware_path 
+ 191 ifconfig wlan0 up
+ 192 ifconfig
+ 193 cat /proc/net/dev
+ 194 wpa_cli 
+ 195 ls
+ 196 ifconfig
+ 197 vi /var/www/cgi-bin/wifi/wifi_tool.sh 
+ 198 cat /etc/hostapd.conf 
+ 199 cat /etc/hostapd_temp.conf 
+ 200 /var/www/cgi-bin/wifi/wifi_tool.sh -h
+ 201 /var/www/cgi-bin/wifi/wifi_tool.sh
+ 202 vi /var/www/cgi-bin/wifi/wifi_tool.sh 
+ 203 cat /etc/wpa_supplicant.conf
+ 204 wpa_cli status
+ 205 ifconfig
+ 206 wpa_cli status
+ 207 wpa_cli
+ 208 wpa_cli PING
+ 209 ps | grep wpa
+ 210 /usr/sbin/wpa_supplicant -Dnl80211 -iwlan0 -c/etc/wpa_supplicant.conf -B
+ 211 wpa_cli PING
+ 212 wpa_cli status
+ 213 vi /etc/wpa_supplicant.conf
+ 214 wpa_cli reconfig
+ 215 ifconfig
+ 216 wpa_cli status
+ 217 ifconfig
+ 218 wpa_cli status
+ 219 ps | grep host
+ 220 ifconfig wlan1 down
+ 221 ifconfig wlan1 up
+ 222 vi /var/www/cgi-bin/wifi/wifi_tool.sh 
+ 223 vi /etc/init.d/S42wifi 
+ 224 /etc/init.d/S42wifi 
+ 225 /etc/init.d/S42wifi start
+ 226 ifconfig
+ 227 vi /etc/init.d/S42wifi 
+ 228 killall -0 wpa_supplicant
+ 229 killall -0 wpa_supplicant ; $?
+ 230 killall -0 wpa_supplicant ; echo $?
+ 231 killall -0 wpa_supplicantd ; echo $?
+ 232 killall -0 wpa_supplicant ; echo $?
+ 233 killall -0 wpa_supplican ; echo $?
+ 234 ss=`killall -0 wpa_supplican ; echo $?`
+ 235 ss=`killall -0 wpa_supplican > /dev/zero ; echo $?`
+ 236 ss=`killall -0 wpa_supplican > /dev/zero 2>&1 ; echo $?`
+ 237 echo $ss
+ 238 ss=`killall -0 wpa_supplicant > /dev/zero 2>&1 ; echo $?`
+ 239 echo $ss
+ 240 wpa_cli reconfig 
+ 241 ps | grep dhcp
+ 242 killall udhcpc
+ 243 ps | grep dhcp
+ 244 history
+ 245 history >>1.txt
