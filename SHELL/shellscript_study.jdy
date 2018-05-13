@@ -354,7 +354,33 @@ ${VALUE%.*}»ò${VALUE%%.*}£ºÉ¾³ýVALUE×Ö·û´®ÖÐÒÔ·Ö¸ô·û¡°.¡±Æ¥ÅäµÄÓÒ±ß×Ö·û£¬±£Áô×ó±
 SHELL×Ö·û´®´¦Àí¼¼ÇÉ£¨${}¡¢##¡¢%%£© - pmars - ²©¿ÍÔ°
 https://www.cnblogs.com/pmars/archive/2013/02/17/2914444.html
 
+//------------2018-01-30------------------------------------
+echo "HELLO WORLD" | tr 'A-Z' 'a-z'
+hello world
 
+1, ÓÃtr
+ 
+    ÀýÈç£ºUPPERCASE=$(echo $VARIABLE | tr '[a-z]' '[A-Z]')   (°ÑVARIABLEµÄÐ¡Ð´×ª»»³É´óÐ´)
+            LOWERCASE=$(echo $VARIABLE | tr '[A-Z]' '[a-z]')   (°ÑVARIABLEµÄ´óÐ´×ª»»³ÉÐ¡Ð´)
+ 
+2, ÓÃtypeset
+ 
+    typeset -u VARIABLE  (°ÑVARIABLEµÄÐ¡Ð´×ª»»³É´óÐ´)
+    typeset -l  VARIABLE  (°ÑVARIABLEµÄ´óÐ´×ª»»³ÉÐ¡Ð´)
+ 
+    ÀýÈç£ºtypeset -u VARIABLE
+            VARIABLE="True"
+            echo $VARIABLE
+            Êä³öÎªTRUE
+            
+  //============20180207=========================
+
+
+//20180501======================
+shell½Å±¾Í¨¹ýexpect½Å±¾ÊµÏÖ×Ô¶¯ÊäÈëÃÜÂë£¨Ê¹ÓÃexpect£© - Ã¿Ìì1990 - ²©¿ÍÔ°
+https://www.cnblogs.com/meitian/p/5134797.html
+
+http://blog.csdn.net/zhangjikuan/article/details/51105166
 
 
 

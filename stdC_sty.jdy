@@ -5,3 +5,22 @@
 char str1[]="abc";
 char str2[5]="abc";
 char* str3 ="abc";
+
+//-------------20180129-----------------------------
+isspace():
+#include<ctype.h>
+函数功能 
+判断输入字符是否为空格/回车/制表符等 
+函数参数： 
+获取实参char类型的字符 
+函数返回值： 
+如果获取到的字符是空格/回车/制表符等，返回非0值（即真）；否则返回0
+
+char* original = strdup(buffer);
+char* type = strtok(original+i, " \t\n");
+char* key = strtok(NULL, " \t\n");
+strdup();
+strtok();
+strtok();
+
+fgets();

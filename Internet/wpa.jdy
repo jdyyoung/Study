@@ -26,4 +26,19 @@ ifconfig wlan0 up //加载wlan0的网口
 
 udhcpc -i wlan0 //动态分配IP
 
+--------------------------------------------------------
+wpa_cli
+list_network
+add_network
+set_network 0 ssid "sugr_5G"
+set_network 0 psk  "nicainicai"
+save_config
+select_network 0
+
+udhcpc -i wlan0
+
+wpa_supplicant及wpa_cli使用方法 - 个人文章 - SegmentFault 思否
+https://segmentfault.com/a/1190000011579147
+-------------------------------------------------------
+
 

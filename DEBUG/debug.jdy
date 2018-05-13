@@ -1,0 +1,13 @@
+//#define DEBUG
+#ifdef DEBUG
+  #define Debug(fmt, ...)    printf("L(%d): "fmt"\n",__LINE__,##__VA_ARGS__)
+#else
+  #define Debug(fmt, ...)
+#endif
+
+
+#ifdef DEBUG
+#define pr_debug(fmt, ...) printf(fmt, ##__VA_ARGS__)
+#else
+#define pr_debug(fmt, ...) 
+#endif

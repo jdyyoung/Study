@@ -1,0 +1,32 @@
+linux 程序、动态库、静态库内部添加版本号和编译时间 - CSDN博客
+https://blog.csdn.net/a_ran/article/details/43275109
+
+LINUX总结第13篇：LINUX下动态库及版本号控制 - CSDN博客
+https://blog.csdn.net/alspwx/article/details/36655645
+
+strings 命令运用//strings libadd.so | grep version
+
+ ln 命令用法 ln –s 源文件 目标文件 (目标文件即为软链接文件) 
+ 可用ls -l查看软链接文件具体指向哪个文件
+ 
+ ldd /bin/cp 
+ 
+ 【Note】
+
+  1. 指定共享库加载的路径。LD_LIBRARY_PATH 优先于 path 环境变量。
+
+  2. ldd 可以查看程序，或者共享库依赖的库的路径
+
+  3. nm 查看共享库暴露的接口
+
+  4. ldconfig 可以自动生成soname 的连接文件。并提供catch 加速查找。
+
+  5.readelf 可以查看动态库的信息，比如依赖的库，本身的soname。
+
+  6. objdump 与readelf 类似。
+
+  7 ld The GUN linker
+
+  8. ld.so  dynamic linker or loader
+
+  9. as the portable GNU assembley

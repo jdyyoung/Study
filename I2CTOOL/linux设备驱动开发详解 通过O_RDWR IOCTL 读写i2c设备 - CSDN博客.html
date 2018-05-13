@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<!-- saved from url=(0797)http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8&p=9f769a4783934eac58ee8c12580a8b&newp=99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70&user=baidu&fm=sc&query=linux%C9%E8%B1%B8%C7%FD%B6%AF%BF%AA%B7%A2%CF%EA%BD%E2+%CD%A8%B9%FDO%5FRDWR+IOCTL+%B6%C1%D0%B4i2c%C9%E8%B1%B8&qid=80b0490e0005d66a&p1=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<!--<base href="https://blog.csdn.net/xtay1234/article/details/46419383">--><base href=".">
+<style>
+body{position:relative}
+body,form{margin:0!important;padding:0!important}
+#bd_snap{font:13px arial;color:#000;background:#fff;text-align:left;padding:13px 0 0 20px}
+#bd_snap_txt{clear:both;padding:10px 0 2px;line-height:24px;color:#333}
+#bd_snap_note{color:#999;padding-bottom:10px}
+#bd_snap a{font:13px arial;color:#00c;text-decoration:underline}
+#bd_snap_note a{color:#999}
+#bd_snap_head{width:860px;height:44px}
+#bd_snap_logo{width:162px;height:38px;display:block;background:url(http://www.baidu.com/img/logo-snap.png) no-repeat;margin-right:15px;float:left}
+#bd_snap_search{width:680px;position:absolute;left:209px;top:17px}
+#bd_snap_kw{width:531px;margin-right: 0;height:24px;padding:4px 7px;padding:6px 7px 2px\9;font:16px arial;vertical-align:top;border: 1px solid #b6b6b6;border-color: #7b7b7b #b6b6b6 #b6b6b6 #7b7b7b;background: #fff;display:inline-block;border-right-width: 0;border-color: #b8b8b8 transparent #ccc #b8b8b8;overflow: hidden;outline:0}
+#bd_snap_kw:hover{border-color: #999 transparent #b3b3b3 #999;}
+#bd_snap_kw:focus{border-color: #4791ff transparent #4791ff #4791ff}
+#bd_snap_su{width:100px;height:34px;font-size:14px;color:#fff;padding:0;letter-spacing: 1px;background: #3385ff; border-bottom: 1px solid #2d78f4;outline: medium;-webkit-appearance: none;-webkit-border-radius: 0;cursor:pointer;border:0}
+#bd_snap_search input.bd_snap_btn_h{background: #3075dc;box-shadow: inset 1px 1px 3px #2964bb;-webkit-box-shadow: inset 1px 1px 3px #2964bb;-moz-box-shadow: inset 1px 1px 3px #2964bb;-o-box-shadow: inset 1px 1px 3px #2964bb;}
+#bd_snap_search input.btnhover{background: #317ef3;border-bottom: 1px solid #2868c8;box-shadow: 1px 1px 1px #ccc;}
+#bd_snap_btn_wr{width:97px;height:34px;display:inline-block;_top:1px;*position:relative}
+#bd_snap_ln{height:1px;border-top:1px solid #ACA899;background:#ECE9D8;overflow:hidden}
+#bd_snap_txt span a{text-decoration:none}
+</style>
+
+
+</head><body><div id="bd_snap">
+    <div id="bd_snap_head">
+        <a href="http://www.baidu.com/" id="bd_snap_logo" title="到百度首页"></a>
+    </div>
+    <div id="bd_snap_txt">您查询的关键词是：<span><a style="color:black;background-color:#ffff66;padding:0 3px;font-weight:bold" href="http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8&amp;p=9f769a4783934eac58ee8c12580a8b&amp;newp=99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70&amp;user=baidu&amp;fm=sc&amp;query=linux%C9%E8%B1%B8%C7%FD%B6%AF%BF%AA%B7%A2%CF%EA%BD%E2+%CD%A8%B9%FDO%5FRDWR+IOCTL+%B6%C1%D0%B4i2c%C9%E8%B1%B8&amp;qid=80b0490e0005d66a&amp;p1=1#baidusnap0">linux设备驱动开发详解</a><a style="color:white;background-color:#880000;padding:0 3px;font-weight:bold" href="http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8&amp;p=9f769a4783934eac58ee8c12580a8b&amp;newp=99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70&amp;user=baidu&amp;fm=sc&amp;query=linux%C9%E8%B1%B8%C7%FD%B6%AF%BF%AA%B7%A2%CF%EA%BD%E2+%CD%A8%B9%FDO%5FRDWR+IOCTL+%B6%C1%D0%B4i2c%C9%E8%B1%B8&amp;qid=80b0490e0005d66a&amp;p1=1#baidusnap5">通过o_rdwr</a><a style="color:white;background-color:#990099;padding:0 3px;font-weight:bold" href="http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8&amp;p=9f769a4783934eac58ee8c12580a8b&amp;newp=99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70&amp;user=baidu&amp;fm=sc&amp;query=linux%C9%E8%B1%B8%C7%FD%B6%AF%BF%AA%B7%A2%CF%EA%BD%E2+%CD%A8%B9%FDO%5FRDWR+IOCTL+%B6%C1%D0%B4i2c%C9%E8%B1%B8&amp;qid=80b0490e0005d66a&amp;p1=1#baidusnap9">ioctl</a></span>  <span style="margin-left:5px">以下是该网页在北京时间 2018年04月09日 21:27:24 的快照；</span>
+        <p>如果打开速度慢，可以尝试<a href="http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8&amp;p=9f769a4783934eac58ee8c12580a8b&amp;newp=99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70&amp;user=baidu&amp;fm=sc&amp;query=linux%C9%E8%B1%B8%C7%FD%B6%AF%BF%AA%B7%A2%CF%EA%BD%E2+%CD%A8%B9%FDO%5FRDWR+IOCTL+%B6%C1%D0%B4i2c%C9%E8%B1%B8&amp;qid=80b0490e0005d66a&amp;p1=1&amp;fast=y">快速版</a>；如果想更新或删除快照，可以<a href="http://help.baidu.com/newadd?prod_id=1&amp;category=1&amp;link=http%3A%2F%2Fcache.baiducontent.com%2Fc%3Fm%3D9f65cb4a8c8507ed19fa950d100b8738440197634b86914323c3933fcf331d5c0d20b0f024221102ce963c215afe170bf7a6613464587ef686ce8c4cdeb093222e9c6269304a891f498f5ee5dc4755d6519b4d9ea50e97b9e74299b9d3a3c82556dd27736df0f49c297403cb1fe76445f4d5ea5f655a07c9ed27648f4e065d885433a1378ff7456e108187ca2d3ad459da76619cb841c62913c54eb31e6b3343d45bb078117075a058278e1f6055d4b54ae75b6e3027a139b0aec0c6fc3e8ecb9a378ffbbbf42fc477e7b5fd887a550758ed55bdbccdb8%26p%3D9f769a4783934eac58ee8c12580a8b%26newp%3D99769a479dd52deb08e2977e0e42cb231610db2151ddd301298ffe0cc4241a1a1a3aecbf20241706d3c57a6c00a44c56e8f23574310034f1f689df08d2ecce7e649e4b70%26user%3Dbaidu%26fm%3Dsc%26query%3Dlinux%25C9%25E8%25B1%25B8%25C7%25FD%25B6%25AF%25BF%25AA%25B7%25A2%25CF%25EA%25BD%25E2%2B%25CD%25A8%25B9%25FDO%255FRDWR%2BIOCTL%2B%25B6%25C1%25D0%25B4i2c%25C9%25E8%25B1%25B8%26qid%3D80b0490e0005d66a%26p1%3D1" id="bd_tousu">投诉快照</a>。
+        </p>
+    </div>
+<script>document.getElementById('bd_tousu').href = 'http://help.baidu.com/newadd?prod_id=1&category=1&link=' + encodeURIComponent(document.location);</script>
+    <div id="bd_snap_note">百度和网页 <a href="https://blog.csdn.net/xtay1234/article/details/46419383">https://blog.csdn.net/xtay1234/article/details/46419383</a> 的作者无关，不对其内容负责。百度快照谨为网络故障时之索引，不代表被搜索网站的即时页面。</div>
+</div>
+<div id="bd_snap_search">
+	<form action="http://www.baidu.com/s"><input name="cl" type="hidden" value="3"><input name="wd" id="bd_snap_kw" maxlength="100"><span id="bd_snap_btn_wr"><input type="submit" id="bd_snap_su" value="百度一下" class="bd_snap_btn" onmouseover="this.className=&#39;bd_snap_btn bd_snap_btn_h&#39;" onmousedown="this.className=&#39;bd_snap_btn btnhover&#39;" onmouseup="this.className=&#39;bd_snap_btn&#39;" onmouseout="this.className=&#39;bd_snap_btn&#39;"></span></form>
+</div>
+<div id="bd_snap_ln"></div>
+<div style="position:relative">
+
+
+  
+    <link rel="canonical" href="https://blog.csdn.net/xtay1234/article/details/46419383"> 
+    
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    
+    <link rel="stylesheet" href="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/avatar.css">
+                <link rel="stylesheet" href="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/main-e3c59b92ac.css">
+          <link rel="stylesheet" href="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/content_toolbar.css">
+
+    
+    
+    
+
+    
+    
+    <meta name="description" content="#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+
+int main(int argc, char **argv)
+{
+	struct i2c_rdwr_ioctl_data work_queue;
+	unsi">
+    <meta name="keywords" content="">
+    <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="https://blog.csdn.net/xtay1234/article/details/46419383#">
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <title>linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客</title>
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+              
+                      <link rel="stylesheet" href="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/htmledit_views-1f9cf0a071.css">
+      
+
+
+<div class="container clearfix">
+  <main>
+    <div style="display:none;">
+      <img src="https://blog.csdn.net/xtay1234/article/details/46419383" onerror="setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href=&quot;\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74&quot;}},3000);">
+    </div>
+    <article>
+        <h1 class="csdn_top"><a name="baidusnap0"></a><b style="color:black;background-color:#ffff66">linux设备驱动开发详解</b> <a name="baidusnap5"></a><b style="color:white;background-color:#880000">通过O_RDWR</b> <a name="baidusnap9"></a><b style="color:white;background-color:#990099">IOCTL</b> 读写i2c设备</h1>
+        <div class="article_bar clearfix">
+            <div class="artical_tag">
+                <span class="original">
+                原创                </span>
+                <span class="time">2015年06月08日 22:58:01</span>
+            </div>
+
+            <ul class="article_tags clearfix csdn-tracking-statistics tracking-click" data-mod="popu_377">
+                <li class="tit">标签：</li>
+
+<!--          [startarticletags]-->
+                <!--          [endarticletags]-->
+            </ul>
+            <ul class="right_bar">
+                <li><button class="btn-noborder"><i class="icon iconfont icon-read"></i><span class="txt">2188</span></button></li>
+                <li class="edit">
+                    <a class="btn-noborder" href="https://blog.csdn.net/xtay1234/article/details/46419383">
+                        <i class="icon iconfont icon-bianji"></i><span class="txt">编辑</span>
+                    </a>
+                </li>
+                <li class="del">
+                    <a class="btn-noborder" onclick="javascript:deleteArticle(fileName);return false;">
+                        <i class="icon iconfont icon-shanchu"></i><span class="txt">删除</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="article_content" class="article_content csdn-tracking-statistics tracking-click" data-mod="popu_519" data-dsm="post">
+                            <div class="htmledit_views">
+                        
+<pre name="code" class="cpp">#include &lt;stdio.h&gt;
+#include &lt;linux/types.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/<b style="color:white;background-color:#990099">ioctl</b>.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;string.h&gt;
+#include &lt;linux/i2c.h&gt;
+#include &lt;linux/i2c-dev.h&gt;
+
+int main(int argc, char **argv)
+{
+	struct i2c_rdwr_<b style="color:white;background-color:#990099">ioctl</b>_data work_queue;
+	unsigned int idx;
+	unsigned int fd;
+	unsigned int slave_address, reg_address;
+	unsigned char val;
+	int i;
+	int ret;
+	unsigned int num;
+
+	if(argc &lt; 4)
+	{
+		printf("Usage:\n%s /dev/i2c-x start_addr reg_addr\n", argv[0]);
+		return 0;
+	}
+
+	fd = open(argv[1], O_RDWR);
+
+	if(!fd)
+	{
+		printf("Error on opening the device file \n");
+		return 0;
+	}
+
+	sscanf(argv[2], "%x", &amp;slave_address);
+	sscanf(argv[3], "%x", &amp;reg_address);
+	if(argc == 4)
+	{
+		num = 1;
+	}
+	else
+	{
+		sscanf(argv[4], "%d", &amp;num);
+	}
+
+	work_queue.nmsgs = 2;// 消息数量
+	work_queue.msgs = (struct i2c_msg *)malloc(work_queue.nmsgs *sizeof(struct i2c_msg));
+	if(!work_queue.msgs)
+	{
+		printf("Memery alloc error\n");
+		close(fd);
+		return 0;
+	}
+
+	<b style="color:white;background-color:#990099">ioctl</b>(fd, I2C_TIMEOUT, 2);//设置超时
+	<b style="color:white;background-color:#990099">ioctl</b>(fd, I2C_RETRIES, 1);//设置重试次数
+
+	for(i = reg_address; i &lt; reg_address + num; i++)
+	{
+		val = i;
+		(work_queue.msgs[0]).len = 1;
+		(work_queue.msgs[0]).addr = slave_address;
+		(work_queue.msgs[0]).buf = &amp;val;
+
+		(work_queue.msgs[1]).len = 1;
+		(work_queue.msgs[1]).flags = I2C_M_RD;
+		(work_queue.msgs[1]).addr = slave_address;
+		(work_queue.msgs[1]).buf = &amp;val;
+
+		ret = <b style="color:white;background-color:#990099">ioctl</b>(fd, I2C_RDWR, (unsigned long) &amp;work_queue);
+		if(ret &lt; 0)
+			printf("Error during I2C_RDWR <b style="color:white;background-color:#990099">ioctl</b> with error code: %d\n", ret);
+		else
+			printf("reg: %02x val: %c\n", i, val);
+	}
+	close(fd);
+	return 0;
+}</pre>
+<p>在mini2440上读取EEPROM10个字节</p>
+<p>/drv/i2c # ./i2ctest /dev/i2c-0 0x50 0 10<br>
+</p>
+<p>reg: 00 val: l<br>
+reg: 01 val: o<br>
+reg: 02 val: n<br>
+reg: 03 val: g<br>
+reg: 04 val:&nbsp;<br>
+<br>
+<br>
+reg: 05 val: &nbsp;<br>
+reg: 06 val: l<br>
+reg: 07 val: o<br>
+reg: 08 val: n<br>
+reg: 09 val: g<br>
+</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p><img src="https://blog.csdn.net/xtay1234/article/details/46419383" alt=""><br>
+</p>
+<p><br>
+</p>
+                </div>
+                    </div>
+    </article>
+      <div class="readall_box csdn-tracking-statistics tracking-click" data-mod="popu_376">
+          <div class="read_more_mask"></div>
+          <a class="btn btn-large btn-gray-fred read_more_btn" target="_self">阅读全文</a>
+      </div>
+      <div class="article_copyright">
+         
+              </div>
+      <ul class="article_collect clearfix csdn-tracking-statistics tracking-click" data-mod="popu_378">
+          <li class="tit">本文已收录于以下专栏：</li>
+<!--          [startarticlecolumns]-->
+                                <!--          [endarticlecolumns]-->
+      </ul>
+      <div class="comment_box clearfix" id="comments">
+          <div id="comment_form">
+              <div id="commentsbmitarear">
+                              </div>
+          </div>
+      </div>
+      <div class="comment_li_outbox">
+          <div id="comment_list"></div>
+      </div>
+
+      <div class="more_comment">
+          <div id="comment_bar" class="trackgin-ad" data-mod="popu_385"></div>
+      </div>
+
+      <!-- <h3 class="recommend_tit" id="related">相关文章推荐</h3> -->
+      <div class="recommend_list clearfix" id="rasss">
+                                          <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/petershina/article/details/7428076" target="_blank" strategy="BlogCommendFromBaidu_0">
+                    <dd>
+                        <h2>用户空间使用i2c_dev</h2>
+                        <div class="summary">
+                            ============================================
+作者：yuanlulu
+http://blog.csdn.net/yuanlulu
+==========...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_petershina.jpg" alt="petershina" title="petershina"></li>
+                            <li class="user_name">petershina</li>
+                            <li class="time">2012年04月05日 12:39</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>10756</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/luckywang1103/article/details/16810833" target="_blank" strategy="BlogCommendFromBaidu_1">
+                    <dd>
+                        <h2>i2c驱动之调用<b style="color:white;background-color:#990099">ioctl</b>函数进行读写at24c08</h2>
+                        <div class="summary">
+                            在linux驱动中/drivers/i2c/目录下有i2c-dev.c提供了I2C设备的通用驱动，实现了read(),write(),<b style="color:white;background-color:#990099">ioctl</b>等函数，不过这里的read()和write()函数只能对...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_luckywang1103.jpg" alt="luckywang1103" title="luckywang1103"></li>
+                            <li class="user_name">luckywang1103</li>
+                            <li class="time">2013年11月18日 21:45</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>6887</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                          <dl class="">
+            
+          </dl>
+                                        <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/yhf19881015/article/details/8188809" target="_blank" strategy="BlogCommendFromBaidu_2">
+                    <dd>
+                        <h2>用户空间如何使用i2c_dev</h2>
+                        <div class="summary">
+                            ============================================
+作者：yuanlulu
+http://blog.csdn.net/yuanlulu
+==========...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_yhf19881015.jpg" alt="yhf19881015" title="yhf19881015"></li>
+                            <li class="user_name">yhf19881015</li>
+                            <li class="time">2012年11月15日 22:10</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>1898</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/wangweiqiang1325/article/details/52411709" target="_blank" strategy="BlogCommendFromBaidu_3">
+                    <dd>
+                        <h2>Linux应用层的i2c读写</h2>
+                        <div class="summary">
+                            i2c通道在开发过程中使用是非常的方便的，主要是由于其简单的结构，i2c主要有SCL，SDA两条通道，一个时钟线，一个数据线，这也是i2c之所以应用如此普遍的原因。i2c的时序如下：
+
+实现上述时序，...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_wangweiqiang1325.jpg" alt="wangweiqiang1325" title="wangweiqiang1325"></li>
+                            <li class="user_name">wangweiqiang1325</li>
+                            <li class="time">2016年09月02日 10:35</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>3796</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/rockrockwu/article/details/7863711" target="_blank" strategy="BlogCommendFromBaidu_4">
+                    <dd>
+                        <h2>I2C子系统之<b style="color:white;background-color:#990099">ioctl</b>()</h2>
+                        <div class="summary">
+                            根据前一篇的文章介绍 at24c02的读写方式有很多种，
+写有两种1.写一字节数据到word address处2.从指定的word address处开始写一页数据，此word address需要页对...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_rockrockwu.jpg" alt="rockrockwu" title="rockrockwu"></li>
+                            <li class="user_name">rockrockwu</li>
+                            <li class="time">2012年08月14日 11:48</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>2901</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/tmfjtft/article/details/77921109" target="_blank" strategy="BlogCommendFromBaidu_5">
+                    <dd>
+                        <h2>详解Linux-I2C驱动(硬件原理\驱动分析\测试)</h2>
+                        <div class="summary">
+                            目录
+
+一、LinuxI2C驱动--概述
+1.1 写在前面
+1.2 I2C
+1.3 硬件
+1.4 软件
+1.5 参考二、LinuxI2C驱动--I2C总线
+2.1 I2C总线物理结构
+...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_tmfjtft.jpg" alt="tmfjtft" title="tmfjtft"></li>
+                            <li class="user_name">tmfjtft</li>
+                            <li class="time">2017年09月10日 11:29</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>486</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/li_wen01/article/details/51658916" target="_blank" strategy="searchFromBaidu_6">
+                    <dd>
+                        <h2>linux IIC子系统分析(七)——实例分析通过i2c-dev操作I2C设备</h2>
+                        <div class="summary">
+                            在前面的platform device和platform driver初始化中，我们已经实现了I2C总线驱动（adapter），但是我们的设备驱动还没有实现。如果我们现在要访问I2C设备（比如eepr...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_li_wen01.jpg" alt="li_wen01" title="li_wen01"></li>
+                            <li class="user_name">li_wen01</li>
+                            <li class="time">2016年06月13日 16:44</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>3031</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/liaozc/article/details/6655082" target="_blank" strategy="BlogCommendFromBaidu_7">
+                    <dd>
+                        <h2>Linux内核I2C子系统驱动(三)</h2>
+                        <div class="summary">
+                            I2C子系统驱动之三，i2c设备驱动编写，at24c02                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_liaozc.jpg" alt="liaozc" title="liaozc"></li>
+                            <li class="user_name">liaozc</li>
+                            <li class="time">2011年08月02日 21:07</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>5061</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/zzzzcw/article/details/64442548" target="_blank" strategy="BlogCommendFromBaidu_8">
+                    <dd>
+                        <h2>Linux 用户空间i2c 字符驱动</h2>
+                        <div class="summary">
+                            最近整理了一下有关用户空间i2c字符驱动，本人所有代码已调试。#include #include #include #include #include #include #include #inclu...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_zzzzcw.jpg" alt="zzzzcw" title="zzzzcw"></li>
+                            <li class="user_name">zzzzcw</li>
+                            <li class="time">2017年03月21日 15:45</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>889</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                                                    <dl class="clearfix csdn-tracking-statistics recommend_article" data-mod="popu_387" data-poputype="feed" data-feed-show="false" data-dsm="post">
+                <a href="http://blog.csdn.net/AS520213211314/article/details/73162996" target="_blank" strategy="BlogCommendFromBaidu_9">
+                    <dd>
+                        <h2>应用层读写i2c设备可读写8位，16位设备地址小工具及源码</h2>
+                        <div class="summary">
+                            &#65533;1&#65533;3&#65533;1&#65533;3
+
+#include "standard_i2c.h"
+#include 
+#include 
+#include 
+#include 
+#include 
+#include 
+#...                        </div>
+
+                        <ul>
+                            <li class="avatar_img"><img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_as520213211314.jpg" alt="AS520213211314" title="AS520213211314"></li>
+                            <li class="user_name">AS520213211314</li>
+                            <li class="time">2017年06月13日 10:39</li>
+                            <li class="visited_num"><i class="icon iconfont icon-read"></i><span>898</span></li>
+                        </ul>
+                    </dd>
+                </a>
+            </dl>
+                              </div>
+  </main>
+<aside>
+    <div class="right_box user_info">
+    <dl class="inf_bar clearfix">
+        <dt class="csdn-tracking-statistics tracking-click" data-mod="popu_381">
+                <a href="https://blog.csdn.net/xtay1234" target="_blank">
+                    <img src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/3_xtay1234.jpg" class="avatar_pic">
+        </a>
+      </dt><dd>
+            <h3 class="csdn-tracking-statistics tracking-click" data-mod="popu_380"><a href="https://blog.csdn.net/xtay1234" target="_blank" id="uid">xtay1234</a></h3>
+            <div class="medals" title="">
+                      </div>
+                    </dd>
+    </dl>
+    <div class="inf_number_box clearfix">
+        <dl title="1">
+            <dt>原创</dt>
+            <dd>1</dd>
+        </dl>
+        <dl title="2">
+            <dt>粉丝</dt>
+            <dd id="fan">2</dd>
+        </dl>
+        <dl title="0">
+            <dt>喜欢</dt>
+            <dd>0</dd>
+        </dl>
+        <dl title="1">
+          <dt>评论</dt>
+          <dd>1</dd>
+        </dl>
+    </div>
+
+</div>
+<div class="interflow clearfix">
+      <div class="grade gradeAndbadge gradewidths">
+      <span>等级：</span>
+      <div>
+        <a href="http://blog.csdn.net/home/help.html#level" title="1级,点击查看等级说明" target="_blank">
+          <img class="grade-img" src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/blog1.png" alt="1级,点击查看等级说明">
+        </a>
+      </div>
+    </div>
+    <div class="gradeAndbadge gradewidths" title="3940">
+        <span>访问量：</span>
+        <span class="num odd-overhidden">3940</span>
+    </div>
+
+    <div class="gradeAndbadge gradewidths" title="63">
+      <span>积分：</span>
+      <span class="num odd-overhidden">63</span>
+    </div>
+    <div class="gradeAndbadge gradewidths" title="1608788">
+        <span>排名：</span>
+        <span class="num odd-overhidden">160万+</span>
+    </div>
+
+</div>
+          <div class="extension_other csdn-tracking-statistics tracking-click" data-mod="popu_389">
+          <!--u3032528-->
+        <div class="flashrecommend">
+                        
+                    </div>
+      </div>
+            <div class="writings">
+      <div class="public_signal clearfix">
+        <h3>他的最新文章</h3>
+        <a href="https://blog.csdn.net/xtay1234" target="_blank" class="more"><span>更多文章</span></a>
+      </div>
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="http://blog.csdn.net/xtay1234/article/details/46508419" target="_blank">mini2440 一线触摸配置</a>
+            </li>
+                        <li class="clearfix">
+                <a href="http://blog.csdn.net/xtay1234/article/details/46474767" target="_blank">QT嵌入式环境搭建与移植</a>
+            </li>
+                    </ul>
+    </div>
+                <div class="user-hotArticle sort ClassSort">
+            <h3>文章分类</h3>
+            <ul class="hotArticle-list sort-list ClassSort-list">
+                                    <li class="clearfix">
+                        <a href="https://blog.csdn.net/xtay1234/article/category/2662123" class="odd-overhidden floatL">mini2440</a>
+                        <div class="read list-left floatR"><span>1篇</span></div>
+                    </li>
+                            </ul>
+            <div class="unfold-btn">
+              <span>展开</span><i class="icon iconfont icon-xiajiantou"></i>
+            </div>
+        </div>
+    <!--    [StartShowSelfColumn]-->
+    <!--    [EndShowSelfColumn]-->
+            <div class="user-hotArticle sort timeSort">
+          <h3>文章存档</h3>
+          <ul class="hotArticle-list timeSort-list">
+                            <li class="clearfix">
+                  <a href="https://blog.csdn.net/xtay1234/article/month/2015/06" class="odd-overhidden floatL">2015年6月</a>
+                  <div class="read list-left floatR"><span>3篇</span></div>
+                </li>
+                      </ul>
+          <div class="unfold-btn">
+            <span>展开</span><i class="icon iconfont icon-xiajiantou"></i>
+          </div>
+        </div>
+            <div class="user-hotArticle">
+        <h3>他的热门文章</h3>
+        <ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+<!--        [StartHotArticles]-->
+                            <li>
+                    <a href="http://blog.csdn.net/xtay1234/article/details/46419383"><b style="color:black;background-color:#ffff66">linux设备驱动开发详解</b> <b style="color:white;background-color:#880000">通过O_RDWR</b> <b style="color:white;background-color:#990099">IOCTL</b> 读写i2c设备</a>
+                    <div class="read list-left"><i class="icon iconfont icon-read"></i><span>2186</span></div>
+                </li>
+                            <li>
+                    <a href="http://blog.csdn.net/xtay1234/article/details/46474767">QT嵌入式环境搭建与移植</a>
+                    <div class="read list-left"><i class="icon iconfont icon-read"></i><span>1219</span></div>
+                </li>
+                            <li>
+                    <a href="http://blog.csdn.net/xtay1234/article/details/46508419">mini2440 一线触摸配置</a>
+                    <div class="read list-left"><i class="icon iconfont icon-read"></i><span>512</span></div>
+                </li>
+            <!--        [EndHotArticles]-->
+        </ul>
+    </div>
+    
+<!--    [startcustom]-->
+    <!--    [endcustom]-->
+  <div class="fixRight_box" style="height:256px">
+    <div class="fixRight">
+                    <!--u3163270-->
+                        
+                          <div class="persion_article"></div>
+    </div>
+  </div>
+</aside>
+</div>
+
+<div class="left_fixed">
+    <div class="left_show_button">
+        <span>
+          <i class="icon iconfont icon-youjiantou"></i>
+        </span>
+    </div>
+    <ul class="left_menu" id="share_box">
+        <li>
+            <button class="left-fixed-btn btn-like csdn-tracking-statistics tracking-click" data-mod="popu_373" target="_self" title="点赞">
+                <a href="javascript:void(0);" class="iconbox border_red"><i class="icon iconfont icon-dianzan"></i></a>
+                <a class="txt" href="javascript:void(0);">0</a>
+            </button>
+        </li>
+        <li id="blog_artical_directory">
+            <button class="left-fixed-btn left_menu_btn csdn-tracking-statistics tracking-click" data-mod="popu_372" target="_self" title="目录">
+                <a href="javascript:void(0);" class="iconbox border_black"><i class="icon iconfont icon-mulu"></i></a>
+            </button>
+        </li>
+        <li class="menu_con">
+            <div class="list_father">
+                <div class="arr_box">
+                    <button class="btn-noborder arr-btn scroll-down  left_scroll_down"><i class="icon iconfont icon-xiajiantou"></i></button>
+                    <button class="btn-noborder arr-btn scroll-up left_scroll_top"><i class="icon iconfont icon-shangjiantou"></i></button>
+                </div>
+                <div class="arr"></div>
+                <div id="csdnBlogDir"></div>
+            </div>
+        </li>
+        <!--        <li>-->
+        <!--            <button class="left-fixed-btn btn-like tracking-ad" data-mod="popu_373" target="_self">-->
+        <!--                <span class="iconbox border_red"><i class="icon iconfont icon-xihuan-"></i></span>-->
+        <!--                <span class="txt">喜欢</span>-->
+        <!--                <span class="untxt">取消喜欢</span>-->
+        <!--            </button>-->
+        <!--        </li>-->
+        <li>
+            <button class="left-fixed-btn csdn-tracking-statistics tracking-click" data-mod="popu_374" id="com-quick-collect" target="_self" title="收藏">
+                <a href="javascript:void(0);" class="iconbox border_purple"><i class="icon iconfont icon-shoucang"></i></a>
+            </button>
+        </li>
+        <li>
+            <button class="left-fixed-btn btn-pinglun csdn-tracking-statistics tracking-click" data-mod="popu_544" title="评论">
+                <a href="javascript:void(0);" class="iconbox border_purple"><i class="icon iconfont icon-pinglun"></i></a>
+            </button>
+        </li>
+        <li class="bdsharebuttonbox csdn-tracking-statistics tracking-click" data-mod="popu_172">
+            <a class="bds_tsina outside left-fixed-btn" data-cmd="tsina" title="分享到新浪微博"></a>
+            <span class="iconbox border_red2"><i class="icon iconfont icon-xinlang"></i></span>
+        </li>
+        <li class="bdsharebuttonbox csdn-tracking-statistics tracking-click" data-mod="popu_172">
+            <a class="bds_weixin outside left-fixed-btn" data-cmd="weixin" title="分享到微信"></a>
+            <span class="iconbox border_green"><i class="icon iconfont icon-weixin"></i></span>
+        </li>
+        <li class="bdsharebuttonbox csdn-tracking-statistics tracking-click" data-mod="popu_172">
+            <a class="bds_qzone outside left-fixed-btn" data-cmd="qzone" title="分享到QQ空间"></a>
+            <span class="iconbox border_blue"><i class="icon iconfont icon-QQ"></i></span>
+        </li>
+        <li id="share_box">
+            
+            <div class="bdsharebuttonbox csdn-tracking-statistics tracking-click" data-mod="popu_172">
+                
+                
+                
+            </div>
+        </li>
+    </ul>
+</div>
+<div id="pop_win"></div>
+<div id="popup_mask"></div>
+<div class="pop_CA_cover"></div>
+<div class="pop pop_CA">
+    <div class="CA_header">
+        收藏助手
+        <span class="cancel_icon" id="fapancle"></span>
+    </div>
+    <iframe src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/saved_resource.html" id="collectIframe" frameborder="0" width="100%" height="360" scrolling="no"></iframe>
+</div>
+<!--举报-->
+<div id="report_dialog" style="top: 250px; left: 343.5px;"><div id="panel_report">
+    <div class="panel_head">不良信息举报</div>
+    <form method="post" id="frmReport" class="panel_body">
+        <table border="0" cellpadding="0" cellspacing="4" class="pop_table">
+            <tbody><tr><td colspan="2">您举报文章：<a href="http://blog.csdn.net/xtay1234/article/details/46419383" target="_blank"><b style="color:black;background-color:#ffff66">linux设备驱动开发详解</b> <b style="color:white;background-color:#880000">通过O_RDWR</b> <b style="color:white;background-color:#990099">IOCTL</b> 读写i2c设备</a></td></tr>
+            <tr>
+                <th style="width:60px;">举报原因：</th>
+                <td id="panel_reporttype">
+                    <label><input type="radio" class="report_type" id="report_sex" name="report_type" value="1">色情</label>
+                    <label><input type="radio" class="report_type" id="report_Politics" name="report_type" value="2">政治</label>
+                    <label><input type="radio" class="report_type" id="report_copy" name="report_type" value="3">抄袭</label>
+                    <label><input type="radio" class="report_type" id="report_ad" name="report_type" value="4">广告</label>
+                    <label><input type="radio" class="report_type" id="report_want" name="report_type" value="5">招聘</label>
+                    <label><input type="radio" class="report_type" id="report_call" name="report_type" value="6">骂人</label>
+                    <br>
+                    <label><input type="radio" class="report_type" id="report_other" name="report_type" value="7">其他</label>
+                    <input type="text" name="report_other_content" id="report_other_content" maxlength="30" style="display: none;">
+                </td>
+            </tr>
+            <tr id="panel_originalurl" style="display: none;">
+                <th>原文地址：</th>
+                <td>
+                    <input id="originalurl" value="http://" name="originalurl" type="text" style="width: 90%;">
+                </td>
+            </tr>
+            <tr>
+                <th id="sp_reason">原因补充：</th>
+                <td>
+                    <textarea id="report_description" style="width: 300px;" rows="3" name="report_description"></textarea>
+                    <p id="sp_n" style="color:#999;margin:0px;padding:0px;">(最多只允许输入30个字)</p>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input id="btnSubmitReport" name="submit" type="image" align="middle" class="btn_1" src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/btn_submit.jpg">
+                    <span style="padding-left:20px;"></span>
+                    <img id="btnCloseReportDialog" src="./linux设备驱动开发详解 通过O_RDWR IOCTL 读写i2c设备 - CSDN博客_files/btn_cancel.jpg" align="middle">
+                    <div id="error" style="color: Red">
+                    </div>
+                </td>
+            </tr>
+            </tbody></table>
+    </form>
+</div>
+    
+</div>
+<!--  fixme 后期清理掉  -->
+<div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+    
+    
+</div>
+
+
+<!--  -->
+
+
+
+
+
+
+
+
+
+<div id="loginWrap"></div>
+<div id="dlMask"></div>
+
+
+</div>
+
+
+
+</body></html>
