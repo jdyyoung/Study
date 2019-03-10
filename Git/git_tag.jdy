@@ -1,0 +1,5 @@
+git tag:
+tag:版本库的快照，容易记住的名字，与一个commit绑一起
+
+创建标签：git tag v1.
+查看所有标签：git tag
