@@ -189,3 +189,21 @@ git  am
 git --amend //patch ，git am后push 需要修改 Change-ID，不需要再commit 
 
 git apply //用这种方式打补丁push不用改Change-ID 需要重新commit 
+
+
+//--------------------------------------20190312------------------------------------------
+使用git提交到github,每次都要输入用户名和密码的解决方法 - 一字一句 - 博客园 - https://www.cnblogs.com/sky6862/p/7992736.html
+
+young@young-desktop:~/Study/PYTHON$ git remote -v
+gitee	https://gitee.com/jdyyoung/Study.git (fetch)
+gitee	https://gitee.com/jdyyoung/Study.git (push)
+github	git@github.com:jdyyoung/Study.git (fetch)
+github	git@github.com:jdyyoung/Study.git (push)
+young@young-desktop:~/Study/PYTHON$ git remote rm gitee
+young@young-desktop:~/Study/PYTHON$ git remote add gitee git@gitee.com:jdyyoung/Study.git
+young@young-desktop:~/Study/PYTHON$ git remote -v
+gitee	git@gitee.com:jdyyoung/Study.git (fetch)
+gitee	git@gitee.com:jdyyoung/Study.git (push)
+github	git@github.com:jdyyoung/Study.git (fetch)
+github	git@github.com:jdyyoung/Study.git (push)
+young@young-desktop:~/Study/PYTHON$
