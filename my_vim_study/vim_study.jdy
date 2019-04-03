@@ -251,6 +251,8 @@ https://www.cnblogs.com/Leo-Forest/archive/2012/04/06/2435237.html
 vim高亮光标所在行 默认高亮效果是底边横线，如何改成背景高亮 - SegmentFault
 https://segmentfault.com/q/1010000007832028
 
+
+//其中有空格折叠的设置
 如何配置个性化vim？_百度知道
 https://zhidao.baidu.com/question/1669845921794204227.html
 
@@ -263,3 +265,6 @@ https://www.cnblogs.com/jianyungsun/archive/2011/03/19/1988855.html
 
 修改VIM恶心的注释自动格式化 - ayanmw - 博客园
 https://www.cnblogs.com/ayanmw/p/3432005.html
+
+//=========================20180912=====================
+vim 打开二进制文件

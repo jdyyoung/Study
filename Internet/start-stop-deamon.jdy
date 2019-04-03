@@ -1,0 +1,50 @@
+20180811:
+start-stop-daemon :
+linux系统命令start-stop-daemon的源码及二进制，其中也提供了一个服务启动脚本模板。
+此程序能帮助你实现将命令行程序变成服务运行
+
+start-stop-daemon 仅能启动一个daemon的单个实例，
+启动第二个实例（比如监听另外一个端口）时会提示已经启动了该daemon
+
+如何通过命令将可执行程序转入deamon（之start-stop-daemon ） - CSDN博客
+https://blog.csdn.net/tumuzhuanjia/article/details/79619514
+
+./start-stop-daemon --help
+start-stop-daemon 1.9.18 for Debian - small and fast C version written by
+Marek Michalkiewicz <marekm@i17linuxb.ists.pwr.wroc.pl>, public domain.
+Usage:
+  start-stop-daemon -S|--start options ... -- arguments ...
+  start-stop-daemon -K|--stop options ...
+  start-stop-daemon -H|--help
+  start-stop-daemon -V|--version
+Options (at least one of --exec|--pidfile|--user is required):
+  -x|--exec <executable>        program to start/check if it is running
+  -p|--pidfile <pid-file>       pid file to check
+  -c|--chuid <name|uid[:group|gid]>
+  change to this user/group before starting process
+  -w|--chdir <dir>          change the work directory to 'dir'
+  -u|--user <username>|<uid>    stop processes owned by this user
+  -n|--name <process-name>      stop processes with this name
+  -s|--signal <signal>          signal to send (default TERM)
+  -a|--startas <pathname>       program to start (default is <executable>)
+  -N|--nicelevel <incr>         add incr to the process's nice level
+  -b|--background               force the process to detach
+  -m|--make-pidfile             create the pidfile before starting
+  -R|--retry <schedule>         check whether processes die, and retry
+  -t|--test                     test mode, don't do anything
+  -o|--oknodo                   exit status 0 (not 1) if nothing done
+  -q|--quiet                    be more quiet
+  -v|--verbose                  be more verbose
+Retry <schedule> is <item>|/<item>/... where <item> is one of
+ -<signal-num>|[-]<signal-name>  send that signal
+ <timeout>                       wait that many seconds
+ forever                         repeat remainder forever
+or <schedule> may be just <timeout>, meaning <signal>/<timeout>/KILL/<timeout>
+Exit status:  0 = done      1 = nothing done (=> 0 if --oknodo)
+              3 = trouble   2 = with --retry, processes wouldn't die
+
+//-x 后面双中划线问题：
+start-stop-daemon -S -x 用户命令 -- 用户参数
+start-stop-daemon - shubin - 博客园
+https://www.cnblogs.com/shubin/p/7401579.html
+

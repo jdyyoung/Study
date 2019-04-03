@@ -1,4 +1,5 @@
 WPA:WiFi Protected Access
+MIB:Management Information Base 
 
 wpa_cli status
 wpa_cli PING  //通则回复PONG
@@ -40,5 +41,46 @@ udhcpc -i wlan0
 wpa_supplicant及wpa_cli使用方法 - 个人文章 - SegmentFault 思否
 https://segmentfault.com/a/1190000011579147
 -------------------------------------------------------
+
+==================2018-05-26======================
+/etc/wpa_supplicant.conf  配置文件的内容及作用
+
+dnsmasq工具
+connmand工具
+iw工具：
+Wireless network configuration (简体中文) - ArchWiki
+https://wiki.archlinux.org/index.php/Wireless_network_configuration_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+
+关于 iw - CSDN博客
+https://blog.csdn.net/robertsong2004/article/details/40044947
+
+使用WIFI网卡: iw, wpa_supplicant-guo443193911-ChinaUnix博客
+http://blog.chinaunix.net/uid-29181887-id-4330184.html
+
+======================
+iw
+iwconfig
+iwevent
+iwgetid
+iwlist
+iwpriv
+iwspy
+
+iw wlan0 interface add  wlan1 type mamaged
+
+0811:
+wpa_supplicant 配置与应用 - DoubleLi - 博客园
+https://www.cnblogs.com/lidabo/p/5062204.html
+
+wpa_supplicant:-i 指定端口，-c 指定配置文件，-D 指定使用的wifi驱动
+
+wpa_supplicant 与connmand的关系？？？
+
+iw/iwconfig
+iwlist
+iwlist/iwconfig/iw命令 - unbroken - CSDN博客
+https://blog.csdn.net/u010164190/article/details/68942070
+
+
 
 

@@ -1,0 +1,9 @@
+Linux下二进制文件的分割与合并 - CzmMiao的博客生活 - ITeye博客
+http://czmmiao.iteye.com/blog/1266577
+
+dd if=0910test.bin bs=1024 count=3 skip=0 of=testfile1.bin
+dd if=0910test.bin bs=1024 count=5 skip=3 of=testfile2.bin
+
+ cat testfile1 testfile2 > testfile
+ md5sum 0910test.bin
+ md5sum testfile

@@ -1,0 +1,9 @@
+tr命令_Linux tr 命令用法详解：将字符进行替换压缩和删除
+http://man.linuxde.net/tr
+
+translate
+
+MACID=`ifconfig wlan0 | grep HWaddr | tr -s ' ' | cut -d' ' -f5 | tr -d : | cut -c5-12 | tr A-Z a-z`
+-s或--squeeze-repeats：把连续重复的字符以单独一个字符表示；
+-d或——delete：删除所有属于第一字符集的字符//tr -d : 删除冒号
+ tr A-Z a-z//大写转换成小写

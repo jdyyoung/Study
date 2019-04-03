@@ -1,0 +1,6 @@
+connmanctl scan wifi
+connmanctl services
+connmanctl connect
+connmanctl disconnect
+connmanctl exit
+connmanctl state

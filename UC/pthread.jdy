@@ -1,0 +1,15 @@
+Linux下C的线程同步机制 - 0giant - 博客园
+https://www.cnblogs.com/LUO77/p/5754633.html
+
+简单Linux C线程池 - venow - 博客园
+https://www.cnblogs.com/venow/archive/2012/11/22/2779667.html
+
+Linux 线程挂起与唤醒功能 实例 - 吴英强的技术博客 - CSDN博客
+https://blog.csdn.net/waldmer/article/details/23422943
+
+
+//信号量：
+pthread_create()
+pthread_self()
+pthread_join()
+pthread_detach()

@@ -1,0 +1,5 @@
+head命令_Linux head 命令用法详解：在屏幕上显示指定文件的开头若干行
+http://man.linuxde.net/head
+
+-n<数字>：指定显示头部内容的行数；
+CURRENT_WIFI_INFO=`connmanctl services | head -1 | awk '{print $2}'`

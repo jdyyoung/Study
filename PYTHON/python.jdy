@@ -1,1 +1,23 @@
+Python3 教程 | 菜鸟教程
 http://www.runoob.com/python3/python3-tutorial.html
+
+//---------------------20181109--------------------------------
+python2 与 python3 如何实现共存 - 听风寻雨 - 博客园
+http://www.cnblogs.com/youaremylife/p/9299667.html
+
+linux-Centos7安装python3并与python2共存 - 归来似少年 - 博客园
+https://www.cnblogs.com/blogjun/articles/8063989.html
+
+在Ubuntu16.04中设置默认Python3.5的命令 - sinat_39886323的博客 - CSDN博客
+https://blog.csdn.net/sinat_39886323/article/details/78288997
+
+Ubuntu16.04 默认安装python2.7和python3.5
+设置默认Python3.5的命令：
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 100
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 150
+如果要切换到Python2，执行：
+sudo update-alternatives --config python
+
+
+
+

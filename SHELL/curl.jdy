@@ -1,0 +1,7 @@
+ curl命令_Linux curl 命令用法详解：利用URL规则在命令行下工作的文件传输工具
+http://man.linuxde.net/curl
+
+
+ DATA=`curl -I -s www.amazon.cn | grep "Date" > /tmp/ntp.txt`
+ -I/--head	只显示请求头信息
+ -s/--silent	静默模式。不输出任何东西

@@ -1,0 +1,7 @@
+wc命令_Linux wc 命令用法详解：统计文件的字节数、字数、行数
+http://man.linuxde.net/wc
+
+Word Count
+
+count=`ps -ef |grep $1 |grep -v "grep" |wc -l`
+-l或——lines：只显示列数；

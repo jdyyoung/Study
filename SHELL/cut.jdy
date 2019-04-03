@@ -1,0 +1,7 @@
+cut命令_Linux cut 命令用法详解：连接文件并打印到标准输出设备上
+http://man.linuxde.net/cut
+
+MACID=`ifconfig wlan0 | grep HWaddr | tr -s ' ' | cut -d' ' -f5 | tr -d : | cut -c5-12 | tr A-Z a-z`
+-d：指定字段的分隔符，默认的字段分隔符为“TAB”
+-f：显示指定字段的内容
+-c：仅显示行中指定范围的字符；

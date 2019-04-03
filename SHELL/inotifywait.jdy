@@ -1,0 +1,17 @@
+linux inotifywait - CSDN博客
+https://blog.csdn.net/fybon/article/details/68924797
+
+//inotifywait -m -e create,modify,delete $INFO_DIR --exclude $EXCLUDE_INFO_DIR --format "%w%f"
+-m, –monitor
+接收到一个事情而不退出，无限期地执行。默认的行为是接收到一个事情后立即退出。
+-e , –event 
+指定监视的事件。//create,modify,delete
+–exclude 
+正则匹配需要排除的文件，大小写敏感。
+–format 
+指定输出格式。
+%w 表示发生事件的目录
+%f 表示发生事件的文件
+%e 表示发生的事件
+%Xe 事件以“X”分隔
+%T 使用由–timefmt定义的时间格式

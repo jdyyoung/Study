@@ -1,0 +1,5 @@
+ TMP=`connmanctl services | grep -w "$1" | awk '{print $1}'`
+ -w 只显示全字符合的列。
+ 
+ count=`ps -ef |grep $1 |grep -v "grep" |wc -l`
+ -v 反转查找。

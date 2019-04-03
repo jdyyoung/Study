@@ -114,6 +114,25 @@ ss=`killall -0 wpa_supplicant > /dev/zero 2>&1 ; echo $?`
 用killall -0监控服务的注意事项 - CSDN博客
 http://blog.csdn.net/wjj547670933/article/details/44535761
 
+===================2018-05-26======================
+start-stop-daemon
+linux中守护进程启停工具start-stop-daemon - YatHo - 博客园
+https://www.cnblogs.com/YatHo/p/7682676.html
+
+
+linux deamon中常使用的pid file-osama123-ChinaUnix博客
+http://blog.chinaunix.net/uid-12072359-id-2960900.html
+
+ linux中一些deamon程序，由于一般只运行一个，因此就只有一个唯一的pid，
+ 因此为了其他程序方便知道该deamon的pid，就自建了一个pid file，
+ 一般是/var/run/deamon_name.pid，比如syslogd就是/var/run/syslogd.pid.
+ 这个文件的内容就是这个deamon的pid.
+==================================================
+inotyfywait   inotyfywatch
+
+inotifywait命令 - 马丁传奇 - 博客园
+https://www.cnblogs.com/martinzhang/p/4126907.html
+
 
 
 

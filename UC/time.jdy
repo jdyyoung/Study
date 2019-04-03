@@ -1,0 +1,23 @@
+C 标准库 – <time.h> | 菜鸟教程
+http://www.runoob.com/cprogramming/c-standard-library-time-h.html
+
+
+linux几种时间函数总结 - z572089387 - 博客园
+https://www.cnblogs.com/wenqiang/p/5678451.html
+
+struct timespec 和 struct timeval - 光标 - 博客园
+http://www.cnblogs.com/book-gary/p/3716790.html
+
+涉及的结构体和函数：
+ asctime,  ctime, gmtime, localtime, gettimeofday ，
+mktime, asctime_r, ctime_r, gmtime_r, localtime_r
+
+数据类型：
+time_t
+struct timespec
+struct timeval
+
+函数：
+time_t time(time_t* timer),localtime,gmtime,asctime,ctime
+int clock_gettime()
+int gettimeofday(struct timeval *val,struct timezone *tz);
