@@ -80,5 +80,16 @@ http://blog.csdn.net/myarrow/article/details/12105973
 
 查看/dev/input/eventX是什么类型的事件， cat /proc/bus/input/devices
 
+//----------------------------20190405-------------------------------------------------------
+linux中多线程操作，互斥锁，条件锁 - wangqing_12345的博客 - CSDN博客 - https://blog.csdn.net/wangqing_12345/article/details/68490842
+
+Linux多线程之互斥锁 - MakerCloud的博客 - CSDN博客 - https://blog.csdn.net/makercloud/article/details/80230559
+
+Linux多线程的使用一：互斥锁 - Leon08 - 博客园 - https://www.cnblogs.com/leon08/p/4084077.html
+
+pthread_mutex_trylock - xiaohendsc的专栏 - CSDN博客 - https://blog.csdn.net/xiaohendsc/article/details/9305785
+
+
+
 
 
