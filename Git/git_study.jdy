@@ -207,3 +207,7 @@ gitee	git@gitee.com:jdyyoung/Study.git (push)
 github	git@github.com:jdyyoung/Study.git (fetch)
 github	git@github.com:jdyyoung/Study.git (push)
 young@young-desktop:~/Study/PYTHON$
+
+
+git 查看配置：git config --list
+GIT-查看config配置信息 - Merray - 博客园 - https://www.cnblogs.com/merray/p/6006411.html
