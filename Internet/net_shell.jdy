@@ -1,0 +1,15 @@
+//20190415-----------------------------------------------------
+nslookup:name server lookup
+nslookup用于查询DNS(domain name system)的记录，查询域名解析是否正常，在网络故障时用来诊断网络问题
+NSlookup最详细图文讲解 - 百度文库 - https://wenku.baidu.com/view/683ae1347cd184254b353562.html
+
+
+netstat:
+netstat -rn
+
+//20190420-----------------------------------------------------
+netperf
+netperf是一个基于client-server模式的网络测试工具，可以测量TCP和UDP传输的吞吐量、时延、CPU占用率等性能参数。
+netperf使用-社区博客-网易云 - https://sq.163yun.com/blog/article/190965728772210688
+
+Zynq-Linux移植学习笔记之六-netperf网络测试 - 无知的我 - CSDN博客 - https://blog.csdn.net/zhaoxinfan/article/details/55048567

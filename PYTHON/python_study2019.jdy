@@ -256,11 +256,140 @@ Python 动态语言：根据类创建的实例可以任意绑定属性
 		pdb.set_trace() //设置进入pdb调试环境的断点
 		
 	
+//-------------------------------20190418-------------------------------------------------
+进程与线程
+	多进程：
+	multiprocessing模块：Process类，start()方法，join()方法
+	
+	进程池：Pool类
+	
+	子进程：subprocess类，call(),communicate()
+	//可用来执行shell命令
+	
+	进程间通信
+	multiprocessing模块的Queue，Pipes类
+	
+	多线程：
+	threading模块，Thread实例，start(),join()
+	current_thread()
+	
+	Lock:threading.Lock(),.acquire(),.release()
+	try...finally确保锁一定会被释放
+
+//-------------------------------20190421-------------------------------------------------
+ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题
+
+//-------------------------------20190423------------------------------------------------
+生成器：
+	列表元素可以按照某种算法推算出来
+	一边循环一边计算的机制
+	generator保存的是算法
+	generator是可迭代对象
+	计算到最后一个元素，没有更多的元素时，抛出StopIteration的错误
 	
 	
+	方法1：
+	列表生成式[]改成()
+	
+	方法2：
+	关键字：yield
+	print(b) 变成 以yield b
+	generator的函数：特殊之处：遇yield返回，下次又从yield开始
+	
+IO编程：
+	文件读写：
+		文件不存在，IOError
+		with ... as:自动调用close()
+		
+		读文件：‘r’,‘rb’
+			read():一次性读
+			read(size)
+			readlines()//常用读配置文件
+		
+			file-like Object:
+				有read()方法的对象，字节流，网络流，自定义流
+				StringIO:内存中创建的file-like Object,临时缓冲
+		
+			二进制文件：
+				默认UTF-8编码的文本文件;
+				读取二进制文件，图片，视频等：rb
+			
+			字符编码：encoding参数 errors参数
+			UnicodeDecodeError
+			
+		写文件：‘w’，‘wb’，‘a’
+		
+	
+	StringIO和ByteIO:
+		from io import StringIO
+		getvalue()
+		strip()
+		
+		from io import ByteIO
+		
+//-------------------------------20190424------------------------------------------------
+	操作文件和目录：
+		os模块
+		os.name
+		os.uname
+		os.environ os.environ.get('PATH')
+		
+		os.path.abspath()
+		os.path.join() //两个路径合成一个
+		os.mkdir()
+		os.rmdir()
+		os.path.split()
+		os.path.splitext()
+		os.rename()
+		os.remove()
+		os.listdir()
+		os.path.isdir()
+		os.path.isfile()
+		
+		shutil模块
+		copyfile() //复制文件
+		
+	序列化：
+		把变量从内存中变成可存储或传输的过程
+		pickling serialization marshalling flattening
+		
+		unpickling:反序列化
+		
+		pickle模块
+		pickle.dumps():把任意对象序列化成一个bytes
+		pickle.dump()：直接把对象序列化后写入file-like Object
+		
+		pickle.loads()
+		pickle.load()
+		
+		
+		
+		JSON:
+		https://docs.python.org/3/library/json.html#json.dumps
+		import json
+		
+		Python对象 => JSON
+		json.dumps()
+		json.dump()
+		
+		JSON => Python对象
+		json.loads()
+		json.loas()
+		
+		JSON进阶
+		
+	
+	
+	
+	
+	
 
-
-
+	
+	
+	
+	
+	
+	
 
 
 

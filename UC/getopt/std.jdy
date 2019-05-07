@@ -1,0 +1,13 @@
+getopt函数 - water-moon - 博客园 - https://www.cnblogs.com/water-moon/p/5983139.html
+
+getopt_long 函数 - water-moon - 博客园 - https://www.cnblogs.com/water-moon/p/5984108.html
+
+C语言学习随笔记之EOF用法 - lanyangyang666的博客 - CSDN博客 - https://blog.csdn.net/lanyangyang666/article/details/52995602
+
+EOF：stdin 结束符
+
+getopt不加“-”，不会被识别成非法选项，不会返回“?”
+1.不加参数
+2.必须加参数
+3.可加可不加参数
+

@@ -13,3 +13,32 @@ pthread_create()
 pthread_self()
 pthread_join()
 pthread_detach()
+
+//---------------------------2019-04-07-------------------------------------------
+void pthread_cleanup_push(void(*rtn)(void*), void *arg);
+void pthread_cleanup_pop(int execute); //调用删除上次push的清理程序
+int pthread_cancel(pthread_t tid);
+int pthread_kill(pthread_t thread, int sig);
+
+在linux操作系统中可以使用ps -eLf命令来查看线程信息
+
+
+Linux编程——终止线程的正常方式及取消点 - 落尘纷扰的专栏 - CSDN博客 - https://blog.csdn.net/jasonchen_gbd/article/details/78674716
+
+Linux 多线程环境下 进程线程终止函数小结 - as_ - 博客园 - https://www.cnblogs.com/biyeymyhjob/archive/2012/10/11/2720377.html
+
+Linux线程基础函数 - 某精神病 - 博客园 - https://www.cnblogs.com/wanpengcoder/p/5331010.html
+
+//------------------------------2019-04-12------------------------------------
+pthread_cancel,pthread_killall 段错误 - wwliu的个人页面 - 开源中国 - https://my.oschina.net/lwwklys/blog/79013?p={{currentPage-1}}
+
+Linux多线程编程时如何查看一个进程中的某个线程是否存活 - fei的专栏 - CSDN博客 - https://blog.csdn.net/weiyuefei/article/details/54092268
+
+pthread_kill引发的争论 - 简书 - https://www.jianshu.com/p/756240e837dd
+
+Linux查看某个进程的线程 - EasonJim - 博客园 - https://www.cnblogs.com/EasonJim/p/8098217.html
+ps -eL //查看线程
+
+
+
+
