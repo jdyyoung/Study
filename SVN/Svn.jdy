@@ -1,0 +1,14 @@
+20190520:
+版本管理工具 —— SVN - bojiangzhou - 博客园 - https://www.cnblogs.com/chiangchou/p/svn.html#_label1
+
+//对比git学习
+C:\Windows\System32\drivers\etc\host
+
+SVN Checkout:检出项目
+对比服务器与本地当前版本区别
+
+添加：add
+提交文件:SVN commit
+更新项目：SVN update
+
+解决冲突

@@ -1,0 +1,141 @@
+shell中，awk命令的$0是什么意思？_百度知道 - https://zhidao.baidu.com/question/283824948.html
+awk 替换指定列的空格 - zhaoyangjian724的专栏 - CSDN博客 - https://blog.csdn.net/zhaoyangjian724/article/details/81165954
+shell脚本，用awk实现替换文件里面的内容。 - 王月波 - 博客园 - https://www.cnblogs.com/wangyuebo/p/5925311.html
+
+awk '{if($0 ~ /^volume/)print "volume = 3"; else print $0;}' /etc/jffs2/anyka_cfg.ini
+awk '{if($0 ~ /^volume/)print "volume = 3"; else print $0;}' /etc/jffs2/anyka_cfg.ini  > /etc/jffs2/anyka_cfg.ini
+awk '{if($0 ~ /^volume/)print "volume = 3"; else print $0;}' $cfgfile  > $cfgfile
+awk '{if($1 ~ "^volume")print "volume = 9"; else print $0;}' /etc/jffs2/anyka_cfg.ini
+grep  -n  "xxx"   str.txt  | cut  -d  ":"  -f  1
+sed -i '10s/[0-9]/3/g' /etc/jffs2/anyka_cfg.ini 
+
+
+//=================================20190613===========================================
+NET_ID=`wpa_cli -iwlan0 list_network| awk 'NR>=2{print $1}'` //NET_ID = 0,第二行打印第一个字段
+
+[root@anyka ~]$ wpa_cli -iwlan0 list_network
+network id / ssid / bssid / flags
+0       TP-LINK_F1D3    any     [CURRENT]
+[root@anyka ~]$ 
+
+awk 的NR>=2
+
+ipaddress=`awk 'BEGIN {FS="="}/\[ethernet\]/{a=1} a==1 &&
+		$1~/^ipaddr/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);
+		gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+	netmask=`awk 'BEGIN {FS="="}/\[ethernet\]/{a=1} a==1 && 
+		$1~/^netmask/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);
+		gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+	gateway=`awk 'BEGIN {FS="="}/\[ethernet\]/{a=1} a==1 && 
+		$1~/^gateway/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);
+		gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+		
+ssid=`awk 'BEGIN {FS="="}/\[wireless\]/{a=1} a==1 && $1~/^ssid/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+ReadINI=`awk -F '=' '/\['$SECTION'\]/{a=1}a==1&&$1~/'$ITEM'/{print $2;exit}' $INIFILE_百度知道 - https://zhidao.baidu.com/question/988631753131448659.html
+###  /\[wireless\]/{a=1} a==1  出现"[wireless]" 以后的行
+
+		password=`awk 'BEGIN {FS="="}/\[wireless\]/{a=1} a==1 && 
+			$1~/^password/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);
+			gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+		security=`awk 'BEGIN {FS="="}/\[wireless\]/{a=1} a==1 &&
+			$1~/^security/{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);
+			gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+			
+ssid=`awk 'BEGIN {FS="="}/\[wireless\]/{a=1} a==1 && $1~/^ssid/{gsub(/\"/,"",$2);
+	gsub(/\;.*/, "", $2);gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+
+is_first_startup=`awk 'BEGIN {FS="="}/\[global\]/{a=1} a==1 && $1~/^is_first_startup/{gsub(/\"/,"",$2);
+	gsub(/\;.*/, "", $2);gsub(/^[[:blank:]]*/,"",$2);print $2}' $cfgfile`
+
+ssid=`awk -F '=' '/^ssid=/{print $2}' "/tmp/wifi_info"`
+password=`awk -F '=' '/^pswd=/{print $2}' "/tmp/wifi_info"`
+security=`awk -F '=' '/^sec=/{print $2}' "/tmp/wifi_info"`
+
+//=================================20190615===========================================
+详解 awk 工具的使用方法（转载） - Allan_shore_ma的博客 - CSDN博客 - https://blog.csdn.net/Allan_shore_ma/article/details/72453740
+awk 命令的基本格式
+	awk [options] 'program' file
+	options:一些可选的参数选项
+	program:可执行脚本代码,可执行脚本代码使用单引号括起来，紧接着里面是一对花括号
+	file:需要处理的文件，注意是纯文本文件!!!
+	
+	$0 表示当前行
+	awk '{print $0}' /etc/passwd  //依次将 /etc/passwd 文件的每一行内容打印输出,类似cat
+	
+	默认的分割符为空格和制表符，使用 -F 参数来指定分隔符
+	//将/etc/passwd 文件中的每一行用冒号 : 分割成多个字段，然后用 print 将第 1 列字段的内容打印输出
+	awk -F ':' '{print $1}' /etc/passwd
+	
+	在awk中同时指定多个分隔符:-F 参数中使用一对方括号来指定多个分隔符
+	//awk 处理 some.log 文件时就会使用 "(" 和 ")" 来对文件的每一行进行分割。
+	awk -F '[()]' '{print $1, $2, $3}' some.log
+	
+	awk 内置变量的使用wc
+	$0 这个表示文本处理时的当前行
+	$1 表示文本行被分隔后的第 1 个字段列
+	$2 表示文本行被分割后的第 2 个字段列
+	$3 表示文本行被分割后的第 3 个字段列
+	$n 表示文本行被分割后的第 n 个字段列
+	NR 表示文件中的行号，表示当前是第几行
+	NF 表示文件中的当前行列的个数，类似于 mysql 数据表里面每一条记录有多少个字段
+	FS 表示 awk 的输入分隔符，默认分隔符为空格和制表符，你可以对其进行自定义设置
+	OFS 表示 awk 的输出分隔符，默认为空格，你也可以对其进行自定义设置
+	FILENAME 表示当前文件的文件名称，如果同时处理多个文件，它也表示当前文件名称
+	
+	BEGIN 关键字的使用：
+	在脚本代码段前面使用 BEGIN 关键字时，它会在开始读取一个文件之前，运行一次 BEGIN 关键字后面的脚本代码段，
+	BEGIN 后面的脚本代码段只会执行一次，执行完之后 awk 程序就会退出
+	awk 脚本中可以用多个花括号来执行多个脚本代码：
+	awk 'BEGIN {print "Start read file"} {print $0}' /etc/passwd
+	
+	END 关键字使用:
+	在 awk 读取并且处理完文件的所有内容行之后，才会执行 END 后面的脚本代码段
+	awk 'BEGIN {print "Start read file"} {print $0} END {print "End file"}' /etc/passwd
+	
+	awk '{msg="hello world"; print msg}' /etc/passwd
+	$ awk 'BEGIN {msg="hello world"} {print msg}' /etc/passwd
+	
+	awk 是针对文件的每一行来执行一次单引号里面的脚本代码，每读取到一行就会执行一次，文件里面有多少行就会执行多少次，
+	但 BEGIN 和 END 关键字后面的脚本代码除外，如果被处理的文件中什么都没有，那 awk 就一次都不会执行。。。
+	
+	~匹配正则表达式
+	!~不匹配正则表达式
+	
+	正则表达式中 .* 与 .*? 的区别 - 高玉龙的博客 - CSDN博客 - https://blog.csdn.net/gao_yu_long/article/details/80383625
+	{gsub(/\"/,"",$2);gsub(/\;.*/, "", $2);gsub(/^[[:blank:]]*/,"",$2);print $2}
+	gsub函数则使得在所有正则表达式被匹配的时候都发生替换
+	gsub(regular expression, subsitution string, target string);简称 gsub（r,s,t)
+	gsub(/\;.*/, "", $2)  把$2段“;”贪婪匹配任意字符替换成空字符串
+	gsub(/^[[:blank:]]*/,"",$2) 把$2段任意多空格开头替换成空字符串，也就是去掉$2开头的空格
+//=================================20190616===========================================	
+正则表达式：
+	1)正则表达式的匹配字符串/str/
+	2)正则表达式中 ^ 表示以某某字符或者字符串开头
+	3)正则表达式中 $ 表示以某某字符或者字符串结尾
+	4)正则表达式方括号中表示匹配里面的任意单个字符
+		正则表达式 /^Th[ie]/表示匹配以字符串 "Thi" 或者 "The" 开头的行
+		正则表达式方括号中表示匹配其中的任意单个字符
+		正则表达式/s[a-z]/表示匹配包含字符s然后后面跟着任意a到z之间的单个字符的字符串
+		[a-zA-Z]表示匹配小写的a到z之间的单个字符，或者大写的A到Z之间的单个字符
+		[^a-z]符号`^`在方括号里面表示取反，也就是非的意思，表示匹配任何非a到z之间的单个字符
+		
+	5)正则表达式中的星号 * ,加号 + 问号 ？ 的使用方法
+		*出现 0 次或者多次
+		+出现 1 次或者多次
+		?出现 0 次或者1次
+		
+	6)正则表达式中的 {} 花括号用法	
+		花括号 {} 表示规定它前面的字符必须出现的次数
+		/go{2}d/ 就表示只匹配字符串 "good"，也就是中间的字母 "o"必须要出现 2 次
+		/go{2,3}d/    表示字母 "o" 只能可以出现 2 次或者 3 次
+		/go{2,10}d/   表示字母 "o" 只能可以出现 2次，3次，4次，5次，6次 ... 一直到 10 次
+		/go{2,}d/     表示字母 "o" 必须至少出现 2 次或着 2 次以上
+		
+	7)正则表达式中的圆括号的用法
+		正则表达式中的圆括号表示将多个字符当成一个完整的对象来看待
+		/th(in){1}king/ 就表示其中字符串 "in" 必须出现 1 次
+		
+		
+		
+		
+		

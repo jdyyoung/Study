@@ -79,3 +79,10 @@ http://blog.csdn.net/flfihpv259/article/details/52149328
  30 //#define SERIAL_DEVFILE_NAME   "/dev/ttySAC1"
  31 #define SERIAL_DEVFILE_NAME     "/dev/s3c2410_serial1"
 
+ //----------------------------------------2019----------------------------------------------
+ UART协议详解 - zjy900507的博客 - CSDN博客 - https://blog.csdn.net/zjy900507/article/details/79789671
+ 
+ //---------------------------------------2019-06-05------------------------------------------
+linux 串口接收不到0x11, 0x0d, 0x13 - vipchenvip的博客 - CSDN博客 - https://blog.csdn.net/vipchenvip/article/details/80744948
+
+Linux下串口編程遇到的接收数据错误及原因（0x0d,0x11接收错误） - moon-zhu - 博客园 - https://www.cnblogs.com/zgq0/p/8078505.html
