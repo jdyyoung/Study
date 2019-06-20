@@ -93,3 +93,8 @@ Android wpa_supplicant源码分析--conf配置文件 - cuijiyue的专栏 - CSDN博客 - https
 wpa_cli与wpa_supplicant的交互命令 - weixin_33918114的博客 - CSDN博客 - https://blog.csdn.net/weixin_33918114/article/details/85740171
 
 wpa_supplicant 常用操作 - weixin_38503885的博客 - CSDN博客 - https://blog.csdn.net/weixin_38503885/article/details/83116977
+
+//===================================2019-06-18==============================================
+wpa_supplicant 常用操作 - 程序手艺人 - 有趣有能量 - CSDN博客 - https://blog.csdn.net/z2066411585/article/details/78761753
+/usr/sbin/wpa_supplicant -iwlan0 -Dnl80211 -c/etc/wpa_supplicant.conf -B
+

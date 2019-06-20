@@ -382,7 +382,14 @@ https://www.cnblogs.com/meitian/p/5134797.html
 
 http://blog.csdn.net/zhangjikuan/article/details/51105166
 
-
+//==========================20180619================================================================
+shell中变量自增的实现方法 - cbwcwy - 博客园 - https://www.cnblogs.com/iloveyoucc/archive/2012/07/11/2585559.html
+整型变量自增的方法,在bash中，目前有五种方法：
+1. i=`expr $i + 1`;
+2. let i+=1;
+3. ((i++));
+4. i=$[$i+1];
+5. i=$(( $i + 1 ))
 
 
 
