@@ -1,0 +1,13 @@
+Linux一句命令之判断是否连上互联网 - Qt君的博客 - CSDN博客 - https://blog.csdn.net/nicai_xiaoqinxi/article/details/85881655
+
+使用C语言 判断当前网络是否联通 - 天赐良恩 - 博客园 - https://www.cnblogs.com/tianciliangen/p/3449575.html
+
+C语言socket判断网络是否联通(支持域名/附源码) - jk110333的专栏 - CSDN博客 - https://blog.csdn.net/jk110333/article/details/8628554
+
+判断互联网和路由器的连接是否畅通 - c112056a的博客 - CSDN博客 - https://blog.csdn.net/c112056a/article/details/80499706
+
+主要有两种方法如下：
+第一种：对方断开连接的话，那么readNum = recv ( socketId, rcvBuf, rcvBufSize, 0 );
+readNum返回值应该是0，可以根据返回值判断；
+
+第二种：就是做一个心跳检测，定时发送消息，如果发送失败就知道对方不在了。
