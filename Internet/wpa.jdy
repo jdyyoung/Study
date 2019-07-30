@@ -101,3 +101,9 @@ wpa_supplicant 常用操作 - weixin_38503885的博客 - CSDN博客 - https://blog.csdn.n
 wpa_supplicant 常用操作 - 程序手艺人 - 有趣有能量 - CSDN博客 - https://blog.csdn.net/z2066411585/article/details/78761753
 /usr/sbin/wpa_supplicant -iwlan0 -Dnl80211 -c/etc/wpa_supplicant.conf -B
 
+//======================================2019-06-29=============================================
+linux根文件系统 /etc/resolv.conf 文件详解 - 从0开始 - CSDN博客 - https://blog.csdn.net/stpice/article/details/82662033
+
+wpa_supplicant 的配置说明文件 wpa_supplicant.conf 译文 - 综合编程类其他综合 - 红黑联盟 - https://www.2cto.com/kf/201605/510353.html
+
+

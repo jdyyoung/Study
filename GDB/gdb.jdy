@@ -1,0 +1,5 @@
+在Linux上利用core dump和GDB调试segfault - http://baijiahao.baidu.com/s?id=1599347824327158577&wfr=spider&for=pc
+
+ulimit -c 1024
+
+sysctl -w kernel.core_pattern=/tmp/core-%e.%p.%h.%t

@@ -1,19 +1,39 @@
-1.下载的网址：http://www.opus-codec.org/downloads/
-2.解压
-3.打开opus-1.2.1里面的README(按照里面的步骤进行编译)，针对ubuntu64详细步骤如下：
-（1）sudo apt-get install git autoconf automake libtool gcc make
-（2）sudo apt-get install git autoconf automake libtool gcc make
-（3）cd opus
-（4）./autogen.sh
-（5）./configure
-（6）Make
-以上步骤是完成编译
-生成压缩文件的指令
-./opus_demo -e voip 16000 1 16000 ../tts-16k.pcm  ../b.opus
-opus_demo是可执行文件，
--e voip是固定的
-16000是采样率
- 1 单声道
-16000比特率
-tts-16k.pcm需要压缩的pcm文件
-b.opus 生成的opus文件
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
+
+/*
+ioctl()函数获取本机IP、MAC - gpengtao的专栏 - CSDN博客 - https://blog.csdn.net/gpengtao/article/details/7926403
+ioctl函数详细说明（网络） - evenness的专栏 - CSDN博客 - https://blog.csdn.net/evenness/article/details/7665970
+*/
+ 
+#define DEFAULT_IF			"ens33"
+int main()
+{
+    int sock;
+    int res;
+    struct ifreq ifr;
+ 
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    strcpy(ifr.ifr_name, DEFAULT_IF);
+    res = ioctl(sock, SIOCGIFADDR, &ifr);
+ 
+    printf("IP: %s\n",inet_ntoa(((struct sockaddr_in*)&ifr.ifr_addr)->sin_addr));
+ 
+    strcpy(ifr.ifr_name, DEFAULT_IF);
+    res = ioctl(sock, SIOCGIFHWADDR, &ifr);
+ 
+    int i;
+    char mac[32];
+    for(i = 0; i < 6; ++i)
+    {
+        sprintf(mac + 3*i, "%02x:", (unsigned char)ifr.ifr_hwaddr.sa_data[i]);
+    }
+    printf("MAC: %s\n",mac);
+ 
+    return 0;
+}

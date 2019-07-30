@@ -1,0 +1,47 @@
+struct hostent *host_info
+
+c/c++ 网络编程 getaddrinfo 函数 - 小石王 - 博客园 - https://www.cnblogs.com/xiaoshiwang/p/9763825.html
+
+struct hostent结构体使用 - wynter_的博客 - CSDN博客 - https://blog.csdn.net/wynter_/article/details/52529685
+
+//----------------------------2019-07-18------------------------------------------------------------------
+主机名、服务与地址的映射——getaddrinfo(),getnameinfo(),gai_strerror() - 码农 - CSDN博客 - https://blog.csdn.net/duyiwuer2009/article/details/7875206
+
+域名，ip相互转换（Linux，getaddrinfo, getnameinfo） - ChenQi的个人空间 - OSCHINA - https://my.oschina.net/u/158589/blog/62896
+
+getaddrinfo()函数详解 - fanx021的博客 - CSDN博客 - https://blog.csdn.net/fanx021/article/details/80549945
+
+getaddrinfo_百度百科 - https://baike.baidu.com/item/getaddrinfo/9021771?fr=aladdin
+
+c/c++ 网络编程 getaddrinfo 函数 - 小石王 - 博客园 - https://www.cnblogs.com/xiaoshiwang/p/9763825.html
+c/c++ 网络编程 getaddrinfo 函数 - 小石王 - 博客园 - https://www.cnblogs.com/xiaoshiwang/p/9763825.html
+
+网络编程学习笔记(freeaddrinfo函数) - 多看多听多总结 - CSDN博客 - https://blog.csdn.net/xiexingshishu/article/details/39968719
+
+getaddrinfo, getnameinfo(替代gethostbyname, gethostbyaddr), gethostname - 安子自语 - CSDN博客 - https://blog.csdn.net/an_zhenwei/article/details/8591729
+
+connect()_百度百科 - https://baike.baidu.com/item/connect%28%29/10081861?fr=aladdin
+
+struct sockaddr定义及延伸 - 刘松华-林散 - CSDN博客 - https://blog.csdn.net/qinglinsan/article/details/51419548
+
+struct hostent结构体使用 - wynter_的博客 - CSDN博客 - https://blog.csdn.net/wynter_/article/details/52529685
+
+struct in_addr 结构体 - 青儿哥哥 - 博客园 - https://www.cnblogs.com/qingergege/p/6163721.html?utm_source=itdadao&utm_medium=referral
+
+sockaddr和sockaddr_in详解 - 爱橙子的OK绷的专栏 - CSDN博客 - https://blog.csdn.net/will130/article/details/53326740/
+
+//---------------------------------------------2019-07-23--------------------------------------------------------------
+getaddrinfo()函数详解 - hapus - 博客园 - https://www.cnblogs.com/cxz2009/archive/2010/11/19/1881693.html
+addrinfo结构体原型 - hapus - 博客园 - https://www.cnblogs.com/cxz2009/archive/2010/11/19/1881661.html
+
+getaddrinfo详解 - Boblim - 博客园 - https://www.cnblogs.com/fnlingnzb-learner/p/7542770.html
+
+//---------------------------------------------2019-07-25--------------------------------------------------------------
+c++面试题（网络通信篇） - 周春岳的程序人生 - CSDN博客 - https://blog.csdn.net/zhouchunyue/article/details/79271908
+linux下socket connect 阻塞方式 阻塞时间控制（转） - - ITeye博客 - https://igaozh.iteye.com/blog/1675085
+
+Linux信号掩码和信号处理函数天使羊波波闪耀光芒 | 天使羊波波闪耀光芒 - http://www.live-in.org/archives/2237.html
+
+connect()函数阻塞和非阻塞问题解决 - xiaofei0859的专栏 - CSDN博客 - https://blog.csdn.net/xiaofei0859/article/details/77141575
+
+TCP网络编程中connect()、listen()和accept()三者之间的关系 ( 非常重要！！） - EminentBoy的博客 - CSDN博客 - https://blog.csdn.net/qq_20398345/article/details/81132207

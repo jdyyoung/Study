@@ -27,3 +27,10 @@ fgets();
 C语言文件操作之fgets（） - CSDN博客
 https://blog.csdn.net/daiyutage/article/details/8540932
 
+//===================20190629===================================
+C 标准库 – <ctype.h> | 菜鸟教程 - https://www.runoob.com/cprogramming/c-standard-library-ctype-h.html
+C 标准库的 ctype.h 头文件提供了一些函数，可用于测试和映射字符。
+isdigit()
+
+
+

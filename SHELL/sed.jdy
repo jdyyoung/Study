@@ -33,3 +33,12 @@ sed 's/[ \t]*$//g'
 
 3.
 
+//==========================20190629=====================================
+Linux sed 命令 | 菜鸟教程 - https://www.runoob.com/linux/linux-comm-sed.html
+多点编辑
+一条sed命令，删除/etc/passwd第三行到末尾的数据，并把bash替换为blueshell
+
+nl /etc/passwd | sed -e '3,$d' -e 's/bash/blueshell/'
+1  root:x:0:0:root:/root:/bin/blueshell
+2  daemon:x:1:1:daemon:/usr/sbin:/bin/sh
+-e表示多点编辑，第一个编辑命令删除/etc/passwd第三行到末尾的数据，第二条命令搜索bash替换为blueshell。

@@ -16,6 +16,76 @@
 #include <netdb.h>
 #include <setjmp.h>
 
+#if 0
+linux c 实现网络状态检测 - zdg_c的博客 - CSDN博客 - https://blog.csdn.net/zdg_c/article/details/80594095
+int net_check()
+{
+
+	int net_fd;
+	char statue[20] = {0};
+
+	/*
+	operstate 当前网络状态。                
+	IF_OPER_UNKNOWN,  未知
+	IF_OPER_NOTPRESENT,网卡不存在 
+	IF_OPER_DOWN,      断线 
+	IF_OPER_LOWERLAYERDOWN, 我不知道
+	IF_OPER_TESTING,   测试 
+	IF_OPER_DORMANT,休眠
+	IF_OPER_UP, 在线
+	*/
+	net_fd = open("/sys/class/net/wlan0/operstate", O_RDONLY); //以只读的方式打开/sys/class/net/wlan0/operstate
+	if (net_fd < 0)
+	{
+		pr("open err\n");
+		return -1;
+	}
+
+	//pr("open success\n");
+	//memset(statue,0,sizeof(statue));
+	read(net_fd, statue, 10);
+	//pr("statue is %s",statue);
+	if (NULL != strstr(statue, "up"))
+	{
+		//pr("on line\n");
+		close(net_fd);
+		return 0;
+	}
+	else if (NULL != strstr(statue, "down"))
+	{
+		pr("off line\n");
+		close(net_fd);
+		return -1;
+	}
+	else
+	{
+		pr("unknown err\n");
+		close(net_fd);
+		return -1;
+	}
+}
+
+int net_check(){
+	int net_fd;
+	char statue[20] = {0};
+
+	net_fd = open("/sys/class/net/wlan0/wireless/link", O_RDONLY);
+	if (net_fd < 0)
+	{
+		pr("open err\n");
+		return -1;
+	}
+	if(read(net_fd, statue, 10) < 0){
+		pr("read err\n");
+		close(net_fd);
+		return -1;
+	}
+	pr("statue is %s",statue);
+	close(net_fd);
+	return atoi(statue);
+}
+#endif
+
 //#define NET_PORT 53
 //#define NET_IP "8.8.8.8" //谷歌DNS
 #define NET_PORT 80
