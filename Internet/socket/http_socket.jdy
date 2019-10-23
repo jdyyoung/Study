@@ -1,0 +1,40 @@
+sock_get_server_info(asr_params->asr_server_url, &http_buffer->domain, &http_buffer->port, &http_buffer->params)；
+http_buffer->sock = sock_connect(http_buffer->domain, http_buffer->port);
+sock_set_nonblocking(http_buffer->sock);
+
+//失败再重新操作一次
+
+do
+	{
+		send_count++;
+		uint64_t send_costtime1 = get_time_of_day();
+		ret = sock_writen_with_timeout(
+			http_buffer->sock, http_buffer->http_request + send_len, http_buffer->http_request_len - send_len, asr_params->http_send_timeout);
+		uint64_t send_costtime2 = get_time_of_day();
+		send_len += ret;
+		if (send_len != http_buffer->http_request_len)
+		{
+			sock_err = sock_get_errno(http_buffer->sock);
+			
+			DEBUG_LOGE(TAG_LOG, "dcl_asr_audio_write_packet index[%d], len[%d], send_len[%d], cost[%llums], sock_err[%d]", 
+				http_buffer->index, 
+				http_buffer->http_request_len, 
+				send_len, 
+				send_costtime2 - send_costtime1,
+				sock_err);
+			
+			if (sock_err == 104)
+			{
+				break;
+			}
+		}
+	}while(send_count < 2);
+
+	if (send_len == http_buffer->http_request_len)
+	{
+		return DCL_ERROR_CODE_OK;
+	}
+	else
+	{
+		return DCL_ERROR_CODE_NETWORK_UNAVAILABLE;
+	}

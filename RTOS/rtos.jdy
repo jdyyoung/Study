@@ -1,0 +1,93 @@
+AliOS-Things--linkkitapp （5）看源码笔记 - 似水流年 - CSDN博客 - https://blog.csdn.net/qq_28877125/article/details/82939645
+
+int aos_register_event_filter(uint16_t type, aos_event_cb cb, void *priv)，当type的事件发生时调用运行cb回调函数，其中第三个参数是传递给回调函数的参数；
+事件类型下有具体的各种事件类型值的宏定义，请参看yloop.h
+
+AliOS Things异步事件框架Yloop - zhoushuntian的博客 - CSDN博客 - https://blog.csdn.net/zhoushuntian/article/details/78852247
+
+AliOS Things VFS分析设计 - VICTORY2017的博客 - CSDN博客 - https://blog.csdn.net/VICTORY2017/article/details/83037694
+
+LWIP模块详细分析 - 百度文库 - https://wenku.baidu.com/view/5826427cfc4ffe473368abb4.html
+
+//----------------------------------------------2019-09-23----------------------------------------------------------------------------------------
+xTaskCreateStatic
+FreeRTOS 任务调度 任务创建 - 简书 - https://www.jianshu.com/p/b23222cd6c2a
+
+
+在实模式存储管理方案下，嵌入式系统的内存地址空间布局一般可以分为五个段：代码段（text）、数据段（data）、bss段（bss）、堆（heap）和栈（stack）。
+
+freertos- 任务调度器-vTaskStartScheduler()解析（笔记） - Life_Maze的博客 - CSDN博客 - https://blog.csdn.net/Life_Maze/article/details/84196808
+
+//=============================================================================================================================================================
+aos_loop_init();
+
+fd_console = aos_open("/dev/ttyS2", 0);
+
+aos_cli_init(0);
+aos_poll_read_fd(fd_console, aos_cli_event_cb_read_get(), (void *)0x12345678);
+aos_register_event_filter(EV_CLI, event_cb_event_cli, NULL);
+aos_ioctl(fd_adc, IOCTL_ADC_TRIGGER_ENABLE_LOW_LEVEL, 0);
+aos_post_delayed_action(2000, app_delayed_action_adc_key, (void *)fd_adc);
+aos_poll_read_fd(fd_adc, adc_cb_read, (void *)0x12345678);
+
+int aos_register_event_filter(uint16_t type, aos_event_cb cb, void *priv)，当type的事件发生时调用运行cb回调函数，其中第三个参数是传递给回调函数的参数；
+
+
+//=============================================================================================================================================================
+EasyFlash_百度百科 - https://baike.baidu.com/item/EasyFlash/20221013?fr=aladdin
+
+//==============================================2019-10-10===============================================================================================================
+FreeRTOS 任务调度，优先级？？
+
+对TaskDelay理解
+(1条消息)Freertos中vTaskDelay()是怎么用的 - crjmail的博客 - CSDN博客 - https://blog.csdn.net/crjmail/article/details/80015628
+
+//==============================================2019-10-18===============================================================================================================
+vTaskDelay(10)
+vTaskDelay 任务相对延时_w3cschool - https://www.w3cschool.cn/freertoschm/freertoschm-3dr82u7o.html
+
+函数名 ：xTaskCreate 头文件 ：task.h 函数功能：任务创建 函数声明：
+
+函数名 ：xTaskDelete 头文件 ：task. h 函数功能：任务删除 
+
+函数名 ：vTaskDelay 头文件 ：task. h 函数功能：任务相对延时 函数声明：
+void vTaskDelay( portTickType xTicksToDelay ); //任务进入阻塞状态
+
+函数名 ：vTaskDelayUntil 头文件 ：task.h 函数功能：任务绝对延时
+
+函数名 ：uxTaskPriorityGet 头文件 ：task. h 函数功能：获取某个任务的优先级。
+
+函数名 ：vTaskPrioritySet 头文件 ：task. h 函数功能：设置某个任务的优先级。
+
+函数名 ：vTaskSuspend 头文件 ：task. h 函数功能：挂起某个任务
+
+函数名 ：vTaskResume 头文件 ：task. h 函数功能：恢复挂起的某个任务
+
+函数名 ：vTaskResumeFromISR 头文件 ：task. h 函数功能：从中断处理函数中，恢复挂起的某个任务
+
+//==============================================2019-10-20===============================================================================================================
+(2条消息)【 分类 】- Free RTOS - qq_25370227的博客 - CSDN博客 - https://blog.csdn.net/qq_25370227/article/category/8615119
+
+(2条消息)【 分类 】- FreeRTOS基础篇 - 朱工的专栏（专注/深入/分享） - CSDN博客 - https://blog.csdn.net/zhzht19861011/article/category/9265276
+
+media_ptr->audio_handle = xTaskGetCurrentTaskHandle();//获取当前任务句柄
+(2条消息)FreeRTOS系列第12篇---FreeRTOS任务应用函数 - 朱工的专栏 - CSDN博客 - https://blog.csdn.net/zhzht19861011/article/details/50498173
+FreeRTOS学习笔记——任务壮态或信息查询与任务运行时间统计 | 易学教程 - https://www.e-learn.cn/content/qita/780122
+
+ulTaskNotifyTake(pdTRUE, portMAX_DELAY);//用于实现轻量级的二进制信号量和计数信号量
+(2条消息)FreeRTOS高级篇8---FreeRTOS任务通知分析 - 朱工的专栏 - CSDN博客 - https://blog.csdn.net/zhzht19861011/article/details/51629039
+(2条消息)通知 - 蚂蚁取经 - CSDN博客 - https://blog.csdn.net/zhengyanan815/article/details/54582668
+
+vTaskNotifyGiveFromISR(task_exc->hdr, &xHigherPriorityTaskWoken);
+portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+
+//==============================================2019-10-21===============================================================================================================
+vListInitialise(tips_list);
+xListItem *item = {0};
+vListInitialiseItem(item);
+vListInsertEnd(tips_list, item);
+
+
+
+
+

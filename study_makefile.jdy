@@ -73,3 +73,34 @@ $+：依赖目标的集合，不去重
 $*：模式规则才去用，表示“%”前面部分
 这个变量表示目标模式中"%"及其之前的部分。如果目标是"dir/a.foo.b"，并且目标的模式是"a.%.b"，那么，"$*"的值就是"dir/a.foo"。这个变量对于构造有关联的文件名是比较有较。如果目标中没有模式的定义，那么"$*"也就不能被推导出，但是，如果目标文件的后缀是make所识别的，那么"$*"就是除了后缀的那一部分。例如：如果目标是"foo.c"，因为".c"是make所能识别的后缀名，所以，" $*"的值就是"foo"。这个特性是GNU make的，很有可能不兼容于其它版本的make，所以，你应该尽量避免使用"$*"，除非是在隐含规则或是静态模式中。如果目标中的后缀是make所不能识别的，那么"$*"就是空值。
 
+//--------------------------------------2019-08-28----------------------------------------------
+MakeFile中export的使用 - xiaofeng1234的专栏 - CSDN博客 - https://blog.csdn.net/xiaofeng1234/article/details/38561337
+
+??Makefile origin 函数 - linuxarmsummary的专栏 - CSDN博客 - https://blog.csdn.net/linuxarmsummary/article/details/19111329
+
+//--------------------------------------2019-09-17----------------------------------------------
+Makefile include （makefile的包含用法） | 学步园 - https://www.xuebuyuan.com/1297893.html
+
+聊聊Makefile中的$(addprefix) - runfarther的专栏 - CSDN博客 - https://blog.csdn.net/runfarther/article/details/50039023
+addprefix
+$(addprefix fixstring,string1 string2 ...)
+
+makefile中的patsubst - srw11的专栏 - CSDN博客 - https://blog.csdn.net/srw11/article/details/7516712
+1、wildcard : 扩展通配符
+2、notdir ： 去除路径
+3、patsubst ：替换通配符
+
+makefile之strip函数 - 简书 - https://www.jianshu.com/p/b587652bcb44
+去空格：strip
+
+Makefile的call函数 - AndrewYZWang的博客 - CSDN博客 - https://blog.csdn.net/andrewgithub/article/details/83714626
+call
+
+Makefile 里的 subst 函数 - mrwangwang的专栏 - CSDN博客 - https://blog.csdn.net/mrwangwang/article/details/25738287
+subst
+
+Makefile中foreach使用 - u012554768的专栏 - CSDN博客 - https://blog.csdn.net/u012554768/article/details/46043193/
+foreach
+
+makefile 里的 eval 函数 - brooknew的专栏 - CSDN博客 - https://blog.csdn.net/brooknew/article/details/8452358
+eval

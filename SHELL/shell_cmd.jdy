@@ -133,6 +133,20 @@ inotyfywait   inotyfywatch
 inotifywait命令 - 马丁传奇 - 博客园
 https://www.cnblogs.com/martinzhang/p/4126907.html
 
+//--------------2019-10-19---------------------------------------------------------
+linux 下查看文件个数及大小 - hello-Jesson - 博客园 - https://www.cnblogs.com/hellojesson/p/9456758.html
+du -sh 查看当前文件夹大小
+du -sh * | sort -n 统计当前文件夹(目录)大小，并按文件大小排序
+du -sk filename 查看指定文件大小
+
+doc2unix //linux 去掉文件^M工具
+
+genromfs //生成romfs工具
+ROMFS文件系统分析［二］genromfs参数详解-niutao.linux-ChinaUnix博客 - http://blog.chinaunix.net/uid-20729605-id-1884355.html
+用法：genromfs -f tips.romfs -d share/ -V yc_tips
+
+
+
 
 
 

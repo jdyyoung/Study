@@ -1,0 +1,24 @@
+---------------------------------2019-08-23------------------------------------------------------------
+cmd命令进行ftp上传和下载 - shd_by的博客 - CSDN博客 - https://blog.csdn.net/shd_by/article/details/80943372
+
+Linux FTP命令详解_Linux教程_Linux公社-Linux系统门户网站 - https://www.linuxidc.com/Linux/2012-11/74081.htm
+
+FTP命令详解（含操作实例） - IndexMan的专栏 - CSDN博客 - https://blog.csdn.net/indexman/article/details/46387561
+
+自动Telnet远程登陆命令 - Ricky.K - 博客园 - https://www.cnblogs.com/rickyk/p/3835084.html
+#!/bin/bash
+#==============================================
+# Author: Ricky.K
+# Description: Auto telnet and run command
+#==============================================   
+echo "My own command..." &&
+(sleep 1; echo "user"; \
+ sleep 1; echo "password"; \
+ sleep 1; echo "cd /usr/local"; \
+ sleep 1; echo "./test.sh"; \
+ while [[ true ]]; do \
+     sleep 1; \
+ done;) | telnet 192.168.1.1
+ 
+---------------------------------2019-08-25------------------------------------------------------------
+Linux 上的常用文件传输方式介绍与比较 - https://www.ibm.com/developerworks/cn/linux/l-cn-filetransfer/index.html

@@ -1,0 +1,32 @@
+aos_loop_init();
+
+fd_console = aos_open("/dev/ttyS2", 0);
+
+aos_cli_init(0);
+aos_poll_read_fd(fd_console, aos_cli_event_cb_read_get(), (void *)0x12345678);
+aos_register_event_filter(EV_CLI, event_cb_event_cli, NULL);
+aos_ioctl(fd_adc, IOCTL_ADC_TRIGGER_ENABLE_LOW_LEVEL, 0);
+aos_post_delayed_action(2000, app_delayed_action_adc_key, (void *)fd_adc);//延时执行，2000ms到了执行app_delayed_action_adc_key
+aos_poll_read_fd(fd_adc, adc_cb_read, (void *)0x12345678);
+
+int aos_register_event_filter(uint16_t type, aos_event_cb cb, void *priv)，当type的事件发生时调用运行cb回调函数，其中第三个参数是传递给回调函数的参数；
+
+//-----------------------------2019-10-10---------------------------------------------------------------------------------------------------------
+1.新建线程，线程任务aos_loop_proc
+	/*event loop stack and thread stuff*/
+    static StackType_t aos_loop_proc_stack[1024];
+    static StaticTask_t aos_loop_proc_task;
+
+    xTaskCreateStatic(aos_loop_proc, (char *)"event_loop", 1024, NULL, 15, aos_loop_proc_stack, &aos_loop_proc_task);
+	
+2.线程任务aos_loop_proc
+	aos_loop_init();//初始化
+	aos_register_event_filter(EV_CLI, event_cb_event_cli, NULL);//注册监控事件
+	
+	aos_post_event(EV_ADCKEY, CODE_ADCKEY_INT_TRIGGER, fd);//事件通知，并根据CODE_ADCKEY_INT_TRIGGER，做相应的处理
+	
+	/*Trigger a fake INIT Done event here for the rocket to luanch*/
+    aos_loop_run();
+	
+	
+	

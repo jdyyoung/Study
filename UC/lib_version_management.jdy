@@ -30,3 +30,7 @@ strings 命令运用//strings libadd.so | grep version
   8. ld.so  dynamic linker or loader
 
   9. as the portable GNU assembley
+ 
+//-----------------------------------2019-09-23------------------------------------------------------------------------------
+//查找二进制文件的版本号
+strings 文件名|grep '要搜索的字符串'
