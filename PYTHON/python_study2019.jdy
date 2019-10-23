@@ -378,6 +378,16 @@ IO编程：
 		
 		JSON进阶
 		
+//-----------------------20190901-------------------------------------------------------
+Python还允许用r''表示''内部的字符串默认不转义
+
+Python千万要注意的全局变量和局部变量问题 - su_bao的博客 - CSDN博客 - https://blog.csdn.net/su_bao/article/details/83211930
+
+• enumerate()函数用于将可遍历的组合转换为一个索引序列
+• 一般用于for循环中,同时列出元素和元素的索引号
+遍历列表时,同时获取每个元素的索引号及其元素值
+揭秘 Python 中的 enumerate() 函数 - https://mp.weixin.qq.com/s/Jm7YiCA20RDSTrF4dHeykQ
+		
 	
 	
 	

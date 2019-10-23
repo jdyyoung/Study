@@ -45,3 +45,32 @@ Linux信号掩码和信号处理函数天使羊波波闪耀光芒 | 天使羊波
 connect()函数阻塞和非阻塞问题解决 - xiaofei0859的专栏 - CSDN博客 - https://blog.csdn.net/xiaofei0859/article/details/77141575
 
 TCP网络编程中connect()、listen()和accept()三者之间的关系 ( 非常重要！！） - EminentBoy的博客 - CSDN博客 - https://blog.csdn.net/qq_20398345/article/details/81132207
+
+//---------------------------------------------2019-08-14--------------------------------------------------------------
+select是一个计算机函数，位于头文件#include <sys/select.h> 。该函数用于监视文件描述符的变化情况——读写或是异常
+int select (int maxfd + 1,fd_set *readset,fd_set *writeset,fd_set *exceptset,const struct timeval * timeout);
+
+参数一：最大的文件描述符加1。
+参数二：用于检查可读性，
+参数三：用于检查可写性，
+参数四：用于检查带外数据，
+参数五：一个指向timeval结构的指针，用于决定select等待I/o的最长时间。如果为空将一直等待。
+timeval结构的定义：
+struct timeval{
+	long tv_sec; // seconds
+	long tv_usec; // microseconds
+}
+
+返回值：
+>0：就绪描述字的正数目
+-1：出错
+0 ：超时
+
+void FD_ZERO (fd_set *fdset); // clear all bits in fdset
+void FD_SET (int fd,fd_set *fdset); // turn on the bit for fd in fdset
+void FD_CLR (int fd,fd_set *fdset); // turn off the bit for fd in fdset
+intFD_ISSET(int fd,fd_set *fdset); // is the bit for fd on in fdset
+
+select（Linux 网络编程）_百度百科 - https://baike.baidu.com/item/select/12504672
+
+

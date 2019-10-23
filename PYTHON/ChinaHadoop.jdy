@@ -30,3 +30,39 @@ map()
 
 高效地处理和解析HTML的库：beautifulsoup4
 DOM:Document Object Model 文档对象模型
+
+//---------------------------------20190731----------------------------------
+https://pandas.pydata.org/pandas-docs/stable/visualization.html
+Pandas用来做什么？
+Pandas
+• 一个强大的分析结构化数据的工具集
+• 基础是NumPy,提供了高性能矩阵的运算
+• 应用,数据挖掘,数据分析
+• 如,学生成绩分析、股票数据分析等。
+• 提供数据清洗功能
+
+Pandas的数据结构
+Pandas的数据操作
+Pandas统计计算和描述
+
+Pandas数据清洗：处理缺失数据
+	dropna()丢失缺失数据
+	fillna()添充缺失数据
+	• 数据过滤
+	• df[filter_condition] 依据filter_condition对数据进行过滤
+	
+Pandas数据可视化：
+	• Pandas提供了内建的绘图功能(基于matplotlib)
+	• plot(kind, x, y, title, figsize)
+	x, y 横纵坐标对应的数据列
+	title图像名称
+	figsize图像尺寸
+	• 保存图片
+	eplt.savefig()
+	
+	
+
+	
+	
+	
+	
