@@ -387,6 +387,16 @@ Python千万要注意的全局变量和局部变量问题 - su_bao的博客 - CS
 • 一般用于for循环中,同时列出元素和元素的索引号
 遍历列表时,同时获取每个元素的索引号及其元素值
 揭秘 Python 中的 enumerate() 函数 - https://mp.weixin.qq.com/s/Jm7YiCA20RDSTrF4dHeykQ
+
+
+//-----------------------20191213-------------------------------------------------------
+python3 的格式化输出
+Python3 输入和输出 | 菜鸟教程 - https://www.runoob.com/python3/python3-inputoutput.html
+
+str.format() 的基本使用
+括号及其里面的字符 (称作格式化字段) 将会被 format() 中的参数替换
+如果在 format() 中使用了关键字参数, 那么它们的值会指向使用该名字的参数。
+在括号中的数字用于指向传入对象在 format() 中的位置
 		
 	
 	

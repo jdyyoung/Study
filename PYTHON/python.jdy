@@ -20,4 +20,22 @@ sudo update-alternatives --config python
 
 
 
+//---------------2019-12-08------------------------
+str(id).zfill(6)
+Python zfill() 方法返回指定长度的字符串，原字符串右对齐，前面填充0。
+Python zfill()方法 | 菜鸟教程 - https://www.runoob.com/python/att-string-zfill.html
 
+line.strip('\n')
+Python lstrip() 方法用于截掉字符串左边的空格或指定字符。
+Python rstrip() 删除 string 字符串末尾的指定字符（默认为空格）.
+Python strip() 方法用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列。
+注意：该方法只能删除开头或是结尾的字符，不能删除中间部分的字符。
+
+
+zipFile模块式Python自带的模块，提供了对zip 文件的创建，读，写，追加，解压以及列出文件列表的操作
+
+解压使用extractll方法extractall(path=None, members=None, pwd=None)
+
+path：指定解压后文件的位置
+members:（可选）指定要Zip文件中要解压的文件，这个文件名称必须是通过namelist()方法返回列表的子集
+pwd：指定Zip文件的解压密码

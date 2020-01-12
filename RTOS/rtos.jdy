@@ -87,6 +87,10 @@ xListItem *item = {0};
 vListInitialiseItem(item);
 vListInsertEnd(tips_list, item);
 
+中断优先级、任务堆栈分配、可重入
+任务嵌套对所需的最大堆栈RAM大小估计也变得困难
+
+
 
 
 
