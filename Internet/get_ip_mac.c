@@ -8,6 +8,7 @@
 
 /*
 ioctl()函数获取本机IP、MAC - gpengtao的专栏 - CSDN博客 - https://blog.csdn.net/gpengtao/article/details/7926403
+(1条消息)ioctl获取本地IP和MAC地址 - fengfengdiandia的专栏 - CSDN博客 - https://blog.csdn.net/fengfengdiandia/article/details/9301849
 ioctl函数详细说明（网络） - evenness的专栏 - CSDN博客 - https://blog.csdn.net/evenness/article/details/7665970
 */
  
@@ -35,5 +36,6 @@ int main()
     }
     printf("MAC: %s\n",mac);
  
+	close(sock);
     return 0;
 }

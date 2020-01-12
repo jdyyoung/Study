@@ -3,3 +3,16 @@ tag:版本库的快照，容易记住的名字，与一个commit绑一起
 
 创建标签：git tag v1.
 查看所有标签：git tag
+
+
+
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+
+$ git show v0.1
+
+//删除标签v0.1
+git tag -d v0.1
+
+如果要推送某个标签到远程，使用命令git push origin <tagname>：
+$ git push origin v1.0

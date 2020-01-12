@@ -1,0 +1,121 @@
+int product_key(void)
+{
+	int ret = 0;
+	int gpio_fd, adc_fd;
+
+	/* open gpio key device */
+	if ((gpio_fd = open(KEY_GPIO_DEV, O_RDONLY)) < 0)
+	{
+		perror("Open gpio key dev fail");
+		return -ENOENT;
+	}
+	if ((adc_fd = open(KEY_ADC_DEV, O_RDONLY)) < 0)
+	{
+		perror("Open ADC key dev fail");
+		return -ENOENT;
+	}
+
+	int rd = 0;
+	struct input_event key_event[64];
+	struct timeval tv;
+	fd_set readfds, tempfds;
+
+	gettimeofday(&last_key_event.time, NULL);
+	//pr("gettimeofday: tv_sec=%ld, tv_usec=%ld\n", last_key_time.tv_sec, last_key_time.tv_usec);
+
+	FD_ZERO(&readfds);
+	/* add the gpio_fd to the readfds set */
+	FD_SET(gpio_fd, &readfds);
+	FD_SET(adc_fd, &readfds);
+	/* set the gpio_fd's close-on-exec attribute */
+	fcntl(gpio_fd, F_SETFD, FD_CLOEXEC);
+	fcntl(adc_fd, F_SETFD, FD_CLOEXEC);
+
+	int max = gpio_fd > adc_fd ? gpio_fd : adc_fd;
+
+	/* check key pressed */
+	while (1)
+	{
+		tv.tv_sec = 1;
+		tv.tv_usec = 0;
+
+		tempfds = readfds;
+		/**** monitor the tempfds no-blocking ****/
+		ret = select((max + 1), &tempfds, NULL, NULL, &tv);//
+
+		switch (ret)
+		{
+		case -1:
+			perror("select");
+		case 0: //timeout
+			if (timer_run_flag && KEY_9 == g_cur_key_down){
+				// ak_print_normal_ex("select timeout ===================\n");
+				check_key_hold();
+			}
+			break;
+		default:
+			/** To test whether the gpio_fd's status has changed **/
+			if (FD_ISSET(gpio_fd, &tempfds))
+			{
+				/** read the event to the buf **/
+				rd = read(gpio_fd, key_event,
+					sizeof(struct input_event) * sizeof(key_event));
+				/*** parse the event ***/
+				do_key(key_event, rd);
+			}
+			else if (FD_ISSET(adc_fd, &tempfds))
+			{
+				/** read the event to the buf **/
+				rd = read(adc_fd, key_event,
+					sizeof(struct input_event) * sizeof(key_event));
+				/*** parse the event ***/
+				do_key(key_event, rd);
+			}
+			break;
+		}
+	}
+
+	close(gpio_fd);
+	close(adc_fd);
+	return 0;
+}
+
+//---------------------------------2020-01-13-----------------------------------------
+//select的编程规则：
+1.打开文件，获取需要监控的文件描述符
+int xxx_fd = open()
+2.为select准备参数
+	1）是否阻塞，阻塞时设置阻塞时间参数，应用结构体struct timeval tv;
+	2）根据读写需要，初始化所需文件描述符集:
+		fd_set readfds, tempfds;
+		//清空参数集合
+		FD_ZERO(&readfds);
+		/* add the gpio_fd and adc_fd to the readfds set */
+		//初始化设置把文件描述符gpio_fd与adc_fd添加到监控可读的集合里
+		FD_SET(gpio_fd, &readfds);
+		FD_SET(adc_fd, &readfds);
+	3) 监控多个文件描述符时，需要判断最大描述符
+	int maxfd = gpio_fd > adc_fd ? gpio_fd : adc_fd;
+	4）//轮询监控文件是否可读或可写,并做对应的处理
+	while(1){
+		ret = select(int maxfd + 1,fd_set *readset,fd_set *writeset,fd_set *exceptset,const struct timeval * timeout);
+		switch(ret){
+			case -1://出错处理
+				perror("select");
+				break;
+			case 0://超时处理
+				timeout_func();
+				break;
+			default://就绪处理
+				if(FD_ISSET(gpio_fd,&tempfds)){
+					read(gpio_fd,...);/write(gpio_fd,...);
+					...
+				}
+				else if(FD_ISSET(adc_fd, &tempfds)){
+					read(adc_fd,...);/write(adc_fd,...);
+					...
+				}
+				break;
+				
+		}
+	}

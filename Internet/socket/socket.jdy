@@ -1,4 +1,4 @@
-struct hostent *host_info
+﻿struct hostent *host_info
 
 c/c++ 网络编程 getaddrinfo 函数 - 小石王 - 博客园 - https://www.cnblogs.com/xiaoshiwang/p/9763825.html
 
@@ -69,8 +69,14 @@ struct timeval{
 void FD_ZERO (fd_set *fdset); // clear all bits in fdset
 void FD_SET (int fd,fd_set *fdset); // turn on the bit for fd in fdset
 void FD_CLR (int fd,fd_set *fdset); // turn off the bit for fd in fdset
-intFD_ISSET(int fd,fd_set *fdset); // is the bit for fd on in fdset
+int FD_ISSET(int fd,fd_set *fdset); // is the bit for fd on in fdset
 
 select（Linux 网络编程）_百度百科 - https://baike.baidu.com/item/select/12504672
 
+/*
+struct ip_mreq mreq;
+mreq.imr_multiaddr.s_addr = inet_addr("224.0.1.8");
+mreq.imr_interface.s_addr = INADDR_ANY;
+setsockopt(udp_fd ,IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
+*/
 
