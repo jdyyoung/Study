@@ -39,3 +39,43 @@ zipFileÄ£¿éÊ½Python×Ô´øµÄÄ£¿é£¬Ìá¹©ÁË¶Ôzip ÎÄ¼şµÄ´´½¨£¬¶Á£¬Ğ´£¬×·¼Ó£¬½âÑ¹ÒÔ¼°ÁĞ³
 path£ºÖ¸¶¨½âÑ¹ºóÎÄ¼şµÄÎ»ÖÃ
 members:£¨¿ÉÑ¡£©Ö¸¶¨ÒªZipÎÄ¼şÖĞÒª½âÑ¹µÄÎÄ¼ş£¬Õâ¸öÎÄ¼şÃû³Æ±ØĞëÊÇÍ¨¹ınamelist()·½·¨·µ»ØÁĞ±íµÄ×Ó¼¯
 pwd£ºÖ¸¶¨ZipÎÄ¼şµÄ½âÑ¹ÃÜÂë
+
+
+//-------------------2020-02-23--------------------------------
+ÅÀÕâ¸öÊı¾İ£º
+money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sh515050&scale=240&ma=no&datalen=10 - http://money.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_MarketData.getKLineData?symbol=sh515050&scale=240&ma=no&datalen=10
+ÅÀ³æµÃµ½µÄJSONÊı¾İ²»¹æ·¶µÄ½â¾ö:
+Python½âÎöjsonÖ®ValueError: Expecting property name enclosed in double quotes: line 1 column 2£¨char 1£© 
+ÕÅÉúÈÙ - https://www.zhangshengrong.com/p/281oJrYXwz/
+
+´ÓÍøÒ³ÅÀÏÂÀ´µÄÊı¾İÊÇstring¸ñÊ½µÄjson£¬ĞèÒª°ÑËü×ªµ½±ê×¼µÄjson£º
+°²×°¿ªÔ´¿âdemjson
+
+#sudo apt-get update
+#sudo apt install yum
+#°²×°pip
+#sudo apt-get install python3-pip
+pip3 install demjson //¶Ô×Ö·û´®µÄ±àÂëÓë½âÂë
+-----------------------------------------------------------
+TODO:
+PythonÖĞ ×Ö·û´® ×ª»»Îª ×Öµä - BelleLs - ²©¿ÍÔ° - https://www.cnblogs.com/belle-ls/p/10318912.html
+eval
+
+imposrt ast 
+ast.literal_eval()
+
+str.strip() str.lstrip() str.rstrip()²âÊÔ
+----------------------------------------------------------
+str.split()
+
+print("×î¸ßÕÇ·ùÁĞ±í£º" ,end=' ')//²»»»ĞĞµÄ´òÓ¡
+print('\n', file=f_result) //´òÓ¡Ö»Êä³öµÀÎÄ¼ş£¬f_resultÊÇ´ò¿ªÎÄ¼şµÄÃèÊö·û
+
+with open(ini_file, mode='r',) as f:
+        for line in f.readlines():  # ÒÀ´Î¶ÁÈ¡Ã¿ĞĞ
+            line = line.strip()  # È¥µôÃ¿ĞĞÍ·Î²¿Õ°×
+
+#ÔËĞĞ²ÎÊıÊäÈë
+import sys
+args = sys.argv
+run(args[1])

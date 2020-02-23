@@ -1,0 +1,77 @@
+(1条消息)从零开始写一个RTSP服务器（二）RTSP协议的实现_网络_程序员JT的博客-CSDN博客 - https://blog.csdn.net/weixin_42462202/article/details/99068041
+
+.sdp文件格式介绍 - foo__hack - 博客园 - https://www.cnblogs.com/foohack/p/4756460.html
+RTSP：应用层协议
+
+(5条消息)sdp文件详细总结_zhangjikuan的专栏-CSDN博客 - 
+https://blog.csdn.net/zhangjikuan/article/details/27367437
+
+SDP 协议分析 - 博水 - 博客园 - https://www.cnblogs.com/qingquan/archive/2011/08/02/2125585.html
+
+WebRTC -- SDP格式解析 - 简书 - https://www.jianshu.com/p/94d6defc8e27
+SDP(Session Description Protocol)：会话描述协议
+SDP协议是基于文本的协议
+
+(5条消息)RTP、RTCP、RTSP协议详解_独行Freedom的博客-CSDN博客 - https://blog.csdn.net/qq_17368865/article/details/80052152
+RTP与RTCP协议介绍 - 明明是悟空 - 博客园 - https://www.cnblogs.com/x_wukong/p/4919020.html
+(5条消息)RTP协议_qingkongyeyue的博客-CSDN博客 - https://blog.csdn.net/qingkongyeyue/article/details/60590613
+
+RTP: Real-time Transport Protocol,实时传输协议，一般用于多媒体数据的传输。
+
+RTCP: RTP Control Protocol，实时传输控制协议，同RTP一起用于数据传输的监视，控制功能。
+
+RTSP: Real Time Streaming Protocol,实时流协议，用于多媒体数据流的控制，如播放，暂停等。
+
+RTP/RTCP相对于底层传输层，和RTSP，SIP等上层协议一起可以实现视频会议，视频直播等应用。
+
+//----------------------2020-02-21-----------------------------------------------
+(1条消息)从零开始写一个RTSP服务器（二）RTSP协议的实现_网络_程序员JT的博客-CSDN博客 - https://blog.csdn.net/weixin_42462202/article/details/99068041
+
+RTSP协议格式与HTTP协议格式类似//请求报文类似，TODO：复习请教http的基础知识，post,get，那些必须要的字段
+
+rtsp的默认端口为554
+
+VCL为客户端，发起请求连接
+VCL客户端请求格式：
+	格式内容详解：
+		5种请求方法
+RTSP服务端响应格式：
+
+5种请求方法对应有5种交互过程：
+	OPTIONS：获取可用方法
+	DESCRIBE:获取（对应会话的媒体）描述信息
+	SETUP:发起建立请求（建立连接会话）
+	PLAY:发起播放请求
+	TEARDOWN:发起关闭（连接会话）请求
+sdp格式的学习理解：
+
+//TODU：http和RTSP的文本类型有哪些
+Content-type: application/sdp
+CSeq:command sequence	指令序列
+//做到对RTSP的简单阐述：
+	RTSP是一个实时传输流协议，是一个应用层的协议
+
+	通常说的RTSP包括RTSP协议、RTP协议、RTCP协议
+
+	RTSP协议：负责服务器与客户端之间的请求与响应
+
+	RTP协议：负责传输媒体数据
+
+	RTCP协议：在RTP传输过程中提供传输信息
+
+	rtsp承载与rtp和rtcp之上，rtsp并不会发送媒体数据，而是使用rtp协议传输
+
+	rtp并没有规定发送方式，可以选择udp发送或者tcp发送
+
+//---------------------------------2020-02-22-------------------------
+//类似RTV电视端，先创建服务器，监听会话连接
+1.rtsp的服务器：TCP服务器
+	创建套接字
+	绑定地址和端口号
+	开始监听
+2.RTSP服务器传输音视频数据和信息使用的是RTP和RTCP，为RTP和RTCP创建UDP套接字，并绑定号端口
+	创建套接字
+	绑定端口号
+	开始accept等待客户端连接
+3.根据协议解析请求
+4不同请求对应不同响应

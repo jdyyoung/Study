@@ -1,0 +1,29 @@
+//-----------------------2020-02-05------------------------------------------------------------
+远程连接:
+在 win10 开始菜单中搜远程桌面，或按win+r 后输入mstsc
+
+Mstsc (Microsoft terminal services client)
+创建与终端服务器或其他远程计算机的连接，
+Mstsc还有一种说法，Microsoft Telnet Screen Control ，即“微软远程桌面控制”。
+
+win+r 后输入cmd
+
+//控制系统服务
+win+r 后输入services.msc
+
+//打开设备管理器
+win+r 后输入devmgmt.msc
+
+使用WSL搭建嵌入式开发环境_|银河就这么大|的博客-CSDN博客 - https://blog.csdn.net/qq_40977710/article/details/103822555
+利用 WSL 在 Windows下打造高效的 Linux 开发环境 - JavaNoob - 博客园 - https://www.cnblogs.com/javanoob/p/wsl.html
+
+//WSL 搭建arm-linux 编译环境,解决遇到的问题：Exec format error
+arm-linux-gnueabihf-gcc: cannot execute binary file: Exec format error_weixin_43672086的博客-CSDN博客 - https://blog.csdn.net/weixin_43672086/article/details/93161447
+
+sudo service binfmt-support start
+让64位的WSL（windows 子 linux系统）支持运行32位程序 - 简书 - https://www.jianshu.com/p/3df082840b40
+Win10 Ubuntu子系统运行32bit Linux原生程序 - 九环 - 博客园 - https://www.cnblogs.com/JiuHuan/p/10073632.html
+I wonder if WSL will support the i386 (32 bit) program running later? · Issue #2468 · microsoft/WSL - https://github.com/Microsoft/WSL/issues/2468
+Win10 Ubuntu子系统(内嵌ubuntu18.04)运行32bit Linux原生程序 解决Exec format error错误_Exec format error错误,win10 内嵌Linux,交叉编译环境_萧西朗的博客-CSDN博客 - https://blog.csdn.net/xiaoxilang/article/details/103094560
+windows子系统WSL配置交叉编译环境过程记录_gongrulin的博客-CSDN博客 - https://blog.csdn.net/gongrulin/article/details/93598678
+
