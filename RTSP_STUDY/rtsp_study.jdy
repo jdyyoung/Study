@@ -75,3 +75,30 @@ CSeq:command sequence	指令序列
 	开始accept等待客户端连接
 3.根据协议解析请求
 4不同请求对应不同响应
+
+//---------------------------------2020-03-04-------------------------
+RTP/AVP stand for RTP A/V Profile.
+RTP/AVP & RTP/AVP/TCP - 简书 - https://www.jianshu.com/p/7b9793eb2f4e
+(2条消息)RTP/AVP & RTP/AVP/TCP_网络_博客小站-CSDN博客 - https://blog.csdn.net/faihung/article/details/72356132
+
+rtsp的交互过程就是客户端请求，服务器响应，C-S架构：
+客户端请求，服务器响应
+
+RTSP协议格式与HTTP协议格式类似:
+客户端发起请求：
+	请求行：请求方法 空格 URL 空格 协议版本 回车换行
+	请求头部：头部字段名：值 回车换行
+	               。。。
+    请求头部：头部字段名：值 回车换行
+	回车换行
+	请求数据
+
+服务器响应消息：
+	响应状态行
+	消息报头
+	回车换行（空行）
+	响应正文
+	
+	
+
+
