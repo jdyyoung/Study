@@ -86,3 +86,5 @@ http://blog.csdn.net/flfihpv259/article/details/52149328
 linux 串口接收不到0x11, 0x0d, 0x13 - vipchenvip的博客 - CSDN博客 - https://blog.csdn.net/vipchenvip/article/details/80744948
 
 Linux下串口編程遇到的接收数据错误及原因（0x0d,0x11接收错误） - moon-zhu - 博客园 - https://www.cnblogs.com/zgq0/p/8078505.html
+
+SPI、I2C、UART三种串行总线的原理、区别及应用_嵌入式_嵌入式Linux-CSDN博客 - https://blog.csdn.net/weiqifa0/article/details/8845281?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
