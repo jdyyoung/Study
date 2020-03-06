@@ -1,3 +1,60 @@
 i2c驱动之调用ioctl函数进行读写at24c08 - CSDN博客
 https://blog.csdn.net/luckywang1103/article/details/16810833
 
+
+I2C总线传输协议_网络_嵌入式Linux-CSDN博客 - https://blog.csdn.net/weiqifa0/article/details/82765349
+
+起始条件：SCL线是高电平时，SDA线从高电平向低电平切换。
+停止条件：SCL线是高电平时，SDA线从低电平向高电平切换。
+
+地址帧
+数据帧
+ACK信号：在第9个时钟脉冲之前回复一个ACK（将SDA拉低）以表示接收正常
+
+时钟线
+数据线
+
+总线最多过节2^7 =128 设备
+上拉电阻（符合电气要求）：
+I2C详解（四）_sternlycore的博客-CSDN博客 - https://blog.csdn.net/sternlycore/article/details/85851669
+
+I2C是高位开始发送的，MSB of First 
+地址帧：
+I2C设备支持100KHz和400KHz模式
+数据在SCL处于低电平时放到SDA上，并在SCL变为高电平后进行采样
+
+一个7-bit的地址是从最高位（MSB） 开始发送的，这个地址后面会紧跟1-bit（R/W）的操作符，1表示读操作，0表示写操作（读1无2）
+
+主从架构：
+M读过程
+M写过程
+(2条消息)很清晰的解读i2c协议_Python_瞌睡的洋葱的博客-CSDN博客 - https://blog.csdn.net/qq_39759656/article/details/81232909
+下面是是I2C的读写流程：
+
+写寄存器的标准流程为：
+1.    Master发起START
+2.    Master发送I2C addr（7bit）和w操作0（1bit），等待ACK
+3.    Slave发送ACK
+4.    Master发送reg addr（8bit），等待ACK
+5.    Slave发送ACK
+6.    Master发送data（8bit），即要写入寄存器中的数据，等待ACK
+7.    Slave发送ACK
+8.    第6步和第7步可以重复多次，即顺序写多个寄存器
+9.    Master发起STOP
+
+读寄存器的标准流程为：
+1.    Master发送I2C addr（7bit）和w操作1（1bit），等待ACK
+2.    Slave发送ACK
+3.    Master发送reg addr（8bit），等待ACK
+4.    Slave发送ACK
+5.    Master发起START
+6.    Master发送I2C addr（7bit）和r操作1（1bit），等待ACK
+7.    Slave发送ACK
+8.    Slave发送data（8bit），即寄存器里的值
+9.    Master发送ACK
+10.    第8步和第9步可以重复多次，即顺序读多个寄存器
+
+AT24 I2C EEPROM解析及测试 - ArnoldLu - 博客园 - https://www.cnblogs.com/arnoldlu/p/10012250.html
+
+i2c read的时候，master在接收完slave发送的最后一个字节之后会回NAK，因为这个时候master已经接收到足够的字节，NAK告诉slave不要在发送数据了
+(2条消息)i2c信号的ACK与NACK_运维_luckywang1103的专栏-CSDN博客 - https://blog.csdn.net/luckywang1103/article/details/17549739
