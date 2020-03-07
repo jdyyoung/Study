@@ -122,6 +122,7 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
 
         rtpPacket->rtpHeader.seq++;
         sendBytes += ret;
+        //???,这里需要理解，以下语句多余，没起什么作用？？？
         if ((naluType & 0x1F) == 7 || (naluType & 0x1F) == 8) // 如果是SPS、PPS就不需要加时间戳
             goto out;
     }
@@ -158,13 +159,15 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
         /* 发送完整的包 */
         for (i = 0; i < pktNum; i++)
         {
+            //0x60:0110 0000
             rtpPacket->payload[0] = (naluType & 0x60) | 28;
+            //0x1F:0001 1111
             rtpPacket->payload[1] = naluType & 0x1F;
             
             if (i == 0) //第一包数据
-                rtpPacket->payload[1] |= 0x80; // start
+                rtpPacket->payload[1] |= 0x80; // start //0x80:1000 0000
             else if (remainPktSize == 0 && i == pktNum - 1) //最后一包数据
-                rtpPacket->payload[1] |= 0x40; // end
+                rtpPacket->payload[1] |= 0x40; // end //0x40:0100 0000
 
             memcpy(rtpPacket->payload+2, frame+pos, RTP_MAX_PKT_SIZE);
             ret = rtpSendPacket(socket, ip, port, rtpPacket, RTP_MAX_PKT_SIZE+2);
@@ -225,6 +228,7 @@ int main(int argc, char* argv[])
     rtpPacket = (struct RtpPacket*)malloc(500000);
     frame = (uint8_t*)malloc(500000);
 
+    //SSRC可以是自定义随机一个数，所以随便填了一个数：0x88923423
     rtpHeaderInit(rtpPacket, 0, 0, 0, RTP_VESION, RTP_PAYLOAD_TYPE_H264, 0,
                     0, 0, 0x88923423);
 
@@ -237,16 +241,21 @@ int main(int argc, char* argv[])
             continue;
         }
 
+        //判断H264的NALU是用00 00 00 01还是00 00 01分隔的
         if(startCode3(frame))
             startCode = 3;
         else
             startCode = 4;
 
+        //减去分隔字节数开始真正NAUL
         frameSize -= startCode;
         rtpSendH264Frame(socket, CLIENT_IP, CLIENT_PORT,
                             rtpPacket, frame+startCode, frameSize);
+
+        //时间戳计算有疑问 TODO:这里90000是假设？
         rtpPacket->rtpHeader.timestamp += 90000/FPS;
 
+        //时间间隔
         usleep(1000*1000/fps);
     }
 

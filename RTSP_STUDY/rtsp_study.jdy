@@ -63,6 +63,7 @@ CSeq:command sequence	指令序列
 
 	rtp并没有规定发送方式，可以选择udp发送或者tcp发送
 
+	ISP(Image Signal Processor),即图像信号处理器,用于处理图像信号传感器输出的图像信号
 //---------------------------------2020-02-22-------------------------
 //类似RTV电视端，先创建服务器，监听会话连接
 1.rtsp的服务器：TCP服务器
@@ -136,5 +137,57 @@ Live555源码解析(2) - RTSP协议概述 - 简书 - https://www.jianshu.com/p/c
 	
 	
 	
+//-------------------------------------2020-02-29-------------------------------------
+特约信源(CSRC)标识符
+同步信源(SSRC)标识符
+
+-----------------------------H.264----------------------------------------------------
+NVR，全称Network Video Recorder，即网络视频录像机
+QoS（Quality of Service，服务质量，RTCP
+RTP为Internet上端到端的实时传输提供时间信息和流同步，但并不保证服务质量，服务质量由RTCP来提供。
+NALU格式 - 简书 - https://www.jianshu.com/p/1b3f8187b271
+H.264由一个一个的NALU组成，每个NALU之间使用00 00 00 01或00 00 01分隔开
+NALU：Network Abstract Layer Unit  网络抽象层单元
+VCL(视频编码层)和 NAL(网络提取层)；NAL全称Network Abstract Layer, 即网络抽象层
+H264简介
+H.264从1999年开始，到2003年形成草案，最后在2007年定稿有待核实。在ITU的标准里称为H.264，在MPEG的标准里是MPEG-4的一个组成部分–MPEG-4 Part 10，又叫Advanced Video Codec，因此常常称为MPEG-4 AVC或直接叫AVC。x264主要使用算法为H264编解码算法，下面对H264算法进行解析；
+
+FU Indicator： Fragmentation Units (FUs) Indicator 单帧标志
+原始字节序列负荷(RBSP,Raw Byte Sequence Payload) 
+FU-A方式分包 - Samaritan - 博客园 - https://www.cnblogs.com/samaritan/p/5063046.html
+
+H264(NAL简介与I帧判断) - JG2014 - 博客园 - https://www.cnblogs.com/yjg2014/p/6144977.html
+
+H264之基础篇 - 季末的天堂 - 博客园 - https://www.cnblogs.com/jimodetiantang/p/9110647.html
+NRI（2 bits）：Nal_ref_idc，重要性指示位，
+
+(1条消息)RTP协议分析_Java_蓝精灵的专栏-CSDN博客 - https://blog.csdn.net/u011006622/article/details/80675054
+
+-----------------------------------------------------------------------------------------
+1.H264的了解：
+是由一个个NALU组成
+每个NALU有0x00 0x00 0x00 0x01或0x00 0x00 0x01间隔开来
+每个NALU有NALU Header 和 RBSP,即由头部和数据载荷组成
+NALU 的头部一个字节 由F,NRI,Type构成
+高位到低位
+bit7:F ：forbidden_zero_bit. 在 H.264 规范中规定了这一位必须为 0.禁止位，值为1表示语法出错
+bit6~5：NRI 重要性指示，越大越重要，可参考可丢弃还是必须处理
+bit4~0:Type
+
+RTP传输H264三种情况：MTU
+单个打包传输：最简单，一个RTP包传输一个NALU
+聚合打包传输：一个RTP包传输一片NALU
+分片打包传输：由于一个NALU太大，超过RTP的MTU,需要切分打包，传到客户端再根据规则重新组装成完整的NALU
+	此时RTP的载荷由一个字节的FU Indicator 一个字节FU Header 再加上NALU的数据载荷部分
+	FU Indicator（低位0是F）记得和NALU的Header（高位7是F）区分
+	记住与区分三个特殊字节的各个位是什么意思，还有作用
+	F：
+	S:start 开始
+	E：end 结束
+	R:reserve 保留
+	
+	//字节的位读取一定是从低位到到位
+    FU Indicator的type：数值十进制28 与FU Header的type ：NALU的Type
+	Type：28，表示该RTP包一个分片，为什么是28？因为H.264的规范中定义的，
 
 

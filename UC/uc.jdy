@@ -89,7 +89,8 @@ Linux多线程的使用一：互斥锁 - Leon08 - 博客园 - https://www.cnblogs.com/leon08/p
 
 pthread_mutex_trylock - xiaohendsc的专栏 - CSDN博客 - https://blog.csdn.net/xiaohendsc/article/details/9305785
 
-
+//------------20200301--------------------------------------------
+lseek()
 
 
 

@@ -32,5 +32,8 @@ C 标准库 – <ctype.h> | 菜鸟教程 - https://www.runoob.com/cprogramming/c-standar
 C 标准库的 ctype.h 头文件提供了一些函数，可用于测试和映射字符。
 isdigit()
 
-
+//-----------------------------20200301------------------------------------------
+C 库函数 – sscanf() | 菜鸟教程 - https://www.runoob.com/cprogramming/c-function-sscanf.html
+C 库函数 int sscanf(const char *str, const char *format, ...) 从字符串读取格式化输入。
+sscanf():左边字符串严格按照格式赋值到右边变量
 
