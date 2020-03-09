@@ -1,0 +1,6 @@
+a=type:broadcast
+a=rtcp-unicast: reflection
+m=video 9832 RTP/AVP 96
+c=IN IP4 239.255.255.11/255
+a=rtpmap:96 H264/90000
+a=framerate:25

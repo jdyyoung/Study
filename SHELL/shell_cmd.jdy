@@ -145,6 +145,8 @@ genromfs //生成romfs工具
 ROMFS文件系统分析［二］genromfs参数详解-niutao.linux-ChinaUnix博客 - http://blog.chinaunix.net/uid-20729605-id-1884355.html
 用法：genromfs -f tips.romfs -d share/ -V yc_tips
 
+//-----------------------------2020-03-07---------------------------------------------
+linux查看端口占用情况 - 子非木 - 博客园 - https://www.cnblogs.com/wangtao1993/p/6144183.html
 
 
 

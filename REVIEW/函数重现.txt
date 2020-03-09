@@ -1,0 +1,472 @@
+/*------------------------------------------------------------------------------------strlen-----------------------------------------------------------------------*/
+size_t strlen(const char *s)
+{
+	//定义一个字符指针，作为原字符指针副本，用来地址移动
+	const char *sc;
+
+	for (sc = s; *sc != '\0'; ++sc)
+		/* nothing */;
+	return sc - s;
+}
+
+/*------------------------------------------------------------------------------------strcmp-----------------------------------------------------------------------*/
+int strcmp(const char *cs, const char *ct)
+{
+	//1、定义2个字符，作为对比字符指针每个字符的过渡字符
+	unsigned char c1, c2;
+
+	while (1) {
+		//2、2个过渡字符的赋值
+		c1 = *cs++;
+		c2 = *ct++;
+		
+		//先比较两个字符是否相等，不等则能返回结果；c2-c1
+		if (c1 != c2)
+			return c1 < c2 ? -1 : 1;
+		//到最后一个字符相等，或者且有一个为空且相等，则都跳出返回0
+		if (!c1)
+			break;
+	}
+	return 0;
+}
+
+/*------------------------------------------------------------------------------------strncmp-----------------------------------------------------------------------*/
+int strncmp(const char *cs, const char *ct, size_t count)
+{
+	unsigned char c1, c2;
+
+	while (count) {
+		c1 = *cs++;
+		c2 = *ct++;
+		if (c1 != c2)
+			return c1 < c2 ? -1 : 1;
+		if (!c1)
+			break;
+		count--;
+	}
+	return 0;
+}
+
+/*------------------------------------------------------------------------------------strcat-----------------------------------------------------------------------*/
+//字符串末连接
+char *strcat(char *dest, const char *src)
+{
+	//定义一个字符指针，用来保留原来字符指针地址，最后用来返回改地址；原来的字符指针用来移动
+	char *tmp = dest;
+
+	//移动到字符串末
+	while (*dest)
+		dest++;
+	
+	//边赋值边移动，先*指针取值赋值，在+++
+	while ((*dest++ = *src++) != '\0')
+		;
+	
+	//返回地址
+	return tmp;
+}
+
+/*------------------------------------------------------------------------------------strncat-----------------------------------------------------------------------*/
+char *strncat(char *dest, const char *src, size_t count)
+{
+	char *tmp = dest;
+
+	if (count) {
+		while (*dest)
+			dest++;
+		while ((*dest++ = *src++) != 0) {
+			if (--count == 0) {
+				*dest = '\0';
+				break;
+			}
+		}
+	}
+	return tmp;
+}
+
+/*------------------------------------------------------------------------------------strcpy-----------------------------------------------------------------------*/
+char *strcpy(char *dest, const char *src)
+{
+	//定义一个字符指针，用来保留原来字符指针地址，最后用来返回改地址；原来的字符指针用来移动
+	char *tmp = dest;
+
+	//边赋值边移动，先*指针取值赋值，在+++
+	while ((*dest++ = *src++) != '\0')
+		/* nothing */;
+	
+	//返回地址
+	return tmp;
+}
+
+/*------------------------------------------------------------------------------------strncpy-----------------------------------------------------------------------*/
+char *strncpy(char *dest, const char *src, size_t count)
+{
+	char *tmp = dest;
+
+	while (count) {
+		if ((*tmp = *src) != 0)
+			src++;
+		tmp++;
+		count--;
+	}
+	return dest;
+}
+
+/*------------------------------------------------------------------------------------memmove-----------------------------------------------------------------------*/
+void *memmove(void *dest, const void *src, size_t count)
+{
+	if (dest < src) {
+		return memcpy(dest, src, count);
+	} else {
+		char *p = dest + count;
+		const char *s = src + count;
+		while (count--)
+			*--p = *--s;
+	}
+	return dest;
+}
+
+3、memmove   
+   void *memmove(void *to, const void *from, size_t count); 
+  // 当发生对象重叠时，函数仍能正确执行。
+void *memmove(void *dest, const void *src, size_t count)
+{
+	assert( (dest!=NULL)&&(src!=NULL) );
+	char *tmp_dest=(char*)dest;
+	char *tmp_src=(char*)src;
+	if( tmp_dest<=tmp_src||tmp_src+count<tmp_dest )
+	{// 正向
+		while(count--)
+		*tmp_dest++=*tmp_src++;
+	}
+	else
+	{// 反向
+		tmp_dest+=count-1;
+		tmp_src+=count-1;
+		while(count--)
+		*tmp_dest--=*tmp_src--;
+	}
+	return dest;
+}
+memmove考虑重叠。重叠通常就是三种情况，一是目标区域的首地址落在源区域内；二是目标区域的尾地址落在源区域内；三是两个区域完全重叠。 
+
+从结果上来看，只有第一种情况才有可能发生与预期不相同的结果。这时候memmove通常使用反方向复制的方法，从源区域的尾地址开始复制，这样就能避免出现已复制的数据被后续复制覆盖的错误。
+/*------------------------------------------------------------------------------------memset-----------------------------------------------------------------------*/
+void *memset(void *s, int c, size_t count)
+{
+	char *xs = s;
+
+	while (count--)
+		*xs++ = c;
+	return s;
+}
+/************************************************************************************************************************************************/
+
+2．整数转换成字符串。
+#include <stdio.h>
+int main()
+{
+	char a[] =”123456”;	
+	int  b = atoi(a);
+	printf(“%d\n”,b);
+	return 0;
+}
+
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	char a[] = "12345";
+	int b = strlen(a);
+	int i,j=0,k = 1;
+	for (i = b - 1;i >= 0;i--)
+	{
+		j += (a[i]-'0')*k;
+		k*=10;
+	}
+	printf("%d\n",j);
+}
+
+
+3．字符串转换成整数。
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int a = 12345,i = 0;
+	int c = a;
+	char arr[10]={};
+	for(i = 0;;)
+	{
+		i++;
+		a/=10;	
+		if(a == 0)break;
+	}
+
+	arr[i] = '\0';
+	i--;
+	for(i;i>=0;i--){		
+		arr[i] = c%10+'0';
+		c/=10;
+	}
+	printf("%s\n",arr);
+	return 0;
+}
+4、atoi 
+   int atoi(const char *str); 
+   把字符串 str转换成 int类型。
+int atoi(char *str)
+{
+	int num,n,i;
+	n = 1;
+	num = 0;
+	int len = strlen(str);
+	for(i = len-1;i >= 0;i--)
+	{
+		num += (str[i]-'0')*n;
+		n*=10;
+	}
+	return num;
+}
+
+
+10进制与16进制互相转换的函数
+uint8 hextoword1(uint8 t )//十六进制转换成十进制函数
+{
+	  uint8 abc;
+	  uint8 cba;
+	  uint8 xx1;
+	  abc=t;
+	  cba=0xf0;
+	  abc=(abc&cba)>>4;
+	  if(abc<10)
+	  {
+	    xx1=abc+48;
+	  }
+	  else
+	  {
+	    xx1=abc+55;
+	  }
+	  return xx1;
+}
+uint8 hextoword2(uint8 t)
+{
+	  uint8 abc;
+	  uint8 cba;
+	  uint8 xx2;
+	  abc=t;
+	  cba=0x0f;
+	  abc=abc&cba;
+	  if(abc<10)
+	  {
+	    xx2=abc+48;
+	  }
+	  else
+	  {
+	    xx2=abc+55;
+	  }
+	  return xx2;
+}
+/*    */
+//把整型转换ascii码，int：2^32=0~2147483648
+void itoa(char *buf, unsigned int m)
+{
+    int i = 0;
+    int c;
+
+    buf[0] = '0';
+    buf[1] = 'x';
+    i = 9;
+    while(m)
+    {
+        c = m % 16;
+        if(c >= 10)
+        {
+            buf[i] = c - 10 + 'A';
+        }
+        else
+        {
+            buf[i] = c + '0';
+        }
+        m = m/16;
+        i--;
+    }
+    while(i>=2)
+    {
+        buf[i--] = '0';
+    }
+    buf[10] = 0;
+}
+
+
+１）将一个字符串逆序
+　代码：
+#include<stdio.h>
+#include<string.h>
+void s_back(char * a )
+{
+	int i=0;
+	char temp =0;
+	char * ps;
+	char * pe;
+	if(!a)
+	{
+		return;
+	}
+	ps=a;
+	while(*a!=0)
+	{
+		a++;
+	}
+	pe=a;
+	for(i=0;i<(pe-ps)/2;i++)　　　　　
+	{
+		temp=*(ps+i);
+		*(ps+i)=*(pe-i-1);
+		*(pe-i-1)=temp;
+	}
+}
+int main()
+{
+	char * a=(char *)malloc(100);
+	memcpy(a,"a123456789",11);
+	printf("%s\n",a);//注意a前没有*
+	s_back(a);
+	printf("%s\n",a);
+	free(a);
+	return 0; //注意退出哦
+}
+
+67.字符串倒序
+写一个函数将"tom is cat" 倒序打印出来，即 "cat is tom"
+//a.ch
+#define SPACE ' '
+#define ENDL '\0'
+char* str = "Tom is cat"; // 字符串
+char* p1 = str+strlen(str)-1;
+char* p2 = p1; // 开始时， p1,p2 都指向字符串结尾处
+char t=0; // 临时变量，用来保存被临时替换为 ENDL 的字符
+while(str!=p1--)
+{
+	if(SPACE!=*p1){
+	for(p2=p1+1;SPACE!=*p1; p1--, t=*p2, *p2=ENDL);
+	// p1+1 指向单词的第一个字母,p2 指向单词的结尾,此时输出这个单词
+	printf("%s ",p1+1);
+	*p2=t;
+	p2=p1;
+}
+
+用C语言实现大小端的测试：
+void CheckCpu(void)
+{
+	union
+	{
+		int a;
+		char b;
+	}c; 
+	c.a=1;
+	if(c.b==1)
+	printf(“小端\n”)；
+	else printf（“大端\n”）；
+}
+
+
+编写一个C函数，接受一个由代表十六进制数的字符组成的字符串(如”FF”)，函数的功能是将该字符串转换成十进制数字并返回，如传入参数字符串”FF”，返回255。(15分)
+（不能使用库函数，32位平台）函数声明：int convert2Integer(char *s);
+"FF"=15*16^1+15*16^0
+#include<ctype.h>
+int convert2Integer(char *s)
+{
+	int a[50] = {0};
+	int count = 0,value = 0;
+	
+	//计算字符串个数和把字符串每个字符转换好并输到定义好的字符数组
+	while(*s!=’\0’)
+	{
+		if(*s>=’0’&&*s<=’9’)
+		{
+			a[count++] = *s - ‘0’;
+		}
+		else
+		{
+			//将字符c转换为大写英文字母,toupper(int c);
+		    a[count++] = toupper(*s )-’A’ + 10;
+		}
+		  s++;
+	}
+	int count2 = 0;
+	for(int i = count -1;i>=0;i--)
+	{
+		//x的n次方的计算
+		int B = 1;
+		for(int j = 0 ;j<count2;j++)
+		{
+			B*=16；
+		}
+		
+		value += a[i]*B;
+		count2++;
+	}
+		return value;
+}
+
+一个递规反向输出字符串的例子,可谓是反序的经典例程.
+void inverse(char *p)
+{
+     if( *p = = '/0' ) 
+return;
+     inverse( p+1 );
+     printf( "%c", *p );
+}
+int main(int argc, char *argv[])
+{
+     inverse("abc/0");
+     return 0;
+}
+
+将一个数字字符串转换为数字."1234" -->1234
+int convert(char* str)
+{
+   int k = 0;
+   while (*str != '/0')
+   {
+      k = k * 10 + *s++ - '0';
+   }
+   return k;
+}
+
+//======================20181205==================================================================
+strcpy和memcpy的区别 - 博乐Bar - 博客园
+https://www.cnblogs.com/huanzxj/p/3522595.html
+
+strcpy和memcpy都是标准C库函数，它们有下面的特点。
+strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符。
+
+已知strcpy函数的原型是：char* strcpy(char* dest, const char* src);
+memcpy提供了一般内存的复制。即memcpy对于需要复制的内容没有限制，因此用途更广。
+
+char * strcpy(char * dest, const char * src) // 实现src到dest的复制
+{
+　　if ((src == NULL) || (dest == NULL)) //判断参数src和dest的有效性
+　　{
+ 
+　　　　　　return NULL;
+　　}
+　　char *strdest = dest;        //保存目标字符串的首地址
+　　while ((*dest++ = *src++)!='\0'); //把src字符串的内容复制到dest下
+　　return strdest;
+}
+void *memcpy(void *memTo, const void *memFrom, size_t size)
+{
+　　if((memTo == NULL) || (memFrom == NULL)) //memTo和memFrom必须有效
+         return NULL;
+　　char *tempFrom = (char *)memFrom;             //保存memFrom首地址
+　　char *tempTo = (char *)memTo;                  //保存memTo首地址      
+　　while(size -- > 0)                //循环size次，复制memFrom的值到memTo中
+       　　*tempTo++ = *tempFrom++ ;  
+　　return memTo;
+}
+strcpy和memcpy主要有以下3方面的区别。
+1、复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。
+2、复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符"\0"才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。
+3、用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy

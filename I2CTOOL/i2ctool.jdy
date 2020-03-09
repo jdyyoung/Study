@@ -43,7 +43,7 @@ M写过程
 9.    Master发起STOP
 
 读寄存器的标准流程为：
-1.    Master发送I2C addr（7bit）和w操作1（1bit），等待ACK
+1.    Master发送I2C addr（7bit）和w操作0（1bit），等待ACK
 2.    Slave发送ACK
 3.    Master发送reg addr（8bit），等待ACK
 4.    Slave发送ACK

@@ -102,6 +102,14 @@ H264之基础篇 - 季末的天堂 - 博客园 - https://www.cnblogs.com/jimodet
 NRI（2 bits）：Nal_ref_idc，重要性指示位，
 
 (1条消息)RTP协议分析_Java_蓝精灵的专栏-CSDN博客 - https://blog.csdn.net/u011006622/article/details/80675054
+RTP报文头中的SSRC和CSRC_网络_不甘平凡的小鸟的专栏-CSDN博客 - https://blog.csdn.net/zhushentian/article/details/79804742
+同步信源(SSRC)标识符：占32位，用于标识同步信源。该标识符是随机选择的，参加同一视频会议的两个同步信源不能有相同的SSRC。
+特约信源(CSRC)标识符：每个CSRC标识符占32位，可以有0～15个。每个CSRC标识了包含在该RTP报文有效载荷中的所有特约信源。
+
+rtp扩展头的使用_网络_glw的博客-CSDN博客 - https://blog.csdn.net/glw0223/article/details/88357949
+RTP有效负载(载荷)类型 (RTP Payload Type)_C#_一个嵌入式小白-CSDN博客 - https://blog.csdn.net/qq_40732350/article/details/88374707
+RTP 载荷类型和时间戳详解 - little_star - 博客园 - https://www.cnblogs.com/wyqfighting/archive/2013/03/05/2943992.html
+时间戳（timestamp）：32bits。如果是视频，就是视频帧时间戳（单位秒）值乘以90000；如果是音频，就是音频帧时间戳（单位秒）乘以采样率，比如48k、16k。
 
 -----------------------------------------------------------------------------------------
 1.H264的了解：
@@ -119,7 +127,7 @@ RTP传输H264三种情况：MTU
 聚合打包传输：一个RTP包传输一片NALU
 分片打包传输：由于一个NALU太大，超过RTP的MTU,需要切分打包，传到客户端再根据规则重新组装成完整的NALU
 	此时RTP的载荷由一个字节的FU Indicator 一个字节FU Header 再加上NALU的数据载荷部分
-	FU Indicator（低位0是F）记得和NALU的Header（高位7是F）区分
+	FU Indicator和NALU的Header（高位7是F）一样
 	记住与区分三个特殊字节的各个位是什么意思，还有作用
 	F：
 	S:start 开始
@@ -135,6 +143,9 @@ RTP传输H264三种情况：MTU
 RTP/AVP stand for RTP A/V Profile.
 RTP/AVP & RTP/AVP/TCP - 简书 - https://www.jianshu.com/p/7b9793eb2f4e
 (2条消息)RTP/AVP & RTP/AVP/TCP_网络_博客小站-CSDN博客 - https://blog.csdn.net/faihung/article/details/72356132
+RTP/AVP/TCP：
+既然是在同一个通道传输，怎么区分RTP通道(channel)和RTCP通道呢?
+答案是 在RTP层之上增加一层, 叫做:RTSP Interleaved Frame层.
 
 rtsp的交互过程就是客户端请求，服务器响应，C-S架构：
 客户端请求，服务器响应
@@ -189,5 +200,25 @@ RTSP的交互过程：
 	
 Live555源码解析(2) - RTSP协议概述 - 简书 - https://www.jianshu.com/p/cee34e487e2d
 	
+//-------------------------20200308--------------------------------------------------------------------------
+RTP的协议：报头，载体
+RTP打包H264
+RTP打包AAC
+RTP的时间戳增量计算
+RTP/AVP/ TCP :
+Request For Comments（RFC），是一系列以编号排定的文件。文件收集了有关互联网相关信息，以及UNIX和互联网社区的软件文件。
 
+///------------------------------------------------------------------------------------------------------------
+从零开始写一个RTSP服务器（五）RTP传输AAC_网络_程序员JT的博客-CSDN博客 - https://blog.csdn.net/weixin_42462202/article/details/99200935
+AAC的ADTS头解析 - 简书 - https://www.jianshu.com/p/b5ca697535bd
+AAC音频:AAC（Advanced Audio Coding），中文名：高级音频编码。出现于1997年，基于MPEG-2的音频编码技术。由Fraunhofer IIS、杜比实验室、AT&T、索尼等公司共同开发，目的是取代MP3格式。2000年，MPEG-4标准出现后，
+ADTS帧:ADTS(Audio Data Transport Stream)头之于AAC AAC音频文件的每一帧都由一个ADTS头和AAC ES(AAC音频数据)组成。
+AAC的RTP打包方式：
+AAC的RTP打包方式并没有向H.264那样丰富，我知道的只有一种方式，原因主要是AAC一帧数据大小都是几百个字节，不会向H.264那么少则几个字节，多则几千
+AAC的RTP打包方式就是将ADTS帧取出ADTS头部，取出AAC数据，每帧数据封装成一个RTP包。
+其中RTP载荷的一个字节为0x00，第二个字节为0x10
+第三个字节和第四个字节保存AAC Data的大小，最多只能保存13bit，第三个字节保存数据大小的高八位，第四个字节的高5位保存数据大小的低5位
+
+RTP RTCP在音视频传输与同步方面的使用 - 明明是悟空 - 博客园 - https://www.cnblogs.com/x_wukong/p/5827492.html
+rtp传输音视频(纯c代码) - leaffei - 博客园 - https://www.cnblogs.com/leaffei/p/10583045.html
 

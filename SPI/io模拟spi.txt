@@ -1,0 +1,50 @@
+//单片机模拟spi串行接口程序，在keilc51下编写 
+//CPOL=0,CPHA=1  上升沿输出下降沿采样
+//移位寄存器，先输出数据，再移位，然后获取数据
+
+sbit CS=P3^5;
+sbit CLK= P1^5;
+sbit DataI=P1^7;
+sbit DataO=P1^6;
+
+#define SD_Disable() CS=1 //片选关
+#define SD_Enable() CS=0 //片选开
+ 
+unsigned char SPI_TransferByte(unsigned char val)
+{
+unsigned char BitCounter;
+for(BitCounter=8; BiCounter!=0; BitCounter--)
+    {
+
+	CLK=0;
+	DataI=0;     // write   MOSI  主机（val）输出数据，写到这条信号线上
+	if(val&0x80) DataI=1;  //判断最高位
+	val<<=1;    //移位
+	
+	CLK=1;
+	if(DataO)val|=1; // read  MISO  主机（val）取数据，从这条信号线读取
+	}
+	CLK=0;   
+	return val;  
+}
+
+
+假设主机和从机初始化就绪：并且主机的sbuff=0xaa，从机的sbuff=0x55，下面将分步对spi的8个时钟周期的数据情况演示一遍：假设上升沿发送数据
+脉冲主机sbuff 从机sbuff sdi sdo
+0 10101010 01010101 0 0
+1上 0101010x 1010101x 0 1
+1下 01010100 10101011 0 1
+2上 1010100x 0101011x 1 0
+2下 10101001 01010110 1 0
+3上 0101001x 1010110x 0 1
+3下 01010010 10101101 0 1
+4上 1010010x 0101101x 1 0
+4下 10100101 01011010 1 0
+5上 0100101x 1011010x 0 1
+5下 01001010 10110101 0 1
+6上 1001010x 0110101x 1 0
+6下 10010101 01101010 1 0
+7上 0010101x 1101010x 0 1
+7下 00101010 11010101 0 1
+8上 0101010x 1010101x 1 0
+8下 01010101 10101010 1 0

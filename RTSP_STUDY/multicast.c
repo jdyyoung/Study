@@ -2,7 +2,7 @@
  * 作者：_JT_
  * 博客：https://blog.csdn.net/weixin_42462202
  */
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -14,11 +14,10 @@
 
 #include "rtp.h"
 
-#define H264_FILE_NAME  "test.h264"
-#define CLIENT_IP       "127.0.0.1"
-#define CLIENT_PORT     9832
-
-#define FPS             25
+#define H264_FILE_NAME      "test.h264"
+#define MULTICAST_IP        "239.255.255.11"
+#define MULTICAST_PORT      9832
+#define FPS                 25
 
 static inline int startCode3(char* buf)
 {
@@ -122,7 +121,6 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
 
         rtpPacket->rtpHeader.seq++;
         sendBytes += ret;
-        //???,这里需要理解，以下语句多余，没起什么作用？？？
         if ((naluType & 0x1F) == 7 || (naluType & 0x1F) == 8) // 如果是SPS、PPS就不需要加时间戳
             goto out;
     }
@@ -136,7 +134,7 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
          * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
          */
 
-        /*   MSB           LSB
+        /*
          *     FU Indicator
          *    0 1 2 3 4 5 6 7
          *   +-+-+-+-+-+-+-+-+
@@ -144,7 +142,7 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
          *   +---------------+
          */
 
-        /*   MSB           LSB
+        /*
          *      FU Header
          *    0 1 2 3 4 5 6 7
          *   +-+-+-+-+-+-+-+-+
@@ -159,15 +157,13 @@ static int rtpSendH264Frame(int socket, char* ip, int16_t port,
         /* 发送完整的包 */
         for (i = 0; i < pktNum; i++)
         {
-            //0x60:0110 0000
             rtpPacket->payload[0] = (naluType & 0x60) | 28;
-            //0x1F:0001 1111
             rtpPacket->payload[1] = naluType & 0x1F;
             
             if (i == 0) //第一包数据
-                rtpPacket->payload[1] |= 0x80; // start //0x80:1000 0000
+                rtpPacket->payload[1] |= 0x80; // start
             else if (remainPktSize == 0 && i == pktNum - 1) //最后一包数据
-                rtpPacket->payload[1] |= 0x40; // end //0x40:0100 0000
+                rtpPacket->payload[1] |= 0x40; // end
 
             memcpy(rtpPacket->payload+2, frame+pos, RTP_MAX_PKT_SIZE);
             ret = rtpSendPacket(socket, ip, port, rtpPacket, RTP_MAX_PKT_SIZE+2);
@@ -228,7 +224,6 @@ int main(int argc, char* argv[])
     rtpPacket = (struct RtpPacket*)malloc(500000);
     frame = (uint8_t*)malloc(500000);
 
-    //SSRC可以是自定义随机一个数，所以随便填了一个数：0x88923423
     rtpHeaderInit(rtpPacket, 0, 0, 0, RTP_VESION, RTP_PAYLOAD_TYPE_H264, 0,
                     0, 0, 0x88923423);
 
@@ -241,25 +236,16 @@ int main(int argc, char* argv[])
             continue;
         }
 
-        //判断H264的NALU是用00 00 00 01还是00 00 01分隔的
         if(startCode3(frame))
             startCode = 3;
         else
             startCode = 4;
 
-        //减去分隔字节数开始真正NAUL
         frameSize -= startCode;
-        rtpSendH264Frame(socket, CLIENT_IP, CLIENT_PORT,
+        rtpSendH264Frame(socket, MULTICAST_IP, MULTICAST_PORT,
                             rtpPacket, frame+startCode, frameSize);
-
-        //时间戳计算有疑问 TODO:这里90000是假设？
-        /*根据多媒体类型和帧率计算得出时间戳增量*/
-        /*RTP 载荷类型和时间戳详解 - little_star - 博客园 - https://www.cnblogs.com/wyqfighting/archive/2013/03/05/2943992.html
-        RTP有效负载(载荷)类型 (RTP Payload Type)_C#_一个嵌入式小白-CSDN博客 - https://blog.csdn.net/qq_40732350/article/details/88374707
-        */
         rtpPacket->rtpHeader.timestamp += 90000/FPS;
 
-        //时间间隔
         usleep(1000*1000/fps);
     }
 
