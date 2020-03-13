@@ -27,3 +27,4 @@ I wonder if WSL will support the i386 (32 bit) program running later? · Issue #
 Win10 Ubuntu子系统(内嵌ubuntu18.04)运行32bit Linux原生程序 解决Exec format error错误_Exec format error错误,win10 内嵌Linux,交叉编译环境_萧西朗的博客-CSDN博客 - https://blog.csdn.net/xiaoxilang/article/details/103094560
 windows子系统WSL配置交叉编译环境过程记录_gongrulin的博客-CSDN博客 - https://blog.csdn.net/gongrulin/article/details/93598678
 
+RNDIS：Remote Network Driver Interface Specification，既是RemoteNDIS，既是远程网络驱动接口规范。基于USB实现RNDIS实际上就是TCP/IP over USB，就是在USB设备上跑TCP/IP，让USB设备看上去像一块网卡。

@@ -1,10 +1,11 @@
-/*
+ /*
 (2条消息)循环队列-链式存储结构-c语言实现 - 王腾涛 - CSDN博客 - https://blog.csdn.net/u010187139/article/details/46742711
 循环队列-链式存储结构-c语言实现
 */
 
 /*
     循环队列-线性表-链式结构 
+	20200311:这只是一个队列的线线性表，只有队列，不是循环队列，没有收尾相连！！！
 */
 #include<stdio.h>
 #include<stdlib.h>
@@ -55,6 +56,7 @@ Status deQueue(LinkQueue *q, QElemType *e){
         return ERROR;
     } 
     QueuePtr p; 
+	//20200311：有一个队头元素存在，它不存数据，代表这个队列q->front
     p = q->front->next; //将出队的节点 存在p中 
     q->front->next = p->next;   //重新构造队头元素的后继 
     *e = p->data;   //保存出队的数据 

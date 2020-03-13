@@ -80,3 +80,5 @@ mreq.imr_interface.s_addr = INADDR_ANY;
 setsockopt(udp_fd ,IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq));
 */
 
+//----------------------------------------------------------------------------------------------------------------
+粘包问题及解决 - xuchong - 博客园 - https://www.cnblogs.com/zhouxuchong/p/11576275.html
