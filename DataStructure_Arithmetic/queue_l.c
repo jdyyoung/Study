@@ -57,6 +57,7 @@ Status deQueue(LinkQueue *q, QElemType *e){
     } 
     QueuePtr p; 
 	//20200311：有一个队头元素存在，它不存数据，代表这个队列q->front
+	//20200314:q->front的地址永不变，是初始化申请的节点
     p = q->front->next; //将出队的节点 存在p中 
     q->front->next = p->next;   //重新构造队头元素的后继 
     *e = p->data;   //保存出队的数据 

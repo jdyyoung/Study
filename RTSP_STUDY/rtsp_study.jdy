@@ -76,7 +76,10 @@ CSeq:command sequence	指令序列
 	开始accept等待客户端连接
 3.根据协议解析请求
 4不同请求对应不同响应
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 //-------------------------------------2020-02-29-------------------------------------
 特约信源(CSRC)标识符
 同步信源(SSRC)标识符
@@ -102,6 +105,7 @@ H264之基础篇 - 季末的天堂 - 博客园 - https://www.cnblogs.com/jimodet
 NRI（2 bits）：Nal_ref_idc，重要性指示位，
 
 (1条消息)RTP协议分析_Java_蓝精灵的专栏-CSDN博客 - https://blog.csdn.net/u011006622/article/details/80675054
+<<<<<<< Updated upstream
 RTP报文头中的SSRC和CSRC_网络_不甘平凡的小鸟的专栏-CSDN博客 - https://blog.csdn.net/zhushentian/article/details/79804742
 同步信源(SSRC)标识符：占32位，用于标识同步信源。该标识符是随机选择的，参加同一视频会议的两个同步信源不能有相同的SSRC。
 特约信源(CSRC)标识符：每个CSRC标识符占32位，可以有0～15个。每个CSRC标识了包含在该RTP报文有效载荷中的所有特约信源。
@@ -110,6 +114,8 @@ rtp扩展头的使用_网络_glw的博客-CSDN博客 - https://blog.csdn.net/glw
 RTP有效负载(载荷)类型 (RTP Payload Type)_C#_一个嵌入式小白-CSDN博客 - https://blog.csdn.net/qq_40732350/article/details/88374707
 RTP 载荷类型和时间戳详解 - little_star - 博客园 - https://www.cnblogs.com/wyqfighting/archive/2013/03/05/2943992.html
 时间戳（timestamp）：32bits。如果是视频，就是视频帧时间戳（单位秒）值乘以90000；如果是音频，就是音频帧时间戳（单位秒）乘以采样率，比如48k、16k。
+=======
+>>>>>>> Stashed changes
 
 -----------------------------------------------------------------------------------------
 1.H264的了解：

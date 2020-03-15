@@ -1,0 +1,150 @@
+一个类的静态成员方法是否可以调用该类的非静态成员方法？请说明原因。
+答：不可用。类的非静态成员方法的调用需要this指针，而类的静态成员方法没有this指针
+
+请说明深拷贝和浅拷贝的概念。(2分)
+如果一个类拥有资源，当这个类的对象发生复制过程的时候，资源重新分配，这个过程就是深拷贝，
+反之，没有重新分配资源，就是浅拷贝
+
+
+使用C++实现一个整数链表(IntList)的封装，要求:（20分）
+
+a.	实现创建一个新节点的成员方法：bool append(int value),参数为指定的值
+b.	实现删除一个节点的成员方法：bool remove(int value),参数这某一个特定的值
+c.	实现查找一个符合条件的节点的成员方法:Node *find(int value),参数为指定的值，返回节点指针
+d.	实现输出链表内容的成员方法：void printList(void);
+不能调用库函数或者使用STL等类库
+
+#include <iostream>
+using namespace std;
+
+typedef struct Node
+{
+  int m_data;
+  Node *m_next;
+}Node;
+
+class IntList
+{
+public:
+	IntList();
+	~IntList();
+	bool append(int value);
+	bool remove(int value);
+	void printList();
+	Node *find(int value);
+private:
+	Node *m_head;
+};
+
+IntList::IntList()//构造
+{
+  m_head = new Node;//空头结点
+  m_head->m_next = NULL;
+}
+
+IntList::~IntList()//析构
+{
+   Node *p = m_head;
+   while(p!=NULL)
+   {
+	   Node *temp = p;
+	   p = p->m_next;
+	   delete temp;
+   }
+}
+
+bool IntList::append(int value)//尾部添加
+{
+   Node * temp = new Node;
+   if(temp==NULL)
+   {
+	  return false;
+   }
+   Node *p = m_head;
+   while(p->m_next!=NULL)
+ {
+	  p = p->m_next;
+   }
+   temp->m_data = value;
+   temp->m_next = p->m_next;
+   p->m_next = temp;
+   return true;
+}
+
+bool IntList::remove(int value)//删除
+{
+  Node * pre = m_head;
+  Node * p = m_head->m_next;
+  if(p == NULL)
+	  return false;
+  while(p->m_data!=value&&p->m_next!=NULL)
+  {
+	   pre = p;
+	   p = p->m_next;
+  }
+  if(p->m_data == value)
+  {
+     pre ->m_next = p->m_next;
+	 delete p;
+  }
+  else
+  {
+	  return false;
+  }
+  return true;
+}
+
+void IntList::printList()//打印
+{
+	Node *p = m_head->m_next;
+	while(p!=NULL)
+	{
+		cout<<p->m_data<<' ';
+		p = p->m_next;
+	}
+	cout<<endl;
+}
+
+Node *IntList::find(int value)//查找
+{
+	Node *p = m_head->m_next;
+	if(p==NULL)
+	{
+		return NULL;
+	}
+    while(p->m_data!= value&&p->m_next!=NULL)
+	{
+      p = p->m_next;
+	}
+	if(p->m_data == value)
+	{
+		return p;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+//================================201812==================================
+引用与指针的区别：
+1.引用访问变量是直接访问，而指针是间接访问
+2.引用是一个变量的别名，本身不单独分配自己的内存空间，而指针有自己的内存空间
+3.引用不能重定向，而指针可以
+
+说说面向对象的三大特征，分别有什么作用？
+封装：抽象概括物的特征和行为，通过写一个类封装起来，用一个类来创造对象。
+隐藏具体的实现，然后提供公开的访问接口
+降低开发难度，便于协同开发
+防止不必要的扩展
+
+继承：涉及两个类，父类与子类；子类可以传承父类的所有的数据，还可以对父类进行扩展
+继承方式：公开继承，保护继承，私有继承
+多继承：一个类 可以有多个直接父类
+虚函数
+函数重写
+
+多态：
+当父类型的指针（引用）指向子类型对象时，通过父类型的指针调用虚函数，如果子类重写了这个虚函数，
+则调用的表现是子类的，否则就是父类型中对应的实现。
+类型更加通用，根据具体的对象做出具体的行为
+

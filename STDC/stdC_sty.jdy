@@ -37,3 +37,7 @@ C 库函数 – sscanf() | 菜鸟教程 - https://www.runoob.com/cprogramming/c-function
 C 库函数 int sscanf(const char *str, const char *format, ...) 从字符串读取格式化输入。
 sscanf():左边字符串严格按照格式赋值到右边变量
 
+//-----------------------------20200314------------------------------------------
+//rtsp://192.168.31.115:8554/live
+sscanf(url, "rtsp://%[^:]:", localIp);
+

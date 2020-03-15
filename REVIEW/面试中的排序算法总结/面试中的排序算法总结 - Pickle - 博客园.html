@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://www.cnblogs.com/wxisme/p/5243631.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面试中的排序算法总结 - Pickle - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./面试中的排序算法总结 - Pickle - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./面试中的排序算法总结 - Pickle - 博客园_files/bundle-LessIsMore.css">
+<link type="text/css" rel="stylesheet" href="./面试中的排序算法总结 - Pickle - 博客园_files/219716.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./面试中的排序算法总结 - Pickle - 博客园_files/bundle-LessIsMore-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/wxisme/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/wxisme/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/wxisme/wlwmanifest.xml">
+<script async="" src="./面试中的排序算法总结 - Pickle - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./面试中的排序算法总结 - Pickle - 博客园_files/encoder.js.下载"></script><script src="./面试中的排序算法总结 - Pickle - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'wxisme', cb_enable_mathjax=true;var isLogined=false;</script>
+<script src="./面试中的排序算法总结 - Pickle - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({
+  tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] },
+  TeX: { equationNumbers: { autoNumber: ['AMS'], useLabelIds: true }, extensions: ['extpfeil.js'] },
+  'HTML-CSS': { linebreaks: { automatic: true } },
+  SVG: { linebreaks: { automatic: true } }});</script><script type="text/javascript" src="./面试中的排序算法总结 - Pickle - 博客园_files/MathJax.js.下载"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/wxisme/">Pickle</a></div>
+<div class="subtitle">用自己的方式分析技术原理，总结自己的经验，分享他人的见解，转述权威的解读。</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/wxisme/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Pickle">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/wxisme/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/wxisme/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-402&nbsp;
+文章-0&nbsp;
+评论-73&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/wxisme/p/5243631.html">面试中的排序算法总结</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">前言</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">查找和排序算法是算法的入门知识，其经典思想可以用于很多算法当中。因为其实现代码较短，应用较常见。所以在面试中经常会问到排序算法及其相关的问题。但万变不离其宗，只要熟悉了思想，灵活运用也不是难事。一般在面试中最常考的是快速排序和归并排序，并且经常有面试官要求现场写出这两种排序的代码。对这两种排序的代码一定要信手拈来才行。还有插入排序、冒泡排序、堆排序、基数排序、桶排序等。面试官对于这些排序可能会要求比较各自的优劣、各种算法的思想及其使用场景。还有要会分析算法的时间和空间复杂度。通常查找和排序算法的考察是面试的开始，如果这些问题回答不好，估计面试官都没有继续面试下去的兴趣都没了。所以想开个好头就要把常见的排序算法思想及其特点要熟练掌握，有必要时要熟练写出代码。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　接下来我们就分析一下常见的排序算法及其使用场景。限于篇幅，某些算法的详细演示和图示请自行寻找详细的参考。</span></p>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">冒泡排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">冒泡排序是最简单的排序之一了，其大体思想就是通过与相邻元素的比较和交换来把小的数交换到最前面。这个过程类似于水泡向上升一样，因此而得名。举个栗子，对5,3,8,6,4这个无序序列进行冒泡排序。首先从后向前冒泡，4和6比较，把4交换到前面，序列变成5,3,8,4,6。同理4和8交换，变成5,3,4,8,6,3和4无需交换。5和3交换，变成3,5,4,8,6,3.这样一次冒泡就完了，把最小的数3排到最前面了。对剩下的序列依次冒泡就会得到一个有序序列。冒泡排序的时间复杂度为O(n^2)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;冒泡排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午8:54:27
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> BubbleSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> bubbleSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;arr.length-1; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=arr.length-1; j&gt;i; j--<span style="color: #000000;">) {
+                </span><span style="color: #0000ff;">if</span>(arr[j] &lt; arr[j-1<span style="color: #000000;">]) {
+                    swap(arr, j</span>-1<span style="color: #000000;">, j);
+                }
+            }
+        }
+    }
+    
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> swap(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">int</span> temp =<span style="color: #000000;"> arr[i];
+        arr[i] </span>=<span style="color: #000000;"> arr[j];
+        arr[j] </span>=<span style="color: #000000;"> temp;
+    }</span><span style="color: #000000;">
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">选择排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">选择排序的思想其实和冒泡排序有点类似，都是在一次排序后把最小的元素放到最前面。但是过程不同，冒泡排序是通过相邻的比较和交换。而选择排序是通过对整体的选择。举个栗子，对5,3,8,6,4这个无序序列进行简单选择排序，首先要选择5以外的最小数来和5交换，也就是选择3和5交换，一次排序后就变成了3,5,8,6,4.对剩下的序列一次进行选择和交换，最终就会得到一个有序序列。其实选择排序可以看成冒泡排序的优化，因为其目的相同，只是选择排序只有在确定了最小数的前提下才进行交换，大大减少了交换的次数。选择排序的时间复杂度为O(n^2)</span></p>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;;"><span style="font-size: 15px; line-height: 22.5px;">实现代码：</span></span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;简单选择排序算法的实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午9:13:35
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> SelectSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> selectSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">int</span> minIndex = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;arr.length-1; i++) { <span style="color: #008000;">//</span><span style="color: #008000;">只需要比较n-1次</span>
+            minIndex =<span style="color: #000000;"> i;
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=i+1; j&lt;arr.length; j++) { <span style="color: #008000;">//</span><span style="color: #008000;">从i+1开始比较，因为minIndex默认为i了，i就没必要比了。</span>
+                <span style="color: #0000ff;">if</span>(arr[j] &lt;<span style="color: #000000;"> arr[minIndex]) {
+                    minIndex </span>=<span style="color: #000000;"> j;
+                }
+            }
+            
+            </span><span style="color: #0000ff;">if</span>(minIndex != i) { <span style="color: #008000;">//</span><span style="color: #008000;">如果minIndex不为i，说明找到了更小的值，交换之。</span>
+<span style="color: #000000;">                swap(arr, i, minIndex);
+            }
+        }
+        
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> swap(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">int</span> temp =<span style="color: #000000;"> arr[i];
+        arr[i] </span>=<span style="color: #000000;"> arr[j];
+        arr[j] </span>=<span style="color: #000000;"> temp;
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">插入排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">插入排序不是通过交换位置而是通过比较找到合适的位置插入元素来达到排序的目的的。相信大家都有过打扑克牌的经历，特别是牌数较大的。在分牌时可能要整理自己的牌，牌多的时候怎么整理呢？就是拿到一张牌，找到一个合适的位置插入。这个原理其实和插入排序是一样的。举个栗子，对5,3,8,6,4这个无序序列进行简单插入排序，首先假设第一个数的位置时正确的，想一下在拿到第一张牌的时候，没必要整理。然后3要插到5前面，把5后移一位，变成3,5,8,6,4.想一下整理牌的时候应该也是这样吧。然后8不用动，6插在8前面，8后移一位，4插在5前面，从5开始都向后移一位。注意在插入一个数的时候要保证这个数前面的数已经有序。简单插入排序的时间复杂度也是O(n^2)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;简单插入排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午9:38:55
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> InsertSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> insertSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=1; i&lt;arr.length; i++) { <span style="color: #008000;">//</span><span style="color: #008000;">假设第一个数位置时正确的；要往后移，必须要假设第一个。</span>
+            
+            <span style="color: #0000ff;">int</span> j =<span style="color: #000000;"> i;
+            </span><span style="color: #0000ff;">int</span> target = arr[i]; <span style="color: #008000;">//</span><span style="color: #008000;">待插入的
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">后移</span>
+            <span style="color: #0000ff;">while</span>(j &gt; 0 &amp;&amp; target &lt; arr[j-1<span style="color: #000000;">]) {
+                arr[j] </span>= arr[j-1<span style="color: #000000;">];
+                j </span>--<span style="color: #000000;">;
+            }
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">插入 </span>
+            arr[j] =<span style="color: #000000;"> target;
+        }
+            
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">快速排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">快速排序一听名字就觉得很高端，在实际应用当中快速排序确实也是表现最好的排序算法。快速排序虽然高端，但其实其思想是来自冒泡排序，冒泡排序是通过相邻元素的比较和交换把最小的冒泡到最顶端，而快速排序是比较和交换小数和大数，这样一来不仅把小数冒泡到上面同时也把大数沉到下面。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">举个栗子：对5,3,8,6,4这个无序序列进行快速排序，思路是右指针找比基准数小的，左指针找比基准数大的，交换之。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">5,3,8,6,4 用5作为比较的基准，最终会把5小的移动到5的左边，比5大的移动到5的右边。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">5,3,8,6,4 首先设置i,j两个指针分别指向两端，j指针先扫描（思考一下为什么？）4比5小停止。然后i扫描，8比5大停止。交换i,j位置。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">5,3,4,6,8 然后j指针再扫描，这时j扫描4时两指针相遇。停止。然后交换4和基准数。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">4,3,5,6,8 一次划分后达到了左边比5小，右边比5大的目的。之后对左右子序列递归排序，最终得到有序序列。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">上面留下来了一个问题为什么一定要j指针先动呢？首先这也不是绝对的，这取决于基准数的位置，因为在最后两个指针相遇的时候，要交换基准数到相遇的位置。一般选取第一个数作为基准数，那么就是在左边，所以最后相遇的数要和基准数交换，那么相遇的数一定要比基准数小。所以j指针先移动才能先找到比基准数小的数。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">快速排序是不稳定的，其时间平均时间复杂度是O(nlgn)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;实现快速排序算法&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午5:07:29
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> QuickSort {
+    //一次划分
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> partition(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">int</span> pivotKey =<span style="color: #000000;"> arr[left];
+        </span><span style="color: #0000ff;">int</span> pivotPointer =<span style="color: #000000;"> left;
+        
+        </span><span style="color: #0000ff;">while</span>(left &lt;<span style="color: #000000;"> right) {
+            </span><span style="color: #0000ff;">while</span>(left &lt; right &amp;&amp; arr[right] &gt;=<span style="color: #000000;"> pivotKey)
+                right </span>--<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">while</span>(left &lt; right &amp;&amp; arr[left] &lt;=<span style="color: #000000;"> pivotKey)
+                left </span>++<span style="color: #000000;">;
+            swap(arr, left, right); </span><span style="color: #008000;">//</span><span style="color: #008000;">把大的交换到右边，把小的交换到左边。</span>
+<span style="color: #000000;">        }
+        swap(arr, pivotPointer, left); </span><span style="color: #008000;">//</span><span style="color: #008000;">最后把pivot交换到中间</span>
+        <span style="color: #0000ff;">return</span><span style="color: #000000;"> left;
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> quickSort(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">if</span>(left &gt;=<span style="color: #000000;"> right)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">int</span> pivotPos =<span style="color: #000000;"> partition(arr, left, right);
+        quickSort(arr, left, pivotPos</span>-1<span style="color: #000000;">);
+        quickSort(arr, pivotPos</span>+1<span style="color: #000000;">, right);
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> sort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        quickSort(arr, </span>0, arr.length-1<span style="color: #000000;">);
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> swap(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">int</span> temp =<span style="color: #000000;"> arr[left];
+        arr[left] </span>=<span style="color: #000000;"> arr[right];
+        arr[right] </span>=<span style="color: #000000;"> temp;
+    }
+    
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">&nbsp;　　其实上面的代码还可以再优化，上面代码中基准数已经在pivotKey中保存了，所以不需要每次交换都设置一个temp变量，在交换左右指针的时候只需要先后覆盖就可以了。这样既能减少空间的使用还能降低赋值运算的次数。优化代码如下：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;实现快速排序算法&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午5:07:29
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> QuickSort {
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 划分
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> left
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> right
+     * </span><span style="color: #808080;">@return</span>
+     <span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> partition(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">int</span> pivotKey =<span style="color: #000000;"> arr[left];
+        
+        </span><span style="color: #0000ff;">while</span>(left &lt;<span style="color: #000000;"> right) {
+            </span><span style="color: #0000ff;">while</span>(left &lt; right &amp;&amp; arr[right] &gt;=<span style="color: #000000;"> pivotKey)
+                right </span>--<span style="color: #000000;">;
+            arr[left] </span>= arr[right]; <span style="color: #008000;">//</span><span style="color: #008000;">把小的移动到左边</span>
+            <span style="color: #0000ff;">while</span>(left &lt; right &amp;&amp; arr[left] &lt;=<span style="color: #000000;"> pivotKey)
+                left </span>++<span style="color: #000000;">;
+            arr[right] </span>= arr[left]; <span style="color: #008000;">//</span><span style="color: #008000;">把大的移动到右边</span>
+<span style="color: #000000;">        }
+        arr[left] </span>= pivotKey; <span style="color: #008000;">//</span><span style="color: #008000;">最后把pivot赋值到中间</span>
+        <span style="color: #0000ff;">return</span><span style="color: #000000;"> left;
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 递归划分子序列
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> left
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> right
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> quickSort(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">if</span>(left &gt;=<span style="color: #000000;"> right)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">int</span> pivotPos =<span style="color: #000000;"> partition(arr, left, right);
+        quickSort(arr, left, pivotPos</span>-1<span style="color: #000000;">);
+        quickSort(arr, pivotPos</span>+1<span style="color: #000000;">, right);
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> sort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        quickSort(arr, </span>0, arr.length-1<span style="color: #000000;">);
+    }
+    
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">总结快速排序的思想：冒泡+二分+递归分治，慢慢体会。。。</span></p>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">堆排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">堆排序是借助堆来实现的选择排序，思想同简单的选择排序，以下以大顶堆为例。<span style="color: #ff0000;">注意：如果想升序排序就使用大顶堆，反之使用小顶堆。原因是堆顶元素需要交换到序列尾部。</span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;">　　<span style="color: #000000;">首先，实现堆排序需要解决两个问题：</span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;"><span style="color: #000000;">　　1. 如何由一个无序序列键成一个堆？</span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;"><span style="color: #000000;">　　2. 如何在输出堆顶元素之后，调整剩余元素成为一个新的堆？</span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;"><span style="color: #000000;">　　第一个问题，可以直接使用线性数组来表示一个堆，由初始的无序序列建成一个堆就需要自底向上从第一个非叶元素开始挨个调整成一个堆。</span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;"><span style="color: #000000;">　　第二个问题，怎么调整成堆？首先是将堆顶元素和最后一个元素交换。然后比较当前堆顶元素的左右孩子节点，因为除了当前的堆顶元素，左右孩子堆均满足条件，这时需要选择当前堆顶元素与左右孩子节点的较大者（大顶堆）交换，直至叶子节点。我们称这个自堆顶自叶子的调整成为筛选。</span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span style="color: #ff0000;"><span style="color: #000000;">　　从一个无序序列建堆的过程就是一个反复筛选的过程。若将此序列看成是一个完全二叉树，则最后一个非终端节点是n/2取底个元素，由此筛选即可。举个栗子：</span></span></span></p>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;;"><span style="font-size: 15px; line-height: 22.5px;">49,38,65,97,76,13,27,49序列的堆排序建初始堆和调整的过程如下：</span></span></p>
+<p><span style="font-family: &#39;Microsoft YaHei&#39;;"><span style="font-size: 15px; line-height: 22.5px;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305133553205-2143614528.png" alt=""></span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;<img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305133644815-347392695.png" alt=""></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;堆排序算法的实现，以大顶堆为例。&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-4 上午9:26:02
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> HeapSort {
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 堆筛选，除了start之外，start~end均满足大顶堆的定义。
+     * 调整之后start~end称为一个大顶堆。
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 待调整数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> start 起始指针
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> end 结束指针
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> heapAdjust(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> start, <span style="color: #0000ff;">int</span><span style="color: #000000;"> end) {
+        </span><span style="color: #0000ff;">int</span> temp =<span style="color: #000000;"> arr[start];
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=2*start+1; i&lt;=end; i*=2<span style="color: #000000;">) {
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">左右孩子的节点分别为2*i+1,2*i+2
+            
+            </span><span style="color: #008000;">//</span><span style="color: #008000;">选择出左右孩子较小的下标</span>
+            <span style="color: #0000ff;">if</span>(i &lt; end &amp;&amp; arr[i] &lt; arr[i+1<span style="color: #000000;">]) {
+                i </span>++<span style="color: #000000;">; 
+            }
+            </span><span style="color: #0000ff;">if</span>(temp &gt;=<span style="color: #000000;"> arr[i]) {
+                </span><span style="color: #0000ff;">break</span>; <span style="color: #008000;">//</span><span style="color: #008000;">已经为大顶堆，=保持稳定性。</span>
+<span style="color: #000000;">            }
+            arr[start] </span>= arr[i]; <span style="color: #008000;">//</span><span style="color: #008000;">将子节点上移</span>
+            start = i; <span style="color: #008000;">//</span><span style="color: #008000;">下一轮筛选</span>
+<span style="color: #000000;">        }
+        
+        arr[start] </span>= temp; <span style="color: #008000;">//</span><span style="color: #008000;">插入正确的位置</span>
+<span style="color: #000000;">    }
+    
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> heapSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">建立大顶堆</span>
+        <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=arr.length/2; i&gt;=0; i--<span style="color: #000000;">) {
+            heapAdjust(arr, i, arr.length</span>-1<span style="color: #000000;">);
+        }
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=arr.length-1; i&gt;=0; i--<span style="color: #000000;">) {
+            swap(arr, </span>0<span style="color: #000000;">, i);
+            heapAdjust(arr, </span>0, i-1<span style="color: #000000;">);
+        }
+        
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> swap(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> i, <span style="color: #0000ff;">int</span><span style="color: #000000;"> j) {
+        </span><span style="color: #0000ff;">int</span> temp =<span style="color: #000000;"> arr[i];
+        arr[i] </span>=<span style="color: #000000;"> arr[j];
+        arr[j] </span>=<span style="color: #000000;"> temp;
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">希尔排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">希尔排序是插入排序的一种高效率的实现，也叫缩小增量排序。简单的插入排序中，如果待排序列是正序时，时间复杂度是O(n)，如果序列是基本有序的，使用直接插入排序效率就非常高。希尔排序就利用了这个特点。基本思想是：先将整个待排记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录基本有序时再对全体记录进行一次直接插入排序。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">举个栗子：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305135104830-1351755091.png" alt=""></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">从上述排序过程可见，希尔排序的特点是，子序列的构成不是简单的逐段分割，而是将某个相隔某个增量的记录组成一个子序列。如上面的例子，第一堂排序时的增量为5，第二趟排序的增量为3。由于前两趟的插入排序中记录的关键字是和同一子序列中的前一个记录的关键字进行比较，因此关键字较小的记录就不是一步一步地向前挪动，而是跳跃式地往前移，从而使得进行最后一趟排序时，整个序列已经做到基本有序，只要作记录的少量比较和移动即可。因此希尔排序的效率要比直接插入排序高。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　希尔排序的分析是复杂的，时间复杂度是所取增量的函数，这涉及一些数学上的难题。但是在大量实验的基础上推出当n在某个范围内时，时间复杂度可以达到O(n^1.3)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;希尔排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-3 下午10:53:55
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> ShellSort {
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 希尔排序的一趟插入
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 待排数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> d 增量
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> shellInsert(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span><span style="color: #000000;"> d) {
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=d; i&lt;arr.length; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">int</span> j = i -<span style="color: #000000;"> d;
+            </span><span style="color: #0000ff;">int</span> temp = arr[i];    <span style="color: #008000;">//</span><span style="color: #008000;">记录要插入的数据  </span>
+            <span style="color: #0000ff;">while</span> (j&gt;=0 &amp;&amp; arr[j]&gt;temp) {  <span style="color: #008000;">//</span><span style="color: #008000;">从后向前，找到比其小的数的位置   </span>
+                arr[j+d] = arr[j];    <span style="color: #008000;">//</span><span style="color: #008000;">向后挪动  </span>
+                j -=<span style="color: #000000;"> d;  
+            }  
+      
+            </span><span style="color: #0000ff;">if</span> (j != i - d)    <span style="color: #008000;">//</span><span style="color: #008000;">存在比其小的数 </span>
+                arr[j+d] =<span style="color: #000000;"> temp;
+            
+        }
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> shellSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">int</span> d = arr.length / 2<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">while</span>(d &gt;= 1<span style="color: #000000;">) {
+            shellInsert(arr, d);
+            d </span>/= 2<span style="color: #000000;">;
+        }
+    }
+
+}　　</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">归并排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">归并排序是另一种不同的排序方法，因为归并排序使用了递归分治的思想，所以理解起来比较容易。其基本思想是，<span style="color: #ff0000;">先递归划分子问题，然后合并结果</span>。把待排序列看成由两个有序的子序列，然后合并两个子序列，然后把子序列看成由两个有序序列。。。。。倒着来看，其实就是先两两合并，然后四四合并。。。最终形成有序序列。空间复杂度为O(n)，时间复杂度为O(nlogn)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">举个栗子：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305141645721-842642889.png" alt=""></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;归并排序算法的实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-4 上午8:14:20
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> MergeSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> mergeSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        mSort(arr, </span>0, arr.length-1<span style="color: #000000;">);
+    }
+
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 递归分治
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 待排数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> left 左指针
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> right 右指针
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> mSort(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #0000ff;">if</span>(left &gt;=<span style="color: #000000;"> right)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        </span><span style="color: #0000ff;">int</span> mid = (left + right) / 2<span style="color: #000000;">;
+        
+        mSort(arr, left, mid); </span><span style="color: #008000;">//</span><span style="color: #008000;">递归排序左边</span>
+        mSort(arr, mid+1, right); <span style="color: #008000;">//</span><span style="color: #008000;">递归排序右边</span>
+        merge(arr, left, mid, right); <span style="color: #008000;">//</span><span style="color: #008000;">合并</span>
+<span style="color: #000000;">    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 合并两个有序数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 待合并数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> left 左指针
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> mid 中间指针
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> right 右指针
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> merge(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span> left, <span style="color: #0000ff;">int</span> mid, <span style="color: #0000ff;">int</span><span style="color: #000000;"> right) {
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">[left, mid] [mid+1, right]</span>
+        <span style="color: #0000ff;">int</span>[] temp = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span>[right - left + 1]; <span style="color: #008000;">//</span><span style="color: #008000;">中间数组</span>
+        
+        <span style="color: #0000ff;">int</span> i =<span style="color: #000000;"> left;
+        </span><span style="color: #0000ff;">int</span> j = mid + 1<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">int</span> k = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">while</span>(i &lt;= mid &amp;&amp; j &lt;=<span style="color: #000000;"> right) {
+            </span><span style="color: #0000ff;">if</span>(arr[i] &lt;=<span style="color: #000000;"> arr[j]) {
+                temp[k</span>++] = arr[i++<span style="color: #000000;">];
+            }
+            </span><span style="color: #0000ff;">else</span><span style="color: #000000;"> {
+                temp[k</span>++] = arr[j++<span style="color: #000000;">];
+            }
+        }
+        
+        </span><span style="color: #0000ff;">while</span>(i &lt;=<span style="color: #000000;"> mid) {
+            temp[k</span>++] = arr[i++<span style="color: #000000;">];
+        }
+        
+        </span><span style="color: #0000ff;">while</span>(j &lt;=<span style="color: #000000;"> right) {
+            temp[k</span>++] = arr[j++<span style="color: #000000;">];
+        }
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> p=0; p&lt;temp.length; p++<span style="color: #000000;">) {
+            arr[left </span>+ p] =<span style="color: #000000;"> temp[p];
+        }
+        
+    }
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">计数排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">如果在面试中有面试官要求你写一个O(n)时间复杂度的排序算法，你千万不要立刻说：这不可能！虽然前面基于比较的排序的下限是O(nlogn)。但是确实也有线性时间复杂度的排序，只不过有前提条件，就是待排序的数要满足一定的范围的整数，而且计数排序需要比较多的辅助空间。其基本思想是，用待排序的数作为计数数组的下标，统计每个数字的个数。然后依次输出即可得到有序序列。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;计数排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-4 下午4:52:02
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> CountSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> countSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> || arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        
+        </span><span style="color: #0000ff;">int</span> max =<span style="color: #000000;"> max(arr);
+        
+        </span><span style="color: #0000ff;">int</span>[] count = <span style="color: #0000ff;">new</span> <span style="color: #0000ff;">int</span>[max+1<span style="color: #000000;">];
+        Arrays.fill(count, </span>0<span style="color: #000000;">);
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;arr.length; i++<span style="color: #000000;">) {
+            count[arr[i]] </span>++<span style="color: #000000;">;
+        }
+        
+        </span><span style="color: #0000ff;">int</span> k = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;=max; i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=0; j&lt;count[i]; j++<span style="color: #000000;">) {
+                arr[k</span>++] =<span style="color: #000000;"> i;
+            }
+        }
+        
+    }
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> max(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">int</span> max =<span style="color: #000000;"> Integer.MIN_VALUE;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span><span style="color: #000000;"> ele : arr) {
+            </span><span style="color: #0000ff;">if</span>(ele &gt;<span style="color: #000000;"> max)
+                max </span>=<span style="color: #000000;"> ele;
+        }
+        
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> max;
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">桶排序</span></strong></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　桶排序算是计数排序的一种改进和推广，但是网上有许多资料把计数排序和桶排序混为一谈。其实桶排序要比计数排序复杂许多。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　对桶排序的分析和解释借鉴这位兄弟的文章（有改动）：http://hxraid.iteye.com/blog/647759</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　桶排序的基本思想：</span></p>
+<p>&nbsp;　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">假设有一组长度为N的待排关键字序列K[1....n]。首先将这个序列划分成M个的子区间(桶)&nbsp;。然后基于某种映射函数&nbsp;，将待排序列的关键字k映射到第i个桶中(即桶数组B的下标 i) ，那么该关键字k就作为B[i]中的元素(每个桶B[i]都是一组大小为N/M的序列)。接着对每个桶B[i]中的所有元素进行比较排序(可以使用快排)。然后依次枚举输出B[0]....B[M]中的全部内容即是一个有序序列。bindex=f(key)&nbsp;&nbsp; 其中，bindex 为桶数组B的下标(即第bindex个桶), k为待排序列的关键字。桶排序之所以能够高效，其关键在于这个映射函数，它必须做到：如果关键字k1&lt;k2，那么f(k1)&lt;=f(k2)。也就是说B(i)中的最小数据都要大于B(i-1)中最大数据。很显然，映射函数的确定与数据本身的特点有很大的关系。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">举个栗子：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305144435034-1868814358.gif" alt=""></span></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">假如待排序列K= {<span class="number">49、&nbsp;<span class="number">38&nbsp;、&nbsp;<span class="number">35、&nbsp;<span class="number">97&nbsp;、&nbsp;<span class="number">76、&nbsp;<span class="number">73&nbsp;、&nbsp;<span class="number">27、&nbsp;<span class="number">49&nbsp;}。这些数据全部在1—100之间。因此我们定制10个桶，然后确定映射函数f(k)=k/10。则第一个关键字49将定位到第4个桶中(49/10=4)。依次将所有关键字全部堆入桶中，并在每个非空的桶中进行快速排序后得到如图所示。只要顺序输出每个B[i]中的数据就可以得到有序序列了。</span></span></span></span></span></span></span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number">桶排序分析：</span></span></span></span></span></span></span></span></span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number"><span class="number">　　桶排序利用函数的映射关系，减少了几乎所有的比较工作。实际上，桶排序的f(k)值的计算，其作用就相当于快排中划分，希尔排序中的子序列，归并排序中的子问题，已经把大量数据分割成了基本有序的数据块(桶)。然后只需要对桶中的少量数据做先进的比较排序即可。</span></span></span></span></span></span></span></span></span>　</p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">对N个关键字进行桶排序的时间复杂度分为两个部分：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　(1) 循环计算每个关键字的桶映射函数，这个时间复杂度是O(N)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　(2) 利用先进的比较排序算法对每个桶内的所有数据进行排序，其时间复杂度为&nbsp; ∑ O(Ni*logNi) 。其中Ni 为第i个桶的数据量。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">很显然，第(2)部分是桶排序性能好坏的决定因素。尽量减少桶内数据的数量是提高效率的唯一办法(因为基于比较排序的最好平均时间复杂度只能达到O(N*logN)了)。因此，我们需要尽量做到下面两点：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　(1) 映射函数f(k)能够将N个数据平均的分配到M个桶中，这样每个桶就有[N/M]个数据量。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　(2) 尽量的增大桶的数量。极限情况下每个桶只能得到一个数据，这样就完全避开了桶内数据的“比较”排序操作。当然，做到这一点很不容易，数据量巨大的情况下，f(k)函数会使得桶集合的数量巨大，空间浪费严重。这就是一个时间代价和空间代价的权衡问题了。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">对于N个待排数据，M个桶，平均每个桶[N/M]个数据的桶排序平均时间复杂度为：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O(N)+O(M*(N/M)*log(N/M))=O(N+N*(logN-logM))=O(N+N*logN-N*logM)</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">当N=M时，即极限情况下每个桶只有一个数据时。桶排序的最好效率能够达到O(N)。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><strong>总结：</strong>&nbsp;桶排序的平均时间复杂度为线性的O(N+C)，其中C=N*(logN-logM)。如果相对于同样的N，桶数量M越大，其效率越高，最好的时间复杂度达到O(N)。&nbsp;当然桶排序的空间复杂度&nbsp;为O(N+M)，如果输入数据非常庞大，而桶的数量也非常多，则空间代价无疑是昂贵的。此外，桶排序是稳定的。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;桶排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-4 下午7:39:31
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> BucketSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> bucketSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> &amp;&amp; arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        
+        </span><span style="color: #0000ff;">int</span> bucketNums = 10; <span style="color: #008000;">//</span><span style="color: #008000;">这里默认为10，规定待排数[0,100)</span>
+        List&lt;List&lt;Integer&gt;&gt; buckets = <span style="color: #0000ff;">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;(); <span style="color: #008000;">//</span><span style="color: #008000;">桶的索引</span>
+        
+        <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;10; i++<span style="color: #000000;">) {
+            buckets.add(</span><span style="color: #0000ff;">new</span> LinkedList&lt;Integer&gt;()); <span style="color: #008000;">//</span><span style="color: #008000;">用链表比较合适</span>
+<span style="color: #000000;">        }
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">划分桶</span>
+        <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;arr.length; i++<span style="color: #000000;">) {
+            buckets.get(f(arr[i])).add(arr[i]);
+        }
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">对每个桶进行排序</span>
+        <span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;buckets.size(); i++<span style="color: #000000;">) {
+            </span><span style="color: #0000ff;">if</span>(!<span style="color: #000000;">buckets.get(i).isEmpty()) {
+                Collections.sort(buckets.get(i)); </span><span style="color: #008000;">//</span><span style="color: #008000;">对每个桶进行快排</span>
+<span style="color: #000000;">            }
+        }
+        
+        </span><span style="color: #008000;">//</span><span style="color: #008000;">还原排好序的数组</span>
+        <span style="color: #0000ff;">int</span> k = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(List&lt;Integer&gt;<span style="color: #000000;"> bucket : buckets) {
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span><span style="color: #000000;"> ele : bucket) {
+                arr[k</span>++] =<span style="color: #000000;"> ele;
+            }
+        }
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 映射函数
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> x
+     * </span><span style="color: #808080;">@return</span>
+     <span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> f(<span style="color: #0000ff;">int</span><span style="color: #000000;"> x) {
+        </span><span style="color: #0000ff;">return</span> x / 10<span style="color: #000000;">;
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">基数排序</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">基数排序又是一种和前面排序方式不同的排序方式，基数排序不需要进行记录关键字之间的比较。基数排序是一种借助多关键字排序思想对单逻辑关键字进行排序的方法。所谓的多关键字排序就是有多个优先级不同的关键字。比如说成绩的排序，如果两个人总分相同，则语文高的排在前面，语文成绩也相同则数学高的排在前面。。。如果对数字进行排序，那么个位、十位、百位就是不同优先级的关键字，如果要进行升序排序，那么个位、十位、百位优先级一次增加。基数排序是通过多次的收分配和收集来实现的，关键字优先级低的先进行分配和收集。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">举个栗子：</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305151241455-435533779.png" alt=""></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;<img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305151315580-1475685491.png" alt=""></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">实现代码：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008000;">/**</span><span style="color: #008000;">
+ *@Description:&lt;p&gt;基数排序算法实现&lt;/p&gt;
+ *</span><span style="color: #808080;">@author</span><span style="color: #008000;"> 王旭
+ *@time 2016-3-4 下午8:29:52
+ </span><span style="color: #008000;">*/</span>
+<span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> RadixSort {
+    
+    </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> radixSort(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">if</span>(arr == <span style="color: #0000ff;">null</span> &amp;&amp; arr.length == 0<span style="color: #000000;">)
+            </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> ;
+        
+        </span><span style="color: #0000ff;">int</span> maxBit =<span style="color: #000000;"> getMaxBit(arr);
+        
+        
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=1; i&lt;=maxBit; i++<span style="color: #000000;">) {
+            
+            List</span>&lt;List&lt;Integer&gt;&gt; buf = distribute(arr, i); <span style="color: #008000;">//</span><span style="color: #008000;">分配</span>
+            collecte(arr, buf); <span style="color: #008000;">//</span><span style="color: #008000;">收集</span>
+<span style="color: #000000;">        }
+        
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 分配
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 待分配数组
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> iBit 要分配第几位
+     * </span><span style="color: #808080;">@return</span>
+     <span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> List&lt;List&lt;Integer&gt;&gt; distribute(<span style="color: #0000ff;">int</span>[] arr, <span style="color: #0000ff;">int</span><span style="color: #000000;"> iBit) {
+        List</span>&lt;List&lt;Integer&gt;&gt; buf = <span style="color: #0000ff;">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;<span style="color: #000000;">();
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> j=0; j&lt;10; j++<span style="color: #000000;">) {
+            buf.add(</span><span style="color: #0000ff;">new</span> LinkedList&lt;Integer&gt;<span style="color: #000000;">());
+        }
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span> i=0; i&lt;arr.length; i++<span style="color: #000000;">) {
+            buf.get(getNBit(arr[i], iBit)).add(arr[i]);
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> buf;
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 收集
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> arr 把分配的数据收集到arr中
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> buf 
+     </span><span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span> collecte(<span style="color: #0000ff;">int</span>[] arr, List&lt;List&lt;Integer&gt;&gt;<span style="color: #000000;"> buf) {
+        </span><span style="color: #0000ff;">int</span> k = 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">for</span>(List&lt;Integer&gt;<span style="color: #000000;"> bucket : buf) {
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span><span style="color: #000000;"> ele : bucket) {
+                arr[k</span>++] =<span style="color: #000000;"> ele;
+            }
+        }
+        
+        
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 获取最大位数
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> x
+     * </span><span style="color: #808080;">@return</span>
+     <span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> getMaxBit(<span style="color: #0000ff;">int</span><span style="color: #000000;">[] arr) {
+        </span><span style="color: #0000ff;">int</span> max =<span style="color: #000000;"> Integer.MIN_VALUE;
+        </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">int</span><span style="color: #000000;"> ele : arr) {
+            </span><span style="color: #0000ff;">int</span> len = (ele+""<span style="color: #000000;">).length();
+            </span><span style="color: #0000ff;">if</span>(len &gt;<span style="color: #000000;"> max)
+                max </span>=<span style="color: #000000;"> len;
+        }
+        </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> max;
+    }
+    
+    </span><span style="color: #008000;">/**</span><span style="color: #008000;">
+     * 获取x的第n位，如果没有则为0.
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> x
+     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> n
+     * </span><span style="color: #808080;">@return</span>
+     <span style="color: #008000;">*/</span>
+    <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">int</span> getNBit(<span style="color: #0000ff;">int</span> x, <span style="color: #0000ff;">int</span><span style="color: #000000;"> n) {
+        
+        String sx </span>= x + ""<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">if</span>(sx.length() &lt;<span style="color: #000000;"> n)
+            </span><span style="color: #0000ff;">return</span> 0<span style="color: #000000;">;
+        </span><span style="color: #0000ff;">else</span>
+            <span style="color: #0000ff;">return</span> sx.charAt(sx.length()-n) - '0'<span style="color: #000000;">;
+    }
+
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p style="background: #00E3E3;"><strong><span style="font-size: 14pt; font-family: &#39;Microsoft YaHei&#39;;">总结</span></strong></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">在前面的介绍和分析中我们提到了冒泡排序、选择排序、插入排序三种简单的排序及其变种快速排序、堆排序、希尔排序三种比较高效的排序。后面我们又分析了基于分治递归思想的归并排序还有计数排序、桶排序、基数排序三种线性排序。我们可以知道排序算法要么简单有效，要么是利用简单排序的特点加以改进，要么是以空间换取时间在特定情况下的高效排序。但是这些排序方法都不是固定不变的，需要结合具体的需求和场景来选择甚至组合使用。才能达到高效稳定的目的。没有最好的排序，只有最适合的排序。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　下面就总结一下排序算法的各自的使用场景和适用场合。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305152817284-864419575.png" alt=""></span></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">1. 从平均时间来看，快速排序是效率最高的，但快速排序在最坏情况下的时间性能不如堆排序和归并排序。而后者相比较的结果是，在n较大时归并排序使用时间较少，但使用辅助空间较多。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　2. 上面说的简单排序包括除希尔排序之外的所有冒泡排序、插入排序、简单选择排序。其中直接插入排序最简单，但序列基本有序或者n较小时，直接插入排序是好的方法，因此常将它和其他的排序方法，如快速排序、归并排序等结合在一起使用。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　3. 基数排序的时间复杂度也可以写成O(d*n)。因此它最使用于n值很大而关键字较小的的序列。若关键字也很大，而序列中大多数记录的最高关键字均不同，则亦可先按最高关键字不同，将序列分成若干小的子序列，而后进行直接插入排序。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　4. 从方法的稳定性来比较，基数排序是稳定的内排方法，所有时间复杂度为O(n^2)的简单排序也是稳定的。但是快速排序、堆排序、希尔排序等时间性能较好的排序方法都是不稳定的。稳定性需要根据具体需求选择。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">　　5. 上面的算法实现大多数是使用线性存储结构，像插入排序这种算法用链表实现更好，省去了移动元素的时间。具体的存储结构在具体的实现版本中也是不同的。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">附：基于比较排序算法时间下限为O(nlogn)的证明：</span></p>
+<p>　　<span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">基于比较排序下限的证明是通过决策树证明的，决策树的高度Ω（nlgn），这样就得出了比较排序的下限。</span></p>
+<p><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;"><img style="display: block; margin-left: auto; margin-right: auto;" src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160305155833330-1414805744.jpg" alt=""></span></p>
+<pre class="recommend-text mb-10"><span style="font-size: 15px; font-family: &#39;Microsoft YaHei&#39;;">首先要引入决策树。 首先决策树是一颗二叉树，每个节点表示元素之间一组可能的排序，它予以京进行的比较相一致，比较的结果是树的边。 先来说明一些二叉树的性质，令T是深度为d的二叉树，则T最多有2^片树叶。 具有L片树叶的二叉树的深度至少是logL。 所以，对n个元素排序的决策树必然有n!片树叶（因为n个数有n!种不同的大小关系），所以决策树的深度至少是log(n!)，即至少需要log(n!)次比较。 而 log(n!)=logn+log(n-1)+log(n-2)+...+log2+log1 &gt;=logn+log(n-1)+log(n-2)+...+log(n/2) &gt;=(n/2)log(n/2) &gt;=(n/2)logn-n/2 =O(nlogn) 所以只用到比较的排序算法最低时间复杂度是O(nlogn)。<br><br>参考资料：<br>　　《数据结构》 严蔚敏 吴伟民 编著<br>　　  桶排序分析：<a href="http://hxraid.iteye.com/blog/647759" target="_blank">http://hxraid.iteye.com/blog/647759</a><br>　　  部分排序算法分析与介绍：<a href="http://www.cnblogs.com/weixliu/archive/2012/12/23/2829671.html" target="_blank">http://www.cnblogs.com/weixliu/archive/2012/12/23/2829671.html</a></span></pre>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"><div>作者：<a href="http://www.cnblogs.com/wxisme/" target="_blank">Pickle</a></div>
+<div>出处：<a href="http://www.cnblogs.com/wxisme/" target="_blank">http://www.cnblogs.com/wxisme/</a></div>
+<div>声明：对于转载分享我是没有意见的，出于对博客园社区和作者的尊重一定要保留原文地址哈。</div>
+
+<div>致读者：坚持写博客不容易，写高质量博客更难，我也在不断的学习和进步，希望和所有同路人一道用技术来改变生活。觉得有点用就点个赞哈。</div>
+<div style="float: right"><br><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112835275-168981902.gif"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112841431-2047172832.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112847494-1544911856.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112904385-918783221.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111120143119-1302805212.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112856369-1466718103.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111112830416-794416355.jpg"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20170111113919510-1155220901.gif"></div></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/wxisme/category/670207.html" target="_blank">数据结构与算法</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5243631,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;6021db20-d4d1-e411-b908-9dcfd8948a71&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/wxisme/" target="_blank"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/20160302172218.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/wxisme/">Pickle</a><br>
+            <a href="http://home.cnblogs.com/u/wxisme/followees">关注 - 11</a><br>
+            <a href="http://home.cnblogs.com/u/wxisme/followers">粉丝 - 139</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;6021db20-d4d1-e411-b908-9dcfd8948a71&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5243631,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">62</span>
+    </div>
+    <div class="buryit" onclick="votePost(5243631,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">3</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/wxisme/p/5237773.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/wxisme/p/5237773.html" title="发布于2016-03-03 11:03">二分查找的递归和非递归实现</a><br><a href="http://www.cnblogs.com/wxisme/p/5251239.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/wxisme/p/5251239.html" title="发布于2016-03-07 17:24">数值的整数次方</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-03-05 16:05</span> <a href="http://www.cnblogs.com/wxisme/">Pickle</a> 阅读(<span id="post_view_count">21227</span>) 评论(<span id="post_comment_count">22</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5243631" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/wxisme/p/5243631.html#" onclick="AddToWz(5243631);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=219716,cb_entryId=5243631,cb_blogApp=currentBlogApp,cb_blogUserGuid='6021db20-d4d1-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2016/3/5 16:05:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372585" class="layer">#1楼</a><a name="3372585" id="comment_anchor_3372585"></a>  <span class="comment_date">2016-03-05 20:11</span> <a id="a_comment_author_3372585" href="http://www.cnblogs.com/java-class/" target="_blank">Orson</a> <a href="http://msg.cnblogs.com/send/Orson" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372585" class="blog_comment_body">mark!</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372585,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372585,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372585_avatar" style="display:none;">http://pic.cnblogs.com/face/u362169.png?id=27222155</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372627" class="layer">#2楼</a><a name="3372627" id="comment_anchor_3372627"></a>  <span class="comment_date">2016-03-05 21:45</span> <a id="a_comment_author_3372627" href="http://www.cnblogs.com/anding/" target="_blank">/*梦里花落知多少*/</a> <a href="http://msg.cnblogs.com/send/%2F%2A%E6%A2%A6%E9%87%8C%E8%8A%B1%E8%90%BD%E7%9F%A5%E5%A4%9A%E5%B0%91%2A%2F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372627" class="blog_comment_body">不错，比较基础的算法题目</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372627,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372627,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372627_avatar" style="display:none;">http://pic.cnblogs.com/face/151257/20150809180411.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372641" class="layer">#3楼</a><a name="3372641" id="comment_anchor_3372641"></a>  <span class="comment_date">2016-03-05 22:33</span> <a id="a_comment_author_3372641" href="http://www.cnblogs.com/wrx362114/" target="_blank">吴瑞祥</a> <a href="http://msg.cnblogs.com/send/%E5%90%B4%E7%91%9E%E7%A5%A5" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372641" class="blog_comment_body">我映像最深刻的.有一次面试的时候.我问:你知道快速排序算法的思路和写法吗?对方回答:"我知道几种快速排序的算法.你说的是哪种"?</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372641,&#39;Digg&#39;,this)">支持(6)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372641,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372650" class="layer">#4楼</a><a name="3372650" id="comment_anchor_3372650"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-03-05 22:57</span> <a id="a_comment_author_3372650" href="http://www.cnblogs.com/wxisme/" target="_blank">Pickle</a> <a href="http://msg.cnblogs.com/send/Pickle" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372650" class="blog_comment_body"><a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372641" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3372641);">@</a>
+吴瑞祥<br>卧槽，给跪了。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372650,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372650,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372650_avatar" style="display:none;">http://pic.cnblogs.com/face/735119/20160302172218.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372656" class="layer">#5楼</a><a name="3372656" id="comment_anchor_3372656"></a>  <span class="comment_date">2016-03-05 23:16</span> <a id="a_comment_author_3372656" href="http://www.cnblogs.com/Always-LuoHan/" target="_blank">A唯爱永生_罗韩</a> <a href="http://msg.cnblogs.com/send/A%E5%94%AF%E7%88%B1%E6%B0%B8%E7%94%9F_%E7%BD%97%E9%9F%A9" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372656" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372656,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372656,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372662" class="layer">#6楼</a><a name="3372662" id="comment_anchor_3372662"></a>  <span class="comment_date">2016-03-05 23:37</span> <a id="a_comment_author_3372662" href="http://home.cnblogs.com/u/153546/" target="_blank">wdwwtzy</a> <a href="http://msg.cnblogs.com/send/wdwwtzy" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372662" class="blog_comment_body">哈哈 总结的不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372662,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372662,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372750" class="layer">#7楼</a><a name="3372750" id="comment_anchor_3372750"></a>  <span class="comment_date">2016-03-06 10:17</span> <a id="a_comment_author_3372750" href="http://www.cnblogs.com/netxiaohui/" target="_blank">—阿辉</a> <a href="http://msg.cnblogs.com/send/%E2%80%94%E9%98%BF%E8%BE%89" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372750" class="blog_comment_body">666</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372750,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372750,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372750_avatar" style="display:none;">http://pic.cnblogs.com/face/679140/20141128195543.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372816" class="layer">#8楼</a><a name="3372816" id="comment_anchor_3372816"></a>  <span class="comment_date">2016-03-06 12:26</span> <a id="a_comment_author_3372816" href="http://www.cnblogs.com/whatbeg/" target="_blank">whatbeg</a> <a href="http://msg.cnblogs.com/send/whatbeg" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372816" class="blog_comment_body">可以！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372816,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372816,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372816_avatar" style="display:none;">http://pic.cnblogs.com/face/591194/20141215104354.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3372910" class="layer">#9楼</a><a name="3372910" id="comment_anchor_3372910"></a>  <span class="comment_date">2016-03-06 15:59</span> <a id="a_comment_author_3372910" href="http://www.cnblogs.com/Mr-Qiang/" target="_blank">爱学习爱生活223</a> <a href="http://msg.cnblogs.com/send/%E7%88%B1%E5%AD%A6%E4%B9%A0%E7%88%B1%E7%94%9F%E6%B4%BB223" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3372910" class="blog_comment_body">一直没有找到系统的总结方法，不错。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3372910,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3372910,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3372910_avatar" style="display:none;">http://pic.cnblogs.com/face/900856/20160306170514.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3375266" class="layer">#10楼</a><a name="3375266" id="comment_anchor_3375266"></a>  <span class="comment_date">2016-03-09 08:41</span> <a id="a_comment_author_3375266" href="http://www.cnblogs.com/chandlerfang/" target="_blank">ChandlerFang</a> <a href="http://msg.cnblogs.com/send/ChandlerFang" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3375266" class="blog_comment_body">"冒泡排序虽然高端，但其实其思想是来自冒泡排序，" ???????<br>几个意思？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3375266,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3375266,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3375651" class="layer">#11楼</a><a name="3375651" id="comment_anchor_3375651"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-03-09 13:05</span> <a id="a_comment_author_3375651" href="http://www.cnblogs.com/wxisme/" target="_blank">Pickle</a> <a href="http://msg.cnblogs.com/send/Pickle" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3375651" class="blog_comment_body"><a href="http://www.cnblogs.com/wxisme/p/5243631.html#3375266" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3375266);">@</a>
+ChandlerFang<br>不好意思，笔下误。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3375651,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3375651,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3375651_avatar" style="display:none;">http://pic.cnblogs.com/face/735119/20160302172218.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3376886" class="layer">#12楼</a><a name="3376886" id="comment_anchor_3376886"></a>  <span class="comment_date">2016-03-10 14:49</span> <a id="a_comment_author_3376886" href="http://www.cnblogs.com/Artikel/" target="_blank">Artikel</a> <a href="http://msg.cnblogs.com/send/Artikel" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3376886" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3376886,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3376886,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3417230" class="layer">#13楼</a><a name="3417230" id="comment_anchor_3417230"></a>  <span class="comment_date">2016-04-25 21:38</span> <a id="a_comment_author_3417230" href="http://home.cnblogs.com/u/944508/" target="_blank">xiedacon</a> <a href="http://msg.cnblogs.com/send/xiedacon" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3417230" class="blog_comment_body">mark</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3417230,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3417230,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3424855" class="layer">#14楼</a><a name="3424855" id="comment_anchor_3424855"></a>  <span class="comment_date">2016-05-06 21:35</span> <a id="a_comment_author_3424855" href="http://www.cnblogs.com/quentain/" target="_blank">quentain</a> <a href="http://msg.cnblogs.com/send/quentain" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3424855" class="blog_comment_body">真的很不错的一篇文章总结！学习了！非常赞</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3424855,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3424855,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3424855_avatar" style="display:none;">http://pic.cnblogs.com/face/823602/20151117121303.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3426171" class="layer">#15楼</a><a name="3426171" id="comment_anchor_3426171"></a>  <span class="comment_date">2016-05-09 10:38</span> <a id="a_comment_author_3426171" href="http://home.cnblogs.com/u/952498/" target="_blank">IT程序狮</a> <a href="http://msg.cnblogs.com/send/IT%E7%A8%8B%E5%BA%8F%E7%8B%AE" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3426171" class="blog_comment_body">博主，你好，能否将本文转载到我的简书里。我会在文章开头标明，作者以及出处。谢谢！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3426171,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3426171,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3426277" class="layer">#16楼</a><a name="3426277" id="comment_anchor_3426277"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2016-05-09 11:34</span> <a id="a_comment_author_3426277" href="http://www.cnblogs.com/wxisme/" target="_blank">Pickle</a> <a href="http://msg.cnblogs.com/send/Pickle" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3426277" class="blog_comment_body"><a href="http://www.cnblogs.com/wxisme/p/5243631.html#3426171" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3426171);">@</a>
+IT程序狮<br>可以</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3426277,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3426277,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3426277_avatar" style="display:none;">http://pic.cnblogs.com/face/735119/20160302172218.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3491044" class="layer">#17楼</a><a name="3491044" id="comment_anchor_3491044"></a>  <span class="comment_date">2016-08-17 16:35</span> <a id="a_comment_author_3491044" href="http://www.cnblogs.com/lyericly/" target="_blank">lyericly</a> <a href="http://msg.cnblogs.com/send/lyericly" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3491044" class="blog_comment_body">堆排序的实现代码中的heapAdjust函数，for循环里面最后应该是<br>    <b>i = 2*i+1</b> <br>吧？？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3491044,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3491044,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3620297" class="layer">#18楼</a><a name="3620297" id="comment_anchor_3620297"></a>  <span class="comment_date">2017-02-16 17:58</span> <a id="a_comment_author_3620297" href="http://www.cnblogs.com/Hg--god/" target="_blank">half-man?</a> <a href="http://msg.cnblogs.com/send/half-man%3F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3620297" class="blog_comment_body"><a href="http://www.cnblogs.com/wxisme/p/5243631.html#3491044" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3491044);">@</a>
+lyericly<br>我觉得也是这样啊</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3620297,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3620297,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3621818" class="layer">#19楼</a><a name="3621818" id="comment_anchor_3621818"></a>  <span class="comment_date">2017-02-19 16:57</span> <a id="a_comment_author_3621818" href="http://www.cnblogs.com/miliam-12/" target="_blank">Mily_12</a> <a href="http://msg.cnblogs.com/send/Mily_12" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3621818" class="blog_comment_body">mark。<br>学习了。感谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3621818,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3621818,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3621818_avatar" style="display:none;">http://pic.cnblogs.com/face/1008660/20170220005841.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3630769" class="layer">#20楼</a><a name="3630769" id="comment_anchor_3630769"></a>  <span class="comment_date">2017-03-03 10:37</span> <a id="a_comment_author_3630769" href="http://www.cnblogs.com/taojun123/" target="_blank">taojun_K</a> <a href="http://msg.cnblogs.com/send/taojun_K" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3630769" class="blog_comment_body">总结的不错，感谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3630769,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3630769,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3639471" class="layer">#21楼</a><a name="3639471" id="comment_anchor_3639471"></a>  <span class="comment_date">2017-03-13 16:15</span> <a id="a_comment_author_3639471" href="http://www.cnblogs.com/gonjan-blog/" target="_blank">Gonjian</a> <a href="http://msg.cnblogs.com/send/Gonjian" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3639471" class="blog_comment_body">for(int i=2*start+1; i&lt;=end; i*=2) {<br>            //左右孩子的节点分别为2*i+1,2*i+2<br>            <br>            //选择出左右孩子较小的下标<br>            if(i &lt; end &amp;&amp; arr[i] &lt; arr[i+1]) {<br>                i ++; <br>            }<br>            if(temp &gt;= arr[i]) {<br>                break; //已经为大顶堆，=保持稳定性。<br>            }<br>            arr[start] = arr[i]; //将子节点上移<br>            start = i; //下一轮筛选<br>        }<br><br>楼主，为什么循环里 i = i * 2 + 1 和 i = i * 2；都能得到正确结果？要得到子节点，不是应该 i = i * 2 + 1嘛？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3639471,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3639471,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3639471_avatar" style="display:none;">http://pic.cnblogs.com/face/1085268/20170305135812.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/wxisme/p/5243631.html#3741348" class="layer">#22楼</a><a name="3741348" id="comment_anchor_3741348"></a><span id="comment-maxId" style="display:none;">3741348</span><span id="comment-maxDate" style="display:none;">2017/7/23 9:45:48</span>  <span class="comment_date">2017-07-23 09:45</span> <a id="a_comment_author_3741348" href="http://home.cnblogs.com/u/1205217/" target="_blank">sdfsadfas</a> <a href="http://msg.cnblogs.com/send/sdfsadfas" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3741348" class="blog_comment_body">你的堆排序是错误的   但是我也不知道正确的写法   我试的数是int[] arr = {5,6,3,4,7,2,1,9};   希望楼主能尽快找到错误修改</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3741348,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3741348,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/wxisme/p/5243631.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/wxisme/p/5243631.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://cloud.tencent.com/solution/la?fromSource=gwzcw.436846.436846.436846" target="_blank">【推荐】搭建微信小程序 就选腾讯云</a><br><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank">【推荐】报表开发有捷径：快速设计轻松集成，数据可视化和交互</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://www.mtyun.com/promote/69f73a72-f46d-4103-88e5-94ed2f81259d/" target="_blank"><img width="300" height="250" src="./面试中的排序算法总结 - Pickle - 博客园_files/24442-20170921101521025-1845913848.jpg" alt="美团云0921"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/579692/" target="_blank">微软Edge浏览器今起全面登陆iOS</a><br> ·  <a href="http://news.cnblogs.com/n/579691/" target="_blank">为何京东股价在中概股里逆势低迷？</a><br> ·  <a href="http://news.cnblogs.com/n/579690/" target="_blank">携程回应公众号诽谤：纯属造谣，将保留追究权利</a><br> ·  <a href="http://news.cnblogs.com/n/579689/" target="_blank">为iPhone X发售做准备 苹果号召开发者推AR软件</a><br> ·  <a href="http://news.cnblogs.com/n/579688/" target="_blank">甲骨文向大股东低头 联合创始人埃里森薪酬降了一半</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/22446/" target="_blank"><img width="468" height="60" src="./面试中的排序算法总结 - Pickle - 博客园_files/24442-20171001085719794-417760373.jpg" alt="阿里云1001"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><img src="./面试中的排序算法总结 - Pickle - 博客园_files/735119-20160325143302464-1302848731.png" height="200" width="200"><br><br>
+
+访问量：<img border="0" src="./面试中的排序算法总结 - Pickle - 博客园_files/counter.php" alt="PV" title="总访问量"><br>
+技术交流群：488059704<div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/wxisme/">Pickle</a><br>园龄：<a href="http://home.cnblogs.com/u/wxisme/" title="入园时间：2015-03-24">2年6个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/wxisme/followers/">139</a><br>关注：<a href="http://home.cnblogs.com/u/wxisme/followees/">11</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;6021db20-d4d1-e411-b908-9dcfd8948a71&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(402)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/wxisme/category/670209.html">Java开发(40)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/wxisme/category/718430.html">Linux(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/wxisme/category/670210.html">MySQL(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/wxisme/category/802620.html">并发编程</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/wxisme/category/730090.html">测试(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/wxisme/category/865372.html">大数据(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/wxisme/category/859297.html">分布式理论(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/wxisme/category/865374.html">工具(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/wxisme/category/741122.html">机器学习(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/wxisme/category/670211.html">领悟(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/wxisme/category/687215.html">设计模式(21)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/wxisme/category/670207.html">数据结构与算法(26)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/wxisme/category/672272.html">刷题(270)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/wxisme/category/786010.html">搜索引擎(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/wxisme/category/670232.html">他山之石(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/wxisme/category/670216.html">网络编程(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/wxisme/category/927267.html">网络协议(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/wxisme/category/788299.html">消息队列(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/wxisme/category/939567.html">源码剖析(2)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(402)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/wxisme/archive/2017/09.html">2017年9月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/wxisme/archive/2017/08.html">2017年8月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/wxisme/archive/2017/07.html">2017年7月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/wxisme/archive/2017/04.html">2017年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/wxisme/archive/2017/02.html">2017年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/wxisme/archive/2017/01.html">2017年1月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/wxisme/archive/2016/12.html">2016年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/wxisme/archive/2016/10.html">2016年10月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/wxisme/archive/2016/09.html">2016年9月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/wxisme/archive/2016/08.html">2016年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/wxisme/archive/2016/07.html">2016年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/wxisme/archive/2016/06.html">2016年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/wxisme/archive/2016/05.html">2016年5月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/wxisme/archive/2016/04.html">2016年4月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/wxisme/archive/2016/03.html">2016年3月 (26)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/wxisme/archive/2016/02.html">2016年2月 (24)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/wxisme/archive/2015/11.html">2015年11月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/wxisme/archive/2015/10.html">2015年10月 (34)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/wxisme/archive/2015/09.html">2015年9月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/wxisme/archive/2015/08.html">2015年8月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/wxisme/archive/2015/07.html">2015年7月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/wxisme/archive/2015/06.html">2015年6月 (29)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/wxisme/archive/2015/05.html">2015年5月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/wxisme/archive/2015/04.html">2015年4月 (44)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/wxisme/archive/2015/03.html">2015年3月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/wxisme/archive/2014/12.html">2014年12月 (28)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/wxisme/archive/2014/11.html">2014年11月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/wxisme/archive/2014/10.html">2014年10月 (12)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	80727
+	</li>
+	<li class="liRank">
+		排名 -	3670
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/5742456.html#3761490">1. Re:基于Redis的BloomFilter算法去重</a></li>
+        <li class="recent_comment_body">这几个bloom filter 对redis都不能支持512M内存，因为offset都是int类型</li>
+        <li class="recent_comment_author">--zwleagle</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/5296441.html#3749808">2. Re:远程方法调用（RMI）原理与示例</a></li>
+        <li class="recent_comment_body">虽然你写的rmi还不错,还是美中不足的就是while(true)这行代码,这个死循环会极大程度上去影响cpu的占用率,所以 Thread.sleep(1000);这个线程函数来进行性能优化.但这只是建......</li>
+        <li class="recent_comment_author">--瞿亮</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4924561.html#3742229">3. Re:Spring、Spring MVC、MyBatis整合文件配置详解</a></li>
+        <li class="recent_comment_body">nice</li>
+        <li class="recent_comment_author">--wj0816</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/5243631.html#3741348">4. Re:面试中的排序算法总结</a></li>
+        <li class="recent_comment_body">你的堆排序是错误的   但是我也不知道正确的写法   我试的数是int[] arr = {5,6,3,4,7,2,1,9};   希望楼主能尽快找到错误修改</li>
+        <li class="recent_comment_author">--sdfsadfas</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4924561.html#3740632">5. Re:Spring、Spring MVC、MyBatis整合文件配置详解</a></li>
+        <li class="recent_comment_body">不错，参考了部分配置！</li>
+        <li class="recent_comment_author">--总有奸臣想篡位</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4924561.html#3719286">6. Re:Spring、Spring MVC、MyBatis整合文件配置详解</a></li>
+        <li class="recent_comment_body">thats really cool, thank you.</li>
+        <li class="recent_comment_author">--我小时候超级帅</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4926266.html#3719117">7. Re:SpringMVC架构浅析</a></li>
+        <li class="recent_comment_body">清晰明了!</li>
+        <li class="recent_comment_author">--我小时候超级帅</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4924561.html#3710911">8. Re:Spring、Spring MVC、MyBatis整合文件配置详解</a></li>
+        <li class="recent_comment_body">楼主写的很赞，表情包更赞！！</li>
+        <li class="recent_comment_author">--babyla</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/5742456.html#3691397">9. Re:基于Redis的BloomFilter算法去重</a></li>
+        <li class="recent_comment_body">博主大神，感谢你，开源项目我整合到自己系统里面了，感谢！</li>
+        <li class="recent_comment_author">--周鹏程</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/wxisme/p/4924561.html#3676400">10. Re:Spring、Spring MVC、MyBatis整合文件配置详解</a></li>
+        <li class="recent_comment_body">厉害了，我的哥</li>
+        <li class="recent_comment_author">--冗长难挨的时光</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/wxisme/p/4924561.html">1. Spring、Spring MVC、MyBatis整合文件配置详解(27052)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5243631.html">2. 面试中的排序算法总结(21226)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4925331.html">3. Spring MVC全局异常处理与拦截器校检(8301)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4926266.html">4. SpringMVC架构浅析(4513)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6212797.html">5. 理解HTTP协议(4455)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5742456.html">6. 基于Redis的BloomFilter算法去重(4392)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4699049.html">7. TCP/IP网络知识点总结(3805)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5196302.html">8. Kafka集群部署(3577)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5296441.html">9. 远程方法调用（RMI）原理与示例(3131)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4776151.html">10. MyBatis——Mapper XML 文件(2562)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/wxisme/p/5243631.html">1. 面试中的排序算法总结(22)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4924561.html">2. Spring、Spring MVC、MyBatis整合文件配置详解(12)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6212797.html">3. 理解HTTP协议(8)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5224668.html">4. 一段实习一段人生(5)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4699049.html">5. TCP/IP网络知识点总结(4)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4693891.html">6. 我的书单(3)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5742456.html">7. 基于Redis的BloomFilter算法去重(3)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6270860.html">8. 深刻理解HDFS工作机制(2)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6233765.html">9. 谈谈等概率不重复随机数生成算法中的大学问(2)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5205217.html">10. Solr官方文档翻译-About &amp; Getting Started(2)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/wxisme/p/6212797.html">1. 理解HTTP协议(64)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5243631.html">2. 面试中的排序算法总结(62)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4924561.html">3. Spring、Spring MVC、MyBatis整合文件配置详解(38)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4699049.html">4. TCP/IP网络知识点总结(17)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6270860.html">5. 深刻理解HDFS工作机制(8)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/4926266.html">6. SpringMVC架构浅析(6)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5205217.html">7. Solr官方文档翻译-About &amp; Getting Started(5)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5299130.html">8. 浅析I/O模型及其设计模式(4)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/5296441.html">9. 远程方法调用（RMI）原理与示例(4)</a></li><li><a href="http://www.cnblogs.com/wxisme/p/6085501.html">10. Zookeeper数据模型及其应用(3)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 Pickle
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>
