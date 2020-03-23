@@ -51,6 +51,8 @@
 
 网络通信 --> IO多路复用之select、poll、epoll详解 - 蚂蚁吃大象、 - 博客园 - https://www.cnblogs.com/jeakeven/p/5435916.html
 
+ICMP（Internet Control Message Protocol）Internet控制报文协议
+
 ICMP（ICMP协议对于网络安全具有极其重要的意义）功能主要有：
  · 侦测远端主机是否存在。
  · 建立及维护路由资料。
