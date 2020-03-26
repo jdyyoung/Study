@@ -4,3 +4,6 @@
 关于list_for_each_entry相关函数 - 简书 - https://www.jianshu.com/p/2a42d3e20e10
 
 二叉树以及常见面试题 - 禅在心中 - 博客园 - https://www.cnblogs.com/pinking/p/9338338.html
+
+几分钟明白什么叫平衡二叉树_听老罗娓娓道来-CSDN博客 - https://blog.csdn.net/qq_33060405/article/details/78510121
+平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
