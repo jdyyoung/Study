@@ -126,7 +126,7 @@ RTP 载荷类型和时间戳详解 - little_star - 博客园 - https://www.cnblo
 NALU 的头部一个字节 由F,NRI,Type构成
 高位到低位
 bit7:F ：forbidden_zero_bit. 在 H.264 规范中规定了这一位必须为 0.禁止位，值为1表示语法出错
-bit6~5：NRI 重要性指示，越大越重要，可参考可丢弃还是必须处理
+bit6~5：NRI 重要性指示，越大越重要，可参考可丢弃还是必须处理 NAL  reference indicate
 bit4~0:Type
 
 RTP传输H264三种情况：MTU

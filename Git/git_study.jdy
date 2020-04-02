@@ -211,3 +211,31 @@ young@young-desktop:~/Study/PYTHON$
 
 git 查看配置：git config --list
 GIT-查看config配置信息 - Merray - 博客园 - https://www.cnblogs.com/merray/p/6006411.html
+
+//========================================2019-06-30=============================================================
+$ git stash -h
+usage: git stash list [<options>]
+   or: git stash show [<options>] [<stash>]
+   or: git stash drop [-q|--quiet] [<stash>]
+   or: git stash ( pop | apply ) [--index] [-q|--quiet] [<stash>]
+   or: git stash branch <branchname> [<stash>]
+   or: git stash clear
+   or: git stash [push [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]
+          [-u|--include-untracked] [-a|--all] [-m|--message <message>]
+          [--] [<pathspec>...]]
+   or: git stash save [-p|--patch] [-k|--[no-]keep-index] [-q|--quiet]
+          [-u|--include-untracked] [-a|--all] [<message>]
+
+git stash详解 - stone_yw的博客 - CSDN博客 - https://blog.csdn.net/stone_yw/article/details/80795669
+
+1 git stash
+2 git stash save 
+3 git stash list
+4 git stash pop
+5 git stash apply
+6 git stash drop + 名称
+7 git stash clear
+8 git stash show
+9 git stash branch
+
+
