@@ -29,7 +29,11 @@ sed -i '1,5 s/^....//g' a.txt # 第一至五行删除钱4个字符
 sed删除行首和行尾空格或者TAB - CSDN博客
 https://blog.csdn.net/richerg85/article/details/17766823
 
-sed 's/[ \t]*$//g'
+1、删除行头空格键和tab键
+cat seddlt | sed 's/^[ \t]*//g'
+
+2、删除行尾空格和tab
+cat seddlt | sed 's/[ \t]*$//g'
 
 3.
 

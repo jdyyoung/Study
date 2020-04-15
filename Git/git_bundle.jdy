@@ -1,5 +1,5 @@
 git reset HEAD^  //保留代码
-git reser --hard HEAD^ //不保留代码
+git reset --hard HEAD^ //不保留代码
 commit id（版本号）
 用HEAD表示当前版本，也就是最新的提交1094adb...
 --hard参数有啥意义:

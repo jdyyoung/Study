@@ -104,3 +104,12 @@ foreach
 
 makefile 里的 eval 函数 - brooknew的专栏 - CSDN博客 - https://blog.csdn.net/brooknew/article/details/8452358
 eval
+
+//--------------------------------------2020-04-07----------------------------------------------
+Makefile中:=, =, ?=和+=的含义_keep forward, go, go, go-CSDN博客 - https://blog.csdn.net/b876144622/article/details/80372161
+Makefile 中:= ?= += =的区别_网络_yanheriver的博客-CSDN博客 - https://blog.csdn.net/yanheriver/article/details/94560728
+
+"="：根据当前文件最后变量赋值
+":=": 根据当前位置变量的值，赋值
+"?=": 如果没被赋值，则赋等号后面的值
+"+=": 赋值叠加

@@ -1,1 +1,17 @@
 Shell脚本——时间同步 - 少点套路，多点诚意 - CSDN博客 - https://blog.csdn.net/twc829/article/details/72625988
+
+//-----------------------------------------20200409-----------------------------------------------
+Linux上shell脚本date的用法 - alsodzy - 博客园 - https://www.cnblogs.com/alsodzy/p/8403870.html
+[keysystem@localhost ~]$ date +%Y%m%d%H%M%S
+20180202101334
+
+shell date学习以及正确获取时间戳的姿势_运维_AQ931752921的博客-CSDN博客 - https://blog.csdn.net/AQ931752921/article/details/85071221
+cur_sec=`date '+%s'`
+➜  ~ date +%s
+1586440061
+
+在shell里怎么判断当前是星期几？
+date +%u
+
+通过Shell判断某个日期是星期几 - dbblog - 博客园 - https://www.cnblogs.com/ebs-blog/archive/2012/03/13/2393527.html
+date -d 20120311 +%w 取得2012年3月11日是星期几

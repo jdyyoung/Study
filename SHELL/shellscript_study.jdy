@@ -318,7 +318,11 @@ fi
 整数变量表达式用“[[]]”,所以尽可能用“[[]]”
 
 2017-09-28
+set -e -x 等等的作用_运维_weixin_42215229的博客-CSDN博客 - https://blog.csdn.net/weixin_42215229/article/details/86526581
+
+#-e 　若指令传回值不等于0，则立即退出shell
 set -e
+#-x 　执行指令后，会先显示该指令及所下的参数。
 set -x
 
 echo $(ls)  与 echo `ls` 等价
@@ -381,6 +385,18 @@ shell脚本通过expect脚本实现自动输入密码（使用expect） - 每天1990 - 博客园
 https://www.cnblogs.com/meitian/p/5134797.html
 
 http://blog.csdn.net/zhangjikuan/article/details/51105166
+实现ftp自动登录并运行ls指令的用法如下：其中zjk为用户名，zjk123为密码        
+ftp -i -n 192.168.21.46 <<EOF
+user zjk zjk123
+ls
+
+自动Telnet远程登陆命令 - Ricky.K - 博客园 - https://www.cnblogs.com/rickyk/p/3835084.html
+shell脚本telnet自动登录并执行命令_运维_草根工厂——技术虐我千百遍，我依然待你如初恋-CSDN博客 - https://blog.csdn.net/lisemi/article/details/91952172
+3种shell自动交互的方法 - 13070026王志东 - 博客园 - https://www.cnblogs.com/evi10032/p/5455990.html
+telnet 192.168.0.12 <<EOF
+user admin tsx123
+ls
+EOF
 
 //==========================20180619================================================================
 shell中变量自增的实现方法 - cbwcwy - 博客园 - https://www.cnblogs.com/iloveyoucc/archive/2012/07/11/2585559.html
@@ -394,4 +410,29 @@ shell中变量自增的实现方法 - cbwcwy - 博客园 - https://www.cnblogs.com/iloveyoucc
 //==========================2019721================================================================
 Shell获取字符串长度的多种方法总结_linux shell_脚本之家 - https://www.jb51.net/article/121290.htm
 
+//================================20200409================================================================
+ubuntu运行sh脚本sudo自动输入密码 - cdsnow2017 - SegmentFault 思否 - https://segmentfault.com/a/1190000004950264
+echo password | sudo -S apt-get update
 
+sudo -S apt-get update << EOF 
+你的密码
+EOF
+
+-----------------------------------------------------------------------------
+怎么查看僵尸进程：ps -ef | grep defunct
+怎么解决僵尸进程：杀掉父进程即可清理该僵尸进程：
+kill -9 `ps -ef | grep defunct_process_pid`
+
+-----------------------------------------------------------------------------
+shell脚本[] [[]] -n -z 的含义解析_运维_李常明运维之路-CSDN博客 - https://blog.csdn.net/keep_lcm/article/details/80551435
+-z 判断 变量的值，是否为空； zero = 0
+- 变量的值，为空，返回0，为true
+- 变量的值，非空，返回1，为false
+
+-n 判断变量的值，是否为空   name = 名字
+- 变量的值，为空，返回1，为false
+- 变量的值，非空，返回0，为true
+------------------------------------------------------------------------------------------
+Linux chown命令 | 菜鸟教程 - https://www.runoob.com/linux/linux-comm-chown.html
+将目前目录下的所有文件与子目录的拥有者皆设为 runoob，群体的使用者 runoobgroup:
+chown -R runoob:runoobgroup *
