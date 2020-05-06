@@ -7,3 +7,10 @@
 
 几分钟明白什么叫平衡二叉树_听老罗娓娓道来-CSDN博客 - https://blog.csdn.net/qq_33060405/article/details/78510121
 平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。
+
+//--------------------------20200504------------------------------------------------------------------------
+kfifo:
+
+linux内核数据结构之kfifo - Rabbit_Dale - 博客园 - https://www.cnblogs.com/Anker/p/3481373.html
+并发无锁环形队列的实现_Linux编程_Linux公社-Linux系统门户网站 - https://www.linuxidc.com/Linux/2016-12/137937.htm
+Linux内核数据结构kfifo详解_Linux编程_Linux公社-Linux系统门户网站 - https://www.linuxidc.com/Linux/2016-12/137936.htm

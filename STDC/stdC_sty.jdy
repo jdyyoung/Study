@@ -41,3 +41,32 @@ sscanf():左边字符串严格按照格式赋值到右边变量
 //rtsp://192.168.31.115:8554/live
 sscanf(url, "rtsp://%[^:]:", localIp);
 
+//---------------------------20200501-------------------------------------------------
+
+可变参数列表与printf()函数的实现 - chenguan - 博客园 - https://www.cnblogs.com/guanguangreat/p/6119278.html
+对C的printf函数的可变长参数实现的分析_c/c++_shexujia的专栏-CSDN博客 - https://blog.csdn.net/shexujia/article/details/19125981
+C语言中的可变参数函数 三个点“…” - sticker - 博客园 - https://www.cnblogs.com/sticker/p/9988237.html
+va在这里是variable-argument(可变参数)的意思。
+
+先看看stdarg.h文件下这三个宏的实现：
+第一种：
+typedef char  *va_list;
+#define va_start(ap,v)   ap = (va_list)&v + sizeof(v)
+#define va_arg(ap,t)      (((t *)ap)++[0])
+#define va_end(ap)
+
+第二种：
+typedef char  *va_list;  
+#define _INTSIZEOF(n)   ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )  
+#define va_start(ap,v)        ( ap = (va_list)&v + _INTSIZEOF(v) )  
+#define va_arg(ap,type)     (*(type *)((ap += _INTSIZEOF(t)) - _INTSIZEOF(t)) )  
+#define va_end(ap)             ( ap = (va_list)0 ) 
+
+_INTSIZEOF(n)：为了字节对齐，将n的长度化为int长度的整数倍。
+在32位系统中，~(sizeof(int)–1) )展开为~（4-1）=~（00000011b）=11111100b，这样任何数& ~(sizeof(int)–1) )后最后两位肯定为0，也就是4的整数倍。
+
+每个平台下的stdarg.h头文件的定义都不相同，但是意思都一样：
+(1) va_list：    定义一个va_list型的变量ap，也就是char *；
+(2) va_start：获取到可变参数表的首地址，并将该地址赋给指针ap；
+(3) va_arg：   获取当前ap所指向的可变参数，并将指针ap指向下一个可变参数。注意，该宏的第二个参数为类型；
+(4) va_end：   结束可变参数的获取。
