@@ -271,3 +271,11 @@ vim 打开二进制文件
 
 //========================20190831=======================
 去掉linux 系统vi中出现^M字符的方法 - 旭东的博客 - 博客园 - https://www.cnblogs.com/xudong-bupt/p/3584625.html
+
+//========================20200615=======================
+vim中执行shell命令小结 - Jessica程序猿 - 博客园 - https://www.cnblogs.com/wuchanming/p/4507428.html
+:!cmd
+:r!cmd 
+
+撤销：u
+反撤销：ctrl + r
