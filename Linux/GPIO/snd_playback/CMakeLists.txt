@@ -1,0 +1,10 @@
+SET(SRC_LIST gpio_sysfs_ctrl.c snd_playback.cpp)
+SET(LINK_LIST atk_audio_utils_mmap asound syncringbuffer membroker msgbroker)
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${MODULE_OPEN_SRC_3RD_INSTALL_DIR}/include)
+LINK_DIRECTORIES(${MODULE_OPEN_SRC_3RD_INSTALL_DIR}/lib)
+
+SET(TARGET_NAME snd_playback)
+ADD_EXECUTABLE(${TARGET_NAME} ${SRC_LIST})
+TARGET_LINK_LIBRARIES(${TARGET_NAME} ${LINK_LIST})
+

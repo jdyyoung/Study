@@ -11,3 +11,46 @@
 #else
 #define pr_debug(fmt, ...) 
 #endif
+
+---------------------------------------------------------------------------
+enum YC_LOG_LEVEL
+{
+    L_ERROR = 0,
+    L_WARN = 1,
+    L_INFO = 2,
+    L_DEBUG = 3,
+    L_VERBOSE = 4,
+};
+
+extern int log_level;
+
+#define LOGCOM(level, x, y...)  \
+    do                          \
+    {                           \
+        if (level <= log_level) \
+            printf(x, ##y);     \
+    } while (0)
+
+#define LOGE(x, y...) LOGCOM(L_ERROR, x, ##y)
+#define LOGW(x, y...) LOGCOM(L_WARN, x, ##y)
+#define LOGI(x, y...) LOGCOM(L_INFO, x, ##y)
+#define LOGD(x, y...) LOGCOM(L_DEBUG, x, ##y)
+#define LOGV(x, y...) LOGCOM(L_VERBOSE, x, ##y)
+
+#define pr(x, y...) LOGCOM(L_DEBUG, "\n[%s:%d] " x, __func__, __LINE__, ##y)
+#define LOG(x, y...) LOGI(x, ##y)
+
+#define LOG(expr)	PJ_LOG(3,expr)
+
+#define THIS_FILE_DEBUG
+#ifdef THIS_FILE_DEBUG
+	#define sta_log(x, y...) LOGCOM(L_DEBUG, "\n[%s:%d] " x, __func__, __LINE__, ##y)
+#else
+	#define sta_log(x,y...)
+#endif
+
+void yc_print_time(char *msg)
+{
+    int us = yc_get_system_ms();
+    pr("yc---%s:%d\n", msg, us);
+}

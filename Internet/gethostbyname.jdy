@@ -7,4 +7,7 @@ gethostbyname与DNS - 简书 - https://www.jianshu.com/p/85a6fc704c1a
 
 gethostbyname()函数：通过域名获取IP地址 - http://c.biancheng.net/view/2357.html
 
+-----------------------------2020-6-25---------------------------------------------------------------------------------------------
+浅谈getaddrinfo函数的超时处理机制_Javin_L的博客-CSDN博客_getaddrinfo timeout - https://blog.csdn.net/Javin_L/article/details/82627560
+
 

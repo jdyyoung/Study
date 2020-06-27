@@ -1,0 +1,60 @@
+#!/bin/sh
+# Skybell firewall rules
+
+# delete any existing rules
+/usr/sbin/iptables -F
+/usr/sbin/iptables -X
+
+# default policy
+/usr/sbin/iptables -P INPUT DROP
+/usr/sbin/iptables -P OUTPUT ACCEPT
+/usr/sbin/iptables -P FORWARD DROP
+
+# allow RTP
+/usr/sbin/iptables -A INPUT -p udp --dport 5006 -j ACCEPT
+
+# allow unlimited traffic on loopback
+/usr/sbin/iptables -A INPUT -i lo -j ACCEPT
+
+# allow ICMP
+/usr/sbin/iptables -A INPUT -p icmp --icmp-type 0 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p icmp --icmp-type 3/4 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p icmp --icmp-type 3/3 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p icmp --icmp-type 3/1 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p icmp --icmp-type 8 -j ACCEPT
+
+# allow DNS + MDNS
+/usr/sbin/iptables -A INPUT -p udp --dport 53 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p udp --sport 53 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p udp --dport 5353 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p udp --sport 5353 -j ACCEPT
+
+# allow CoAP (signalling)
+/usr/sbin/iptables -A INPUT -p udp --dport 5683 -j ACCEPT
+#/usr/sbin/iptables -A INPUT -p udp --dport 5683 -m limit --limit 100/minute --limit-burst 100 -j ACCEPT
+
+# allow HTTPS (OTA)
+/usr/sbin/iptables -A INPUT -p tcp -m tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+
+# allow DHCP
+/usr/sbin/iptables -A INPUT -p udp --dport 67:68 -j ACCEPT
+
+# allow NTP?
+/usr/sbin/iptables -A INPUT -p udp --dport 123 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p udp --sport 123 -j ACCEPT
+
+# allow bittorrent
+/usr/sbin/iptables -A INPUT -p tcp --dport 6881 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p tcp --sport 6881 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p tcp --dport 6969 -j ACCEPT
+/usr/sbin/iptables -A INPUT -p tcp --sport 6969 -j ACCEPT
+
+# logging
+#/usr/sbin/iptables -N LOGGING
+#/usr/sbin/iptables -A INPUT -j LOGGING
+#/usr/sbin/iptables -A LOGGING -m limit --limit 2/min -j LOG --log-prefix "IPTables-Dropped: " --log-level 4
+#/usr/sbin/iptables -A LOGGING -j DROP
+
+# Allow SSH
+#/usr/sbin/iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+#/usr/sbin/iptables -A INPUT -p tcp --sport 22 -j ACCEPT

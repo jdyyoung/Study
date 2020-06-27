@@ -13,3 +13,23 @@ netperf是一个基于client-server模式的网络测试工具，可以测量TCP
 netperf使用-社区博客-网易云 - https://sq.163yun.com/blog/article/190965728772210688
 
 Zynq-Linux移植学习笔记之六-netperf网络测试 - 无知的我 - CSDN博客 - https://blog.csdn.net/zhaoxinfan/article/details/55048567
+
+--------------------------------------
+2020-06-25
+关于防火墙的学习
+怎么移植，怎么用？
+//open video RTCP port (RTP port + 1)
+do_system("/usr/sbin/iptables -I INPUT 1 -p udp --dport %d -j ACCEPT", atoi(m_video+8)+1);
+
+//open video RTCP port (RTP port + 1)
+do_system("/usr/sbin/iptables -I INPUT 1 -p udp --dport %d -j ACCEPT", atoi(m_video+8)+1);
+
+
+do_system("sh /etc/iptables/iptables.default");
+do_system("sh /etc/iptables/iptables.skybell");
+
+
+----
+wifi吐出量测试：
+//start iperf3 server
+do_system("/usr/bin/iperf3 -s &");
