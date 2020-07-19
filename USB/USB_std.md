@@ -49,8 +49,6 @@ USB的NRZI信号格式-百度经验 - https://jingyan.baidu.com/article/39810a23
 
 [USB波形分析] 全速USB波形数据分析(一) - Mr.Bike - 博客园 - https://www.cnblogs.com/mr-bike/p/11674590.html
 
-[USB波形分析] 全速USB波形数据分析(一) - Mr.Bike - 博客园 - https://www.cnblogs.com/mr-bike/p/11674590.html
-
 USB之基本协议和数据波形1 - 爱码网 - http://www.likecs.com/show-59814.html
 
 ---
@@ -60,3 +58,28 @@ USB之基本协议和数据波形1 - 爱码网 - http://www.likecs.com/show-5981
 
 
 多个IN或OUT事务接连发生时，通常会DATA0和DATA1包交换使用，它们只是PID字段不同，没有区它区别。
+
+---
+
+1、RZ 编码（Return-to-zero Code），也叫归零编码。
+
+​		特点：自同步，浪费带宽。
+
+2、NRZ 编码（Non-return-to-zero Code），也叫不归零编码。
+
+​		特点：失去自同步，省带宽
+
+3、NRZI 编码（Non-Return-to-Zero Inverted Code），也叫反向不归零编码。
+
+在USB传输的编码中采用的是NRZI格式，电平翻转代表逻辑0，电平不变代表1。
+
+在USB中，每个数据包的最开始处都有一个**同步域**（SYNC），其值为00000001，在经过NRZI编码后，就是一串方波，接收方可能过这个同步头来计算发送方的频率，以便用这个频率来继续采样数据信号。
+
+由于USB所采用的NRZI编码中，每当逻辑0时就会进行电平翻转，那么接收方可通过这个不断翻转的信号来调整同步的频率，保证数据的正确传输。
+
+![20200628005046](.\md_att\20200628005046.jpg)
+
+USB中采用了Bit-Stuffing位填充处理，即在连续发送6个1后面会插入1个0，强制使发送信号进行翻转，从而让接收方调整频率，同步接收。而接收方在接收时只要接收到连续的6个1后，直接将后面的0删除即可恢复数据的原貌。
+
+---
+
