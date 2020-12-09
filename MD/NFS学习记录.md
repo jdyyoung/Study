@@ -79,3 +79,29 @@ young@young-desktop:~$ sudo mount -t nfs 192.168.43.82:/opt/rootfs /mnt
 ```
 
 就可以了。
+
+----
+
+问题：
+
+```
+mount -o nolock -t nfs failed: Protocol not supported挂载失败
+```
+
+解决：
+
+```
+1.内核Network File Systems选项配置选上：
+
+2.修改nfs配置文件：/etc/default/nfs-kernel-server
+解决办法： 
+Ubuntu 17.10 之后 nfs 默认就只支持协议3和协议4，但是 uboot 默认启动的是协议2，若想要求 nfs 支持协议2，需要在/etc/default/nfs-kernel-server末尾加一句：
+	RPCNFSDOPTS="--nfs-version 2,3,4 --debug --syslog" 
+然后重启nfs:sudo /etc/init.d/nfs-kernel-server restart 
+```
+
+
+
+解决在使用RK3308板卡使用NFS挂在服务器时，出现“mount.nfs: Protocol not supported”的问题_b7376811的博客-CSDN博客 - https://blog.csdn.net/b7376811/article/details/104764017?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight
+
+u-boot无法通过nfs挂载处于Ubuntu 18.04服务器的根文件系统的解决_colin.tan-CSDN博客 - https://blog.csdn.net/qq_33475105/article/details/81628795
