@@ -137,3 +137,13 @@ signal_qual:97
 ```
 
 无线信号强度解析及linux如何查看wifi信号强弱等_lbyyy的专栏-CSDN博客_linux查看wifi信号强度 - https://blog.csdn.net/lbyyy/article/details/51392629
+
+
+
+---
+
+c语言获取linux的CPU、内存、IO、磁盘、网速（本机编译通过）_p312011150的博客-CSDN博客_c语言 cpu 内存 - https://blog.csdn.net/p312011150/article/details/81278775?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
+
+
+
+用Linux C语言获取当前网速_zhx862012的专栏-CSDN博客_linux 网络测速 c - https://blog.csdn.net/zhx862012/article/details/79731129

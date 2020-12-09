@@ -9,5 +9,8 @@ gethostbyname()函数：通过域名获取IP地址 - http://c.biancheng.net/view
 
 -----------------------------2020-6-25---------------------------------------------------------------------------------------------
 浅谈getaddrinfo函数的超时处理机制_Javin_L的博客-CSDN博客_getaddrinfo timeout - https://blog.csdn.net/Javin_L/article/details/82627560
+TODO：连上SKA1的ssid,因为此时SKA1的路由器没连网线无法连通互联网，getaddrinfo()解析地址则失败。
+但关掉(断电)之前的SKA1路由器，设置了手机热点，ssid名也是SKA1，此时SKA1是可以连通互联网的，机子连上此时的SKA1但是getaddrinfo()解析地址还是失败。
+是不是：getaddrinfo()保存了一个解析地址映射表？
 
 

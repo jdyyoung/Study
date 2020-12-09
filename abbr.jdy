@@ -1,3 +1,5 @@
+abbreviation:缩写
+
 嵌套向量中断控制器:Nested Vectored Interrupt Controller (NVIC)
 
 NMI (Non Maskable Interrupt)――不可屏蔽中断
