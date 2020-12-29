@@ -119,5 +119,132 @@ git config --global i18n.logoutputencoding utf-8
 
 ---
 
+---
 
+2020-12-29:
+
+git bundle 用法：
+
+1.找到最近同一commit 点：
+
+A:
+
+```
+commit 5606664d7bc9f840ea4577b8c085b8a4a9308ef0
+Author: jdyyoung <347587159@qq.com>
+Date:   Wed Dec 9 23:47:42 2020 +0800
+
+    119:20201209
+
+commit c53c0fbf20f2aabb88735194eabe61b23112522f
+Author: Young <347587159@qq.com>
+Date:   Sat Jun 27 10:12:32 2020 +0800
+
+    20200627-02
+
+```
+
+B:
+
+```
+commit c53c0fbf20f2aabb88735194eabe61b23112522f
+Author: Young <347587159@qq.com>
+Date:   Sat Jun 27 10:12:32 2020 +0800
+
+    20200627-02
+
+commit 3ca0b075e0294fef596a891c550aa51f5d17ec52
+Author: jdyyoung <347587159@qq.com>
+Date:   Sat Jun 27 10:00:34 2020 +0800
+
+    20200627-01
+```
+
+A 与B 相差一个commit:5606664d7bc9f840ea4577b8c085b8a4a9308ef0
+
+相同的点的commit:c53c0fbf20f2aabb88735194eabe61b23112522f
+
+
+
+2.在A仓库创建bundle:
+
+```
+#把tmp分支commit-id:c53c0fbf 之后的commit 打包成commit.bundle
+git bundle create commit.bundle tmp ^c53c0fbf
+```
+
+3.拷贝bundle文件到B 仓库
+
+```
+cp commit.bundle  ../Study
+```
+
+4.B仓库校验同源
+
+注：通常要在B 仓库创建同源（相同commit点）的分支，并在这分支导入bundle
+
+```
+#git checkout -b tmp
+#git reset --hard c53c0fbf
+git bundle verify commit.bundle
+```
+
+4.B 仓库导入bundle
+
+```
+#从commit.bundle 提取tmp分支(bundle的分支)到tmp_b分支(将被新建的分支，且该分支不能是已存在的分支)
+git fetch commit.bundle tmp:tmp_b
+```
+
+5.合并tmp分支提交master分支：
+
+```
+git cherry-pick tmp 5606664d
+```
+
+6.删除tmp分支
+
+```
+git branch -D tmp
+```
+
+
+
+---
+
+出现错误：
+
+```
+young@young-desktop:~/Study$ git fetch commit.bundle tmp:tmp 
+fatal: 拒绝获取到非纯仓库的当前分支 refs/heads/tmp
+```
+
+原因：后面个tmp,该分支已存在
+
+---
+
+---
+
+git reset HEAD^  //保留代码
+git reset --hard HEAD^ //不保留代码
+commit id（版本号）
+用HEAD表示当前版本，也就是最新的提交1094adb...
+--hard参数有啥意义:
+Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD
+HEAD指向的就是当前分支
+
+//=========================================================================================
+Git - 打包 - https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E6%89%93%E5%8C%85
+
+git log
+git bundle create commits.bundle master ^9a466c5
+cp commits.bundle  /xxxxxx
+cd /xxxxxx
+git bundle verify commits.bundle
+git branch temp
+$ git fetch ../commits.bundle master:temp
+git merge temp
+git branch -D temp
+
+---
 
