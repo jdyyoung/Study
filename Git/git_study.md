@@ -115,6 +115,9 @@ git status 乱码
 git config --global i18n.logoutputencoding utf-8
 
 注意：如果是Linux系统，需要设置环境变量 export LESSCHARSET=utf-8
+
+解决gitk中文乱码：
+git config --global gui.encoding utf-8
 ```
 
 ---

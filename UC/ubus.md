@@ -65,9 +65,9 @@ vi config.h.in
 ```
 编辑config.h.in 文件，一定要去掉下面两行内容，红色字体为要删除的
 /*Define to rpl_malloc if the replacement function should be used. */
-#undefmalloc
+#undef malloc
 /*Define to rpl_realloc if the replacement function should be used. */
-#undefrealloc
+#undef realloc
 ```
 
 ---
@@ -150,7 +150,8 @@ INSTALL(FILES ${scripts}
 编译：
 
 ```makefile
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/young/ubus/lib_arm/libubox  -DBUILD_LUA=off
+mkdir /home/young/ubus/lib_arm/libubox
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/vtcs/ubus_test/lib_arm/libubox  -DBUILD_LUA=off
 make
 make install
 ```
@@ -183,6 +184,9 @@ LINK_DIRECTORIES("/home/young/ubus/lib_arm/libubox/lib")
 
 #增加一行
 ADD_DEFINITIONS( -DJSONC )
+
+#修改
+TARGET_LINK_LIBRARIES(cli ubus ubox blobmsg_json json-c)
 
 ```
 
