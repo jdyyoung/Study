@@ -1,0 +1,73 @@
+#!/bin/sh
+##########################################################################################################
+A_ASCII=`printf "%d\n" \'A`
+Z_ASCII=`printf "%d\n" \'Z`
+SALT=lvd9azl3
+emc_tmp=""
+
+encode_SN(){
+	echo "-------------$1-------------------------------------"
+	reverse_val=`echo $1 | awk '{for(i=1; i<=length;i++) {line = substr($0, i, 1) line}} END{print line}'`
+	echo "-------------reverse_val = $reverse_val-------------"
+	
+	i=0
+	while [ "$i" -lt "${#reverse_val}" ]; do
+		var=`echo "${reverse_val:$i:1}"`
+  
+		case $var in
+		[A-Z])
+		var=`printf "%d\n" \'${var}`
+		let "var=${Z_ASCII}-$var+${A_ASCII}"
+		var=`echo $var | awk '{printf("%c\n", $1)}'`
+		enc_tmp="${enc_tmp}${var}"
+		;;
+		[0-9])
+		let "var=9-$var"
+		enc_tmp="${enc_tmp}${var}"
+		;;
+		*)
+		enc_tmp="AAAAA00000"
+		break
+		esac
+		let "i+=1"
+	done
+	
+	echo "-----------enc_tmp=${enc_tmp}--------------"
+}
+
+
+cp_shadow(){
+	echo "----------- cp shadow ro /skybell/config ------------"
+	cp /etc/shadow.slim2 /skybell/config/shadow
+	sync
+
+	encode_SN ${_SN_}
+	PASSWD=`openssl passwd -1 -salt $SALT $enc_tmp`
+	echo "------------------------PASSWD = ${PASSWD}--------------"
+	enc_passwd=`openssl passwd -1 -salt $SALT $PASSWD`
+	echo "----------------enc_passwd = ${enc_passwd}--------------"
+	last_passwd=`cat /skybell/config/shadow | grep "root" | awk -F: '{print $2}'`
+	sed -i "s@$last_passwd@$enc_passwd@g" /skybell/config/shadow
+}
+
+CUR_MODE=`fw_printenv __factorymode__ | awk -F= '{print $2}'`
+if [ "$CUR_MODE" = "1" ];then
+	echo "----------- cur is factory mode ------------"
+	cp /etc/shadow.slim1 /skybell/config/shadow
+	sync
+else
+	if [ ! -e /skybell/config/shadow ];then
+		cp_shadow
+	fi
+fi
+
+case "$1" in
+	start)
+		if [ -f "/skybell/bin/skybell_run.sh" ]; then
+			sh /skybell/bin/skybell_run.sh
+		fi
+	;;
+	stop)
+	;;
+esac
+

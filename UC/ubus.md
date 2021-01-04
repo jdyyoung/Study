@@ -221,3 +221,4 @@ struct prog_attr {
 
 ```
 
+(1条消息) OpenWrt开发:22---软件模块之ubus（系统总线）_江南、董少-CSDN博客 - https://blog.csdn.net/qq_41453285/article/details/102595943

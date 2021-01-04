@@ -49,3 +49,24 @@ Linux 下的KILL函数的用法 - 拂 晓 - 博客园 - https://www.cnblogs.com/
 iniparser库使用_stone8761的专栏-CSDN博客 - https://blog.csdn.net/stone8761/article/details/81100747
 
 解析配置文件.ini 的库
+
+---
+
+关于__GNU_SOURCE 这个宏 - 颠覆者 - 博客园 - https://www.cnblogs.com/raozhiyi/articles/9509600.html
+
+(3条消息)关于waitpid()中的WNOHANG_searchwang的专栏-CSDN博客 - https://blog.csdn.net/searchwang/article/details/30803767
+
+Linux串口—struct termios结构体【转】 - sky-heaven - 博客园 - https://www.cnblogs.com/sky-heaven/p/9675253.html
+
+Linux下signal信号汇总 - 撒欢 - 博客园 - https://www.cnblogs.com/frisk/p/11602973.html
+
+linux下core file size设置笔记 - 散尽浮华 - 博客园 - https://www.cnblogs.com/kevingrace/p/8243938.html
+
+```
+ulimit -c unlimited; ulimit -c 1024; 
+echo "/skybell/misc/corefile-%e-%p-%t" > /proc/sys/kernel/core_pattern 
+```
+
+
+
+Linux下用文件IO的方式操作GPIO（/sys/class/gpio） - 嵌入式操作系统 - 博客园 - https://www.cnblogs.com/zym0805/p/5814351.html

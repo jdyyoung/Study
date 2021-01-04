@@ -83,3 +83,6 @@ USB中采用了Bit-Stuffing位填充处理，即在连续发送6个1后面会插
 
 ---
 
+
+
+Linux 下usb万能调试驱动-lpven-ChinaUnix博客 - http://blog.chinaunix.net/uid-27083042-id-3278847.html

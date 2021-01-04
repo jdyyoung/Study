@@ -66,3 +66,9 @@ Thinkpad T480:
 --同在startup标签下，选择boot进入boot引导顺序页面，将USB HDD调整到第一位引导 (shift + ‘+’ 调整)
 
 -->F10，保存并重启，自动会引导到U盘。
+
+
+
+---
+
+解决 Windows 10 家庭版无法使用NFS服务的问题_zywvvd的博客-CSDN博客 - https://blog.csdn.net/zywvvd/article/details/106501200

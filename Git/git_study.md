@@ -251,3 +251,19 @@ git branch -D temp
 
 ---
 
+(1条消息)git 拉取远程分支到本地_carfge的博客-CSDN博客_git拉取远程分支 - https://blog.csdn.net/carfge/article/details/79691360
+
+(2条消息)合并其他分支的一个commit_ejennahuang的博客-CSDN博客_合并其他分支commit - https://blog.csdn.net/ejennahuang/article/details/98640238
+
+```
+git push origin --delete paul_pir_test
+
+git branch -a
+
+git cherry-pick 上面复制的那个要合并的commit id  // 提交该commit到当前分支
+
+git push origin --delete slim2-v4054-OTA
+
+git tag -d slim2-v4054-OTA
+```
+
