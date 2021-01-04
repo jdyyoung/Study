@@ -105,3 +105,68 @@ uboot 执行bootcmd
 bootargs 传给kernel,kernel根据bootargs初始化rootfs
 ```
 
+-----
+
+2021-01-03：
+
+内核添加dts后，device和device_driver的match匹配的变动：通过compatible属性进行匹配_one shot,one kill.-CSDN博客 - https://blog.csdn.net/ruanjianruanjianruan/article/details/61622053
+
+Linux Platform驱动模型(二) _驱动方法 - Abnor - 博客园 - https://www.cnblogs.com/xiaojiang1025/archive/2017/02/06/6367910.html
+
+设备树DTS 学习：2-设备树语法 - 黄树超 - 博客园 - https://www.cnblogs.com/schips/archive/2004/01/13/12208681.html
+
+【Linux笔记】设备树基础知识 - https://mp.weixin.qq.com/s/p3ugT59JHWaDTdZvGsj83g
+
+linux 设备树及节点引用_KjfureOne的专栏-CSDN博客 - https://blog.csdn.net/KjfureOne/article/details/51972854
+
+```C
+static const struct of_device_id PS5268_of_match[] = {
+	{ .compatible = "vatics,ps5268", },
+	{}
+};
+MODULE_DEVICE_TABLE(of, PS5268_of_match);
+
+static struct platform_driver PS5268_driver = {
+	.probe = PS5268_probe,
+	.remove = PS5268_remove,
+	.driver = {
+		.name = "ps5268",
+		.owner = THIS_MODULE,
+		.of_match_table = PS5268_of_match,
+	},
+};
+module_platform_driver(PS5268_driver);
+```
+
+---
+
+哪几个函数：
+
+哪几个结构体：
+
+---
+
+一些概念：
+
+根节点 父节点 子节点 设备节点
+
+
+
+属性 值
+
+值的类型
+
+尖括号<>
+
+方括号[]
+
+标签 引用
+
+@
+
+&
+
+常见特殊属性
+
+IO地址，单元地址
+
