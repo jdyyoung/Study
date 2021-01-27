@@ -267,3 +267,24 @@ git push origin --delete slim2-v4054-OTA
 git tag -d slim2-v4054-OTA
 ```
 
+----
+
+2021-01-17：
+
+```
+#git查看远程仓库地址命令
+rck@rck:/vtcs/d3tech/skybell_app$ git remote -v
+origin	git@gitee.com:skybell/d3tech.git (fetch)
+origin	git@gitee.com:skybell/d3tech.git (push)
+rck@rck:/vtcs/d3tech/skybell_app$
+```
+
+```
+#git修改远程仓库关联
+git remote rm origin
+git remote add origin http://192.168.100.235:9797/john/git_test.git
+||
+git remote set-url origin http://192.168.100.235:9797/john/git_test.git
+git修改远程仓库关联 - 自律西红柿 - 博客园 - https://www.cnblogs.com/sugar-tomato/p/9029205.html
+```
+

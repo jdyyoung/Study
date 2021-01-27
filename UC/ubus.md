@@ -127,6 +127,7 @@ ADD_DEFINITIONS(-DJSONC)
 
 # ENDIF()
 
+#修改成：
 ADD_LIBRARY(blobmsg_json SHARED blobmsg_json.c)
 TARGET_LINK_LIBRARIES(blobmsg_json ubox json-c)
 
@@ -173,10 +174,8 @@ SET(CMAKE_CXX_COMPILER "arm-linux-g++")
 include_directories("/home/young/ubus/lib_arm/json-c/include/json-c")
 include_directories("/home/young/ubus/lib_arm/json-c/include")
 
-
 #json-c 库文件路径
 link_directories("/home/young/ubus/lib_arm/json-c/lib")
-
 
 INCLUDE_DIRECTORIES("/home/young/ubus/lib_arm/libubox/include/libubox")
 INCLUDE_DIRECTORIES("/home/young/ubus/lib_arm/libubox/include")
@@ -185,7 +184,10 @@ LINK_DIRECTORIES("/home/young/ubus/lib_arm/libubox/lib")
 #增加一行
 ADD_DEFINITIONS( -DJSONC )
 
-#修改
+#注释掉这一行
+# find_library(json NAMES json-c json)
+
+#修改成
 TARGET_LINK_LIBRARIES(cli ubus ubox blobmsg_json json-c)
 
 ```
