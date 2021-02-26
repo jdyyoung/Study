@@ -1,3 +1,80 @@
+----
+
+2021-02-26:
+
+静态库与动态库生成与使用：
+
+```
+(2)静态库的使用步骤
+   a.编写测试源代码(xxx.c)
+     vi main.c文件
+   b.只编译不链接生成目标文件(xxx.o)
+     gcc/cc -c main.c
+   c.链接测试文件和静态库文件，链接的方式有三种:
+     1)直接链接
+       cc main.o libadd.a
+     2)使用编译选项进行链接(掌握)
+       gcc/cc main.o -l 库名 -L 库文件所在的路径
+       gcc/cc main.o -l add -L .
+     3)配置环境变量LIBRARY_PATH
+       export LIBRARY_PATH=$LIBRARY_PATH:.
+       gcc/cc main.o -l add
+
+2.3 共享库的生成和使用步骤
+(1)共享库的生成步骤
+   a.编写源代码(xxx.c)
+     vi add.c文件
+   b.只编译不链接生成目标文件(xxx.o)
+     gcc/cc -c -fpic/*小模式,代码少*/ add.c
+   c.生成共享库文件
+     gcc/cc -shared 目标文件(xxx.o) -o lib库名.so
+     gcc/cc -shared/*共享*/ add.o -o libadd.so
+(2)共享库的使用步骤
+   a.编写测试源代码(xxx.c)
+     vi main.c文件
+   b.只编译不链接生成目标文件(xxx.o)
+     gcc/cc -c main.c
+   c.链接测试文件和共享库文件，链接的方式有三种:
+     1)直接链接
+       cc main.o libadd.so
+     2)使用编译选项进行链接(掌握)
+       gcc/cc main.o -l 库名 -L 库文件所在的路径
+       gcc/cc main.o -l add -L .
+     3)配置环境变量LIBRARY_PATH
+       export LIBRARY_PATH=$LIBRARY_PATH:.
+       gcc/cc main.o -l add
+
+注意：
+   共享库的使用要求配置环境变量LD_LIBRARY_PATH的值，主要解决运行时找不到共享库的问题
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
+```
+
+注意：C++ 调用纯C的动态库，在-L与-l 都正确时还会出现报错：
+
+```
+undefined reference to `ex_log_init(char const*)'
+```
+
+解决方法：
+
+C++项目中的extern "C" {} - 吴秦 - 博客园 - https://www.cnblogs.com/skynet/archive/2010/07/10/1774964.html
+
+```C
+#ifdef __cplusplus
+extern "C" {
+#endif
+ 
+/*...*/
+ 
+#ifdef __cplusplus
+}
+#endif
+```
+
+---
+
+
+
 Linux C中的open函数_boyemachao的专栏-CSDN博客_linux open() - https://blog.csdn.net/boyemachao/article/details/91820647
 
 ```

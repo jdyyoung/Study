@@ -1,9 +1,3 @@
-/* Copyright © 2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
-
-
 #ifndef _MUTEX_H_
 #define _MUTEX_H_
 

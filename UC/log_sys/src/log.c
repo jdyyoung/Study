@@ -1,7 +1,3 @@
-/* Copyright � 2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
  #include "log.h"
 
 typedef struct {
@@ -28,7 +24,7 @@ void* debug_log = NULL;
 static int next_file(LOG_CONTEXT* ctxt)
 {
     DIR* dirp;
-    char filename[MAX_PATHNAME];
+    char filename[MAX_PATHNAME * 3];
     struct stat stbuf;
     int next;
 
@@ -564,7 +560,7 @@ int log_archive(const char* archive_name)
     // and do_system() will try to use the logging system (which would be a deadly embrace).  So
     // we basically build our own do_system() here without logging!
     unlink(archive_name);
-    snprintf(tar_command, sizeof(tar_command), "tar -czf %s -C %s %s", archive_name, SKYBELL_MISC, LOG_PATHNAME);
+    snprintf(tar_command, sizeof(tar_command), "tar -czf %s -C %s %s", archive_name, LOG_SAVE_DIR, LOG_PATHNAME);
 
     rc = system(tar_command);
     if (WIFEXITED(rc) && WEXITSTATUS(rc)) {
@@ -588,12 +584,12 @@ int log_zap(void)
             log_close(log);
             log_delete("debug");
         }
-        if (system_log != NULL) {
-            void* log = system_log;
-            system_log = NULL;
-            log_close(log);
-            log_delete("system");
-        }
+        // if (system_log != NULL) {
+        //     void* log = system_log;
+        //     system_log = NULL;
+        //     log_close(log);
+        //     log_delete("system");
+        // }
 
         log_restore();
         return 0;
@@ -660,11 +656,17 @@ void* log_restart(char* logname, size_t bytes_per_file,
     return log;
 }
 
+static void restore(void) 
+{
+    // system_log = log_restart("system", 0x20000ul, 10, TRUE);
+    debug_log = log_restart("debug", 0xa0000ul, 10, TRUE);
+}
 
 // create all of the component directories in log_rootpathname,
 // this routine must be called if *ANY* logging is to take place
 // 
-void log_init(char* rootpath, void (*restore)(void))
+// void log_init(char* rootpath, void (*restore)(void))
+void  log_init(const char* rootpath)
 {
     struct timeval tv;
     char* slash = log_rootpathname;
@@ -693,7 +695,11 @@ void log_init(char* rootpath, void (*restore)(void))
         // TODO
     // }
 
-    if (log_restore) {
-        log_restore(); 
-    }
+    // if (log_restore) {
+    //     log_restore(); 
+    // }
+
+    // system_log = log_restart("system", args.s_bytes_per_file, args.s_max_files, TRUE);
+    // debug_log = log_restart("debug", args.d_bytes_per_file, args.d_max_files, TRUE);
+    log_restore();
 }

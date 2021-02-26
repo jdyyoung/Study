@@ -1,8 +1,3 @@
-/* Copyright ?2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
-
 #ifndef _LIB_H_
 #define _LIB_H_
 
@@ -54,7 +49,7 @@
 #include "typedef.h"
 #include "recovery.h"
 #include "crc32.h"
-#include "filenames.h"
+// #include "filenames.h"
 #include "utils.h"
 
 

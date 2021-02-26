@@ -1,31 +1,30 @@
-/* Copyright � 2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
-
 #include "lib.h"
-#include <signal.h>
-#include <ucontext.h>
-#include <linux/reboot.h>
-#include <sys/mount.h>
+// #include <signal.h>
+// #include <ucontext.h>
+// #include <linux/reboot.h>
+// #include <sys/mount.h>
 
 #define LOG_TO_SYSLOG 0
+#define PRINT_BUF_MAX_SIZE 1400
 
-extern void reboot(int);
+// extern void reboot(int);
 
-static void (*sync_system)(int signo) = NULL;
+// static void (*sync_system)(int signo) = NULL;
 
-static struct termios console_termios;
-static bool           console_termios_saved = FALSE;
+// static struct termios console_termios;
+// static bool           console_termios_saved = FALSE;
 
 int system_debug_level = 1;
 int system_console_level = 1;
 
 bool stdout_redirected = FALSE;
 
-bool development = FALSE;
+// bool development = FALSE;
 
+void log_init_ext(const char* path){
+	log_init(path);
 
+}
 static void console_output(char* fmt, ...)
 {
     if (!stdout_redirected) {
@@ -49,10 +48,10 @@ static void log_output(char* fmt, ...)
 
     // log everything to DBUG log
     va_start(vargs, fmt); __log_vprintf(debug_log, LOG_MAX_LEVEL, LOG_ANY_MASK, fmt, vargs); va_end(vargs);
-    if (strncmp(fmt, "DBUG", 4) != 0) {
-        // log everything that does not begin with "DBUG" (e.g., "WARNING", "PROBLEM", "RESTART", "RELOAD")
-        va_start(vargs, fmt); __log_vprintf(system_log, LOG_MAX_LEVEL, LOG_ANY_MASK, fmt, vargs); va_end(vargs);
-    }
+    // if (strncmp(fmt, "DBUG", 4) != 0) {
+    //     // log everything that does not begin with "DBUG" (e.g., "WARNING", "PROBLEM", "RESTART", "RELOAD")
+    //     va_start(vargs, fmt); __log_vprintf(system_log, LOG_MAX_LEVEL, LOG_ANY_MASK, fmt, vargs); va_end(vargs);
+    // }
     #if LOG_TO_SYSLOG
     va_start(vargs, fmt); vsyslog(LOG_EMERG, fmt, vargs); va_end(vargs); 
     #endif
@@ -76,7 +75,7 @@ static char* severity_string(int severity)
     }
 }
 
-
+#if 0
 char* signal_string(int signo)
 {
     return strsignal(signo);
@@ -192,17 +191,15 @@ int init_signal_handlers(void (*callback)(int signo))
 
     return 0;
 }
+#endif
 
 int system_recovery(int severity, const char* function, int lineno, int error, 
                     const char* comment, ...)
 {
     va_list vargs;
-    char buf[1024];
+    char buf[PRINT_BUF_MAX_SIZE];
     char* trim_buf;
     int len;
-
-	//return 0;//cc
-	
 
     errno = error;
     va_start(vargs, comment);
@@ -222,38 +219,38 @@ int system_recovery(int severity, const char* function, int lineno, int error,
     log_output("%s-%s\n", severity_string(severity), trim_buf); 
     sync();
 
-    switch (severity) {
-    case ATTENTION:
-    case COMPLAINT:
-    case SERIOUS:
-        break;
+    // switch (severity) {
+    // case ATTENTION:
+    // case COMPLAINT:
+    // case SERIOUS:
+    //     break;
 
-    case RESTART_APP:
-        // note: this code assumes /etc/inittab::respawn is set to skybell so
-        // by killing skybell the 'init' process should restart it...
-        // Or, which is more likely skybell_init is running and it will restart skybell
-        add_to_file(SKYBELL_RESTART, buf, strlen(buf), TRUE); 
-        killapp(2);
-        break;
+    // case RESTART_APP:
+    //     // note: this code assumes /etc/inittab::respawn is set to skybell so
+    //     // by killing skybell the 'init' process should restart it...
+    //     // Or, which is more likely skybell_init is running and it will restart skybell
+    //     add_to_file(SKYBELL_RESTART, buf, strlen(buf), TRUE); 
+    //     killapp(2);
+    //     break;
 
-    case RELOAD_OS:
-        // change the uBoot environment variables to boot the other kernel/rootfs
-        // and return control to uBoot
-        //ubootenv_toggle_bootcmd(5);
+    // case RELOAD_OS:
+    //     // change the uBoot environment variables to boot the other kernel/rootfs
+    //     // and return control to uBoot
+    //     //ubootenv_toggle_bootcmd(5);
 
-        // fall through to reboot the OS (in uBoot)
-    case RESTART_OS:
-        add_to_file(SKYBELL_REBOOT, buf, strlen(buf), TRUE); 
-        if (sync_system) 
-            sync_system(0);
-        //led_redalert(5); 2016/11/29 -- v1115 led sub-system uses mutexes that may be locked 
-        printf(">>>system_recovery RESET OS   start\n"); //paul 20200312
-        printf(">>>%s\n",buf); //paul 20200312
-        printf(">>>system_recovery RESET OS   end\n"); //paul 20200312
+    //     // fall through to reboot the OS (in uBoot)
+    // case RESTART_OS:
+    //     add_to_file(SKYBELL_REBOOT, buf, strlen(buf), TRUE); 
+    //     if (sync_system) 
+    //         sync_system(0);
+    //     //led_redalert(5); 2016/11/29 -- v1115 led sub-system uses mutexes that may be locked 
+    //     printf(">>>system_recovery RESET OS   start\n"); //paul 20200312
+    //     printf(">>>%s\n",buf); //paul 20200312
+    //     printf(">>>system_recovery RESET OS   end\n"); //paul 20200312
         
-        reboot(LINUX_REBOOT_CMD_RESTART);//paul 20200312
-        break;
-    }
+    //     reboot(LINUX_REBOOT_CMD_RESTART);//paul 20200312
+    //     break;
+    // }
 
     return 0;
 }
@@ -263,7 +260,7 @@ int system_debug(int level, const char* comment, ...)
 {
     if (level <= system_debug_level) {
         va_list vargs;
-        char buf[1024];
+        char buf[PRINT_BUF_MAX_SIZE];
         char* trim_buf;
 
         va_start(vargs, comment);
@@ -296,7 +293,8 @@ int system_console_level_update(int level)
     return old;
 }
 
-
+//------------------------------------------------------------
+#if 0
 int system_debug_file(int level, const char* filename)
 {
     if (level <= system_debug_level) {
@@ -311,8 +309,7 @@ int system_debug_file(int level, const char* filename)
     return 0;
 }
 
-//------------------------------------------------------------
-#if 0
+
 void recover_file_system(int partition, int ubi_no, char* ubi_name, char* mount_point)
 {
     int rc;

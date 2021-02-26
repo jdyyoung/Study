@@ -1,16 +1,17 @@
-/* Copyright © 2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
-
 #ifndef _LOG_H_
 #define _LOG_H_
 
 #include "lib.h"
 #include "typedef.h"
 
+// #define LOG_SAVE_DIR "/tmp"
+
 #ifndef LOG_PATHNAME
 #define LOG_PATHNAME "logs"
+#endif
+
+#ifndef MAX_PATHNAME
+#define MAX_PATHNAME     512
 #endif
 
 #define LOG_VERSION          "log-config-000"
@@ -54,7 +55,7 @@ typedef struct {
 } LOG_CONFIG;
 
 
-extern void* system_log;
+// extern void* system_log;
 extern void* debug_log;
 
 
@@ -95,6 +96,6 @@ extern int   log_archive(const char* archive_name);
 extern int   log_zap(void);
 extern void* log_restart(char* logname, size_t bytes_per_file, 
                          int max_files, bool timestamp);
-extern void  log_init(char* rootpath, void (*restore)(void));
-
+// extern void  log_init(char* rootpath, void (*restore)(void));
+extern void  log_init(const char* rootpath);
 #endif

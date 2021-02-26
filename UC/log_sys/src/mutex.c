@@ -1,8 +1,3 @@
-/* Copyright © 2015 HiTEM Engineering, Inc.  Skybell, Inc.
- * Proprietary information, NDA required to view or use this software.  
- * All rights reserved.
- */
-
 #include "lib.h"
 
 
@@ -39,7 +34,7 @@ static void mutex_sanity(MUTEX* mutex, const char* func, int line)
         time_t now = monotonic_time();
         if (mutex->locked && /*rtc_time_valid() &&*/ now - mutex->locked > LOCK_MINUTE_THRESHOLD*60) {
             if (!mutex_deadlock_exception(mutex)) {
-                printf( "MUTEX-%p locked by %s().%d for more than %d minutes (%d - %d = %d)\n", 
+                printf( "MUTEX-%p locked by %s().%d for more than %d minutes (%ld - %ld = %ld)\n", 
                      mutex, mutex->func? mutex->func:"<NULL>", mutex->line, LOCK_MINUTE_THRESHOLD, now, mutex->locked, now - mutex->locked);
             }
             mutex->locked = now;
@@ -143,7 +138,7 @@ void mutex_deadlock_check(void)
             if (!rtc_time_valid()) break;
             if (mutex->locked && now - mutex->locked > DEADLOCK_MINUTE_THRESHOLD * 60) {
                 if (!mutex_deadlock_exception(mutex)) { // exceptions that can block forever...
-                    printf( "MUTEX-%p locked by %s().%d for more than %d minutes (%d - %d = %d)\n", 
+                    printf( "MUTEX-%p locked by %s().%d for more than %d minutes (%ld - %ld = %ld)\n", 
                          mutex, mutex->func? mutex->func:"<NULL>", mutex->line, DEADLOCK_MINUTE_THRESHOLD, now, mutex->locked, now - mutex->locked);
                     ++dead;
                 }
@@ -171,7 +166,7 @@ void mutex_dump(void)
     list_for_each(this, &mutex_list) {
         MUTEX* mutex = list_entry(this, MUTEX, list);
         if (mutex->func != NULL && mutex->line > 0) {
-            printf( "MUTEX-%s(%p) locked by %s().%d for %d seconds\n", 
+            printf( "MUTEX-%s(%p) locked by %s().%d for %ld seconds\n", 
                  mutex->name, mutex, mutex->func, mutex->line, now - mutex->locked);
         }
     }

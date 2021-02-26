@@ -1,20 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-#include "log.h"
-// #include "recovery.h"
+// #include "log.h"
+#include "recovery.h"
 
-
-
-static void log_restore(void) 
-{
-    system_log = log_restart("system", 0x20000ul, 10, TRUE);
-    debug_log = log_restart("debug", 0x80000ul, 10, TRUE);
-}
+#ifndef LOG_SAVE_DIR
+#define LOG_SAVE_DIR "/tmp"
+#endif
 
 int main(){
-	log_init(SKYBELL_MISC, log_restore);
+	log_init_ext(LOG_SAVE_DIR);
 	
 	while(1){
 		DBUG(0,"log system test:%s-%d\n",__func__,__LINE__);
