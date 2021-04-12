@@ -37,7 +37,9 @@ int main(){
 		cJSON_AddItemToArray(jsonArray,ArrayItem0);
     }
 
-	msg = cJSON_Print(root_json);
+	// msg = cJSON_Print(root_json);
+	msg = cJSON_PrintUnformatted(root_json);
+	
 
 	printf("生成的JSON0:\n%s\n",msg);
     free(msg);

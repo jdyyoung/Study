@@ -1,3 +1,19 @@
+
+
+```
+#提取第二列
+cat tmp.file | awk '{print $2}' > tmp1.ok
+
+#所有行开头增加{
+sed -i 's/^/{/g' countryMap.txt
+#所有行尾增加}
+sed -i 's/$/}/g' countryMap.txt 
+```
+
+
+
+---
+
 shell指令的学习：
 
 找出当前路径下所有空文件夹：

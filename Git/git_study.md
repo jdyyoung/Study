@@ -1,5 +1,90 @@
 
 
+
+
+
+
+2021-03-26：
+
+```
+git删除中间某个commit：
+1.git log获取commit信息
+2.git rebase -i (commit-id)
+commit-id 为要删除的commit的下一个commit号
+3.编辑文件，将要删除的commit之前的单词改为drop
+4.保存文件退出大功告成
+5.git log查看
+
+git push origin master –force
+```
+
+
+
+----
+
+```
+#先删除已关联的名为origin的远程库:
+git remote rm origin
+#关联GitHub的远程库,远程仓库名github
+git remote add github git@github.com:michaelliao/learngit.git
+#查看远程库信息
+git remote -v
+
+#拉取
+git fetch github master
+git rebase github/master
+
+git push github master
+```
+
+使用 git rebase 让历史变得清晰_张吉的博客-CSDN博客 - https://blog.csdn.net/zjerryj/article/details/77394585
+
+使用Gitee - 廖雪峰的官方网站 - https://www.liaoxuefeng.com/wiki/896043488029600/1163625339727712
+
+Git重命名仓库、修改远程仓库地址、修改仓库配置_Spring的博客-CSDN博客_git仓库改名 - https://blog.csdn.net/u011884440/article/details/71246572?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_v2~rank_aggregation-3-71246572.pc_agg_rank_aggregation&utm_term=git+%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93+%E9%87%8D%E5%91%BD%E5%90%8D&spm=1000.2123.3001.4430
+
+2021-0317:
+
+git 拉取远程分支到本地_carfge的博客-CSDN博客_git拉取远程分支 - https://blog.csdn.net/carfge/article/details/79691360
+
+```
+git fetch origin dev（dev为远程仓库的分支名）
+git checkout -b dev(本地分支名称) origin/dev(远程分支名称)
+```
+
+
+
+----
+
+2021-03-03:
+
+git仓库拆分 - 勇~勇 - 博客园 - https://www.cnblogs.com/lyongyong/p/11994938.html
+
+```
+git仓库拆分
+例如：
+# 这就是那个大仓库 big-project
+$ git clone git@github.com:tom/big-project.git
+$ cd big-project
+
+# 把所有 `codes-eiyo` 目录下的相关提交整理为一个新的分支 eiyo
+$ git subtree split -P codes-eiyo -b eiyo
+
+# 另建一个新目录并初始化为 git 仓库
+$ mkdir ../eiyo
+$ cd ../eiyo
+$ git init
+
+# 拉取旧仓库的 eiyo 分支到当前的 master 分支
+$ git pull ../big-project eiyo
+```
+
+
+
+
+
+---
+
 -------------------------------------------------------------------2020-07-26------------------------------------------------------------------------
 
 Git 添加空文件夹的方法 - today4king - 博客园 - https://www.cnblogs.com/jinzhao/archive/2012/03/21/2410156.html
