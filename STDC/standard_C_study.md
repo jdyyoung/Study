@@ -1,3 +1,29 @@
+
+
+---
+
+---
+
+2021-0515：
+
+字符串删掉某个字符:
+
+c语言删除某个字符串中的某一个字符_Janik的博客-CSDN博客 - https://blog.csdn.net/qq_39769995/article/details/83211154
+
+```c
+void delete_char(char str[],char target){
+	int i,j;
+	for(i=j=0;str[i]!='\0';i++){
+		if(str[i]!=target){
+			str[j++]=str[i];
+		}
+	}
+	str[j]='\0';
+}
+```
+
+
+
 如何在引号里面引用宏_水晶鞋-CSDN博客_sas引号里调用宏变量 - https://blog.csdn.net/mos2046/article/details/25741223
 
 ```

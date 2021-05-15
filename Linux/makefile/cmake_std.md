@@ -4,6 +4,63 @@
 
 ---
 
+---
+
+2021-05-14：
+
+option:
+
+option(BUILD_TEST "Build the testing tree." OFF)
+
+(e.g. via `-D<name>=ON` on the command line).
+
+```
+option(<variable> "<help_text>" [value])
+```
+
+```
+Provides an option for the user to select as ON or OFF. If no initial <value> is provided,
+OFF is used. If <variable> is already set as a normal or cache variable, then the command does nothing .
+```
+
+message:
+
+message(STATUS "Finished building dependencies.")
+
+message(FATAL_ERROR "No crypto library selected.")
+
+```
+message([<mode>] "message to display" ...)
+```
+
+```
+(none)         = Important information
+STATUS         = Incidental information
+WARNING        = CMake Warning, continue processing
+AUTHOR_WARNING = CMake Warning (dev), continue processing
+SEND_ERROR     = CMake Error, continue processing,but skip generation
+FATAL_ERROR    = CMake Error, stop processing and generation
+DEPRECATION    = CMake Deprecation Error or Warning if variable
+                 CMAKE_ERROR_DEPRECATED or CMAKE_WARN_DEPRECATED
+                 is enabled, respectively, else no message.
+```
+
+if
+
+
+
+get_filename_component(ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE)
+
+link_directories(${CPRODUCER_LIBRARY_DIRS})
+
+file(MAKE_DIRECTORY ${KINESIS_VIDEO_OPEN_SOURCE_SRC}/local_bsp4)
+
+find_package(OpenSSL REQUIRED)
+
+link_directories(${LIBCURL_LIBRARY_DIRS})
+
+---
+
 ----
 
 2021-05-13：
