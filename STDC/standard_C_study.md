@@ -25,7 +25,7 @@ void delete_char(char str[],char target){
 ```
 
 
-=======
+
 2021-02-26:
 
 可变参数列表与printf()函数的实现 - chenguan - 博客园 - https://www.cnblogs.com/guanguangreat/p/6119278.html

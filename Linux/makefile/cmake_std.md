@@ -88,7 +88,163 @@ SORT 　　　　　　　　　　将list按字母顺序排序
 　　CMakeLists 关于List的使用方法_地表最强菜鸡的博客-CSDN博客 - https://blog.csdn.net/qq_19734597/article/details/101755468
 ```
 
+---
 
+---
+
+2021-0516：
+
+CMake上手：学习和练习案例素材 - https://www.icode9.com/content-4-784818.html
+
+使用cmake --help-variable-list可以查看cmake中默认变量
+
+使用cmake --help-variable <cmake变量名> 可以查看该变量的默认值和使用场景
+
+```
+cmake --help-variable CMAKE_INSTALL_PREFIX
+```
+
+---
+
+CMake的几种Include_fb_help的专栏-CSDN博客 - https://blog.csdn.net/fb_help/article/details/81382746
+
+Cmake命令之include_directories介绍 - 简书 - https://www.jianshu.com/p/e7de3de1b0fa
+
+```
+#CMake的几种Include
+include_directories(sub)
+target_include_directories（）
+add_executable(xx xx.cpp xx.h)
+```
+
+```
+#将${include_dir}头文件库路径只添加到了myproject项目
+project(myproject)
+target_include_directories（myproject PRIVATE ${include_dir}）
+```
+
+```
+#
+project(cmake_examples_install)
+#Generate the shared library from the library sources
+add_library(cmake_examples_inst SHARED
+    src/Hello.cpp
+)
+target_include_directories(cmake_examples_inst
+    PUBLIC 
+        ${PROJECT_SOURCE_DIR}/include
+)
+
+
+#
+# Set the project name
+project (hello_headers)
+# Add an executable with the above sources
+add_executable(hello_headers ${SOURCES})
+target_include_directories(hello_headers
+    PRIVATE 
+        ${PROJECT_SOURCE_DIR}/include
+)
+```
+
+
+
+---
+
+cmake 之install：
+
+```
+# Binaries
+#TARGETS 安装编译生成的目标
+#DESTINATION <dir> 指定环境变量${DESTDIR}/${CMAKE_INSTALL_PREFIX}下的的<dir>,如果<dir>不存在则创建
+install (TARGETS cmake_examples_inst_bin DESTINATION bin)
+
+# Library
+# Note: may not work on windows
+#安装库的路径需要LIBRARY DESTINATION？？？
+install (TARGETS cmake_examples_inst LIBRARY DESTINATION lib)
+
+# Header files
+#DIRECTORY 安装某路径下的所有文件
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)
+
+# Config
+#FILES 安装已存在的文件
+install (FILES cmake-examples.conf DESTINATION etc)
+```
+
+cmake 的install 注意两个关键字：
+
+```
+cmake with `cmake .. -DCMAKE_INSTALL_PREFIX=/install/location`
+make install DESTDIR=/tmp/stage
+```
+
+```
+cmake 
+make 
+#此时的make install 会把相关安装在${DESTDIR}/${CMAKE_INSTALL_PREFIX}
+#而DESTDIR的值是空，CMAKE_INSTALL_PREFIX默认值是/usr/local
+#所以测试时可能会出现没有权限失败
+make install
+#把相关文件安装在/tmp/usr/local
+make install DESTDIR=/tmp/
+
+#亦可修改,则相关文件会安装在/tmp 目录下
+cmake -DCMAKE_INSTALL_PREFIX=/tmp
+make
+make install
+```
+
+cmake 的环境变量：PROJECT_SOURCE_DIR 为所在项目CMakeLists.txt 所在路径
+
+```
+#cmake 内置变量:
+PROJECT_SOURCE_DIR 
+CMAKE_CXX_FLAGS 
+CMAKE_C_FLAGS
+```
+
+---
+
+```cmake
+# Set a default C++ compile flag
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)
+```
+
+CMake set 语法 - 白菜菜白 - 博客园 - https://www.cnblogs.com/lvchaoshun/p/10431380.html
+
+```
+1. 普通变量
+set(<variable> <value>... [PARENT_SCOPE])
+
+2. 设置缓存条目
+set(<variable> <value>... CACHE <type> <docstring> [FORCE])
+设置给定的缓存变量<variable> 的值为 <value>.
+
+由于缓存项旨在提供用户可设置的值，因此默认情况下不会覆盖现有缓存项。使用FORCE选项覆盖现有条目。
+<type> 必须是下列类型之一：
+BOOL:Boolean ON/OFF value. 
+FILEPATH:文件路径. 
+PATH:目录路径. 
+STRING：一行文本. 
+INTERNAL：一行文本. Use of this type implies FORCE.
+注意：当使用了FOECE,cmake命令行选项不会覆盖变量值，FORCE的优先级高于命令行-D … =“…”参数。
+
+3. 设置环境变量
+set(ENV{<variable>} [<value>])
+设置环境变量<variable>的值为<value>. 后面使用 $ENV{<variable>} 可以获取该值.
+```
+
+---
+
+add_compile_options命令添加的编译选项是针对所有编译器的(包括c和c++编译器)，
+
+而set命令设置CMAKE_C_FLAGS或CMAKE_CXX_FLAGS变量则是分别只针对c和c++编译器的。
+
+cmake --build . 与make一样的效果
+
+make VERBOSE=1
 
 ---
 
@@ -139,13 +295,15 @@ if
 
 get_filename_component(ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE)
 
-link_directories(${CPRODUCER_LIBRARY_DIRS})
-
 file(MAKE_DIRECTORY ${KINESIS_VIDEO_OPEN_SOURCE_SRC}/local_bsp4)
 
-find_package(OpenSSL REQUIRED)
-
 link_directories(${LIBCURL_LIBRARY_DIRS})
+
+find_path
+
+find_library
+
+find_package(OpenSSL REQUIRED)
 
 ---
 
