@@ -1,0 +1,124 @@
+# 
+# wpa_cli status
+Selected interface 'wlan0'
+bssid=ec:56:23:15:c9:8b
+freq=2437
+ssid=wifi520
+id=0
+mode=station
+pairwise_cipher=CCMP
+group_cipher=CCMP
+key_mgmt=WPA2-PSK
+wpa_state=COMPLETED
+ip_address=192.168.43.55
+p2p_device_address=9c:54:da:0f:c4:85
+address=9c:54:da:0f:c4:85
+uuid=858a56a7-b918-5df2-8afd-f94914b7ec60
+# 
+# -------buf:<3>CTRL-EVENT-REGDOM-CHANGE init=BEACON_HINT type=UNKNOWN
+-------buf:<3>CTRL-EVENT-DISCONNECTED bssid=ec:56:23:15:c9:8b reason=0
+WIFI/wpa_process_msg(): <3>CTRL-EVENT-DISCONNECTED bssid=ec:56:23:15:c9:8b reason=0
+WIFI_STATE_WPA_DISCONNECTED
+-------buf:<3>CTRL-EVENT-SCAN-STARTED 
+-------buf:<3>CTRL-EVENT-REGDOM-CHANGE init=BEACON_HINT type=UNKNOWN
+-------buf:<3>CTRL-EVENT-REGDOM-CHANGE init=BEACON_HINT type=UNKNOWN
+-------buf:<3>CTRL-EVENT-BSS-ADDED 71 9c:54:da:16:e5:19
+-------buf:<3>CTRL-EVENT-BSS-ADDED 72 74:05:a5:55:83:d5
+-------buf:<3>CTRL-EVENT-BSS-ADDED 73 0a:9b:4b:9b:fb:bd
+-------buf:<3>CTRL-EVENT-BSS-ADDED 74 3c:95:09:38:af:19
+-------buf:<3>CTRL-EVENT-BSS-ADDED 75 22:a5:89:74:59:99
+-------buf:<3>CTRL-EVENT-BSS-ADDED 76 f0:b4:29:f2:ec:5a
+-------buf:<3>CTRL-EVENT-BSS-ADDED 77 b0:73:5d:0a:0e:f4
+-------buf:<3>CTRL-EVENT-BSS-ADDED 78 bc:54:fc:c2:e2:ee
+-------buf:<3>CTRL-EVENT-BSS-ADDED 79 06:69:6c:2c:3f:a3
+-------buf:<3>CTRL-EVENT-BSS-ADDED 80 06:69:6c:21:84:43
+-------buf:<3>CTRL-EVENT-BSS-ADDED 81 b8:3a:08:79:bb:01
+-------buf:<3>CTRL-EVENT-BSS-ADDED 82 0a:9b:4b:9b:fb:d5
+-------buf:<3>CTRL-EVENT-BSS-ADDED 83 08:9b:4b:9b:fb:d5
+-------buf:<3>CTRL-EVENT-BSS-ADDED 84 88:1f:a1:32:b4:2c
+-------buf:<3>CTRL-EVENT-BSS-ADDED 85 b0:73:5d:0a:0e:f7
+-------buf:<3>CTRL-EVENT-BSS-ADDED 86 50:d2:f5:62:51:ce
+-------buf:<3>CTRL-EVENT-BSS-ADDED 87 0a:9b:4b:9b:fb:95
+-------buf:<3>CTRL-EVENT-BSS-ADDED 88 ca:5f:99:81:71:f1
+-------buf:<3>CTRL-EVENT-BSS-ADDED 89 b8:3a:08:79:bb:05
+-------buf:<3>CTRL-EVENT-BSS-ADDED 90 44:1a:fa:36:ec:c5
+-------buf:<3>CTRL-EVENT-BSS-ADDED 91 f0:c4:2f:e9:5d:a4
+-------buf:<3>CTRL-EVENT-BSS-ADDED 92 04:95:e6:52:58:a5
+-------buf:<3>CTRL-EVENT-BSS-ADDED 93 f0:c4:2f:e9:5d:a6
+-------buf:<3>CTRL-EVENT-BSS-ADDED 94 3e:b5:9b:44:86:04
+-------buf:<3>CTRL-EVENT-BSS-ADDED 95 44:c7:fc:df:40:58
+-------buf:<3>CTRL-EVENT-BSS-ADDED 96 44:c7:fc:df:40:5d
+-------buf:<3>CTRL-EVENT-BSS-ADDED 97 34:ce:00:37:b1:24
+-------buf:<3>CTRL-EVENT-BSS-ADDED 98 48:7d:2e:5c:95:7d
+-------buf:<3>CTRL-EVENT-BSS-ADDED 99 fc:83:c6:01:21:7f
+-------buf:<3>CTRL-EVENT-BSS-ADDED 100 a0:40:a0:83:48:a2
+-------buf:<3>CTRL-EVENT-BSS-ADDED 101 44:1a:fa:36:ec:c4
+-------buf:<3>CTRL-EVENT-BSS-ADDED 102 cc:81:da:05:7f:48
+-------buf:<3>CTRL-EVENT-SCAN-RESULTS 
+-------buf:<3>WPS-AP-AVAILABLE 
+-------buf:<3>CTRL-EVENT-NETWORK-NOT-FOUND 
+WIFI/wpa_process_msg(): <3>CTRL-EVENT-NETWORK-NOT-FOUND  network_not_found_cnt: 0
+-------buf:<3>CTRL-EVENT-SCAN-STARTED 
+-------buf:<3>CTRL-EVENT-BSS-ADDED 103 ec:41:18:2c:7e:5b
+-------buf:<3>CTRL-EVENT-BSS-ADDED 104 04:95:e6:02:ec:e1
+-------buf:<3>CTRL-EVENT-BSS-ADDED 105 0a:69:6c:21:84:43
+-------buf:<3>CTRL-EVENT-BSS-ADDED 106 9c:54:da:16:e5:01
+-------buf:<3>CTRL-EVENT-BSS-ADDED 107 1c:d5:e2:93:9b:f0
+-------buf:<3>CTRL-EVENT-BSS-ADDED 108 0a:69:6c:2c:3f:cf
+-------buf:<3>CTRL-EVENT-BSS-ADDED 109 54:a7:03:ed:83:19
+-------buf:<3>CTRL-EVENT-BSS-ADDED 110 e0:24:81:f2:59:75
+-------buf:<3>CTRL-EVENT-BSS-ADDED 111 44:c7:fc:df:3f:b1
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 11 ec:56:23:15:c9:8b
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 12 ec:41:18:ed:15:79
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 32 f4:6a:92:70:9f:ee
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 48 94:bf:80:88:c2:40
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 57 c0:8a:cd:44:1f:27
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 61 9c:a6:15:ab:e0:dd
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 64 c0:f4:e6:dc:0c:b1
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 65 e4:a7:c5:85:9a:ba
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 66 9c:54:da:16:e5:29
+-------buf:<3>CTRL-EVENT-BSS-REMOVED 69 9c:a6:15:ab:e0:df
+-------buf:<3>CTRL-EVENT-SCAN-RESULTS 
+-------buf:<3>WPS-AP-AVAILABLE 
+-------buf:<3>CTRL-EVENT-NETWORK-NOT-FOUND 
+WIFI/wpa_process_msg(): <3>CTRL-EVENT-NETWORK-NOT-FOUND  network_not_found_cnt: 0
+-------buf:<3>CTRL-EVENT-SCAN-STARTED 
+-------buf:<3>CTRL-EVENT-BSS-ADDED 112 ec:41:18:2c:7e:5c
+-------buf:<3>CTRL-EVENT-BSS-ADDED 113 f4:63:1f:fb:d4:d4
+-------buf:<3>CTRL-EVENT-BSS-ADDED 114 a0:40:a0:83:55:69
+-------buf:<3>CTRL-EVENT-BSS-ADDED 115 08:9b:4b:9b:fb:95
+-------buf:<3>CTRL-EVENT-BSS-ADDED 116 b0:39:56:d4:41:8e
+-------buf:<3>CTRL-EVENT-BSS-ADDED 117 04:c3:e6:60:19:b0
+-------buf:<3>CTRL-EVENT-BSS-ADDED 118 9c:54:da:16:e5:12
+-------buf:<3>CTRL-EVENT-BSS-ADDED 119 a8:57:4e:20:46:6a
+-------buf:<3>CTRL-EVENT-BSS-ADDED 120 12:6b:e7:f7:9b:e6
+-------buf:<3>CTRL-EVENT-BSS-ADDED 121 9c:54:da:16:e5:29
+-------buf:<3>CTRL-EVENT-BSS-ADDED 122 9c:a6:15:ab:e0:df
+-------buf:<3>CTRL-EVENT-BSS-ADDED 123 48:7d:2e:49:78:e3
+-------buf:<3>CTRL-EVENT-BSS-ADDED 124 04:c3:e6:60:18:fc
+-------buf:<3>CTRL-EVENT-SCAN-RESULTS 
+-------buf:<3>WPS-AP-AVAILABLE 
+-------buf:<3>CTRL-EVENT-NETWORK-NOT-FOUND 
+WIFI/wpa_process_msg(): <3>CTRL-EVENT-NETWORK-NOT-FOUND  network_not_found_cnt: 0
+-------buf:<3>CTRL-EVENT-SCAN-STARTED 
+-------buf:<3>CTRL-EVENT-BSS-ADDED 125 ec:56:23:15:c9:8b
+-------buf:<3>CTRL-EVENT-BSS-ADDED 126 ec:41:18:ed:15:79
+-------buf:<3>CTRL-EVENT-BSS-ADDED 127 0a:9b:4b:9b:fb:cd
+-------buf:<3>CTRL-EVENT-BSS-ADDED 128 48:a7:3c:4a:a1:29
+-------buf:<3>CTRL-EVENT-BSS-ADDED 129 06:69:6c:2c:3f:cf
+-------buf:<3>CTRL-EVENT-BSS-ADDED 130 48:a0:f8:45:c3:6d
+-------buf:<3>CTRL-EVENT-BSS-ADDED 131 0a:9b:4b:9b:fb:9d
+-------buf:<3>CTRL-EVENT-BSS-ADDED 132 38:e2:dd:2b:bd:88
+-------buf:<3>CTRL-EVENT-SCAN-RESULTS 
+-------buf:<3>WPS-AP-AVAILABLE 
+-------buf:<3>Trying to associate with ec:56:23:15:c9:8b (SSID='wifi520' freq=2412 MHz)
+WIFI_STATE_WPA_ASSOCIATING
+-------buf:<3>CTRL-EVENT-CHANNEL-SWITCH freq=2412 ht_enabled=1 ch_offset=0 ch_width=20 MHz cf1=2412 cf2=0
+-------buf:<3>Associated with ec:56:23:15:c9:8b
+WIFI_STATE_WPA_ASSOCIATED
+-------buf:<3>CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+-------buf:<3>WPA: Key negotiation completed with ec:56:23:15:c9:8b [PTK=CCMP GTK=CCMP]
+-------buf:<3>CTRL-EVENT-CONNECTED - Connection to ec:56:23:15:c9:8b completed [id=0 id_str=]
+WIFI_STATE_WPA_CONNECTED
+MCU VERSION:v0.34
+MCU VERSION:v0.34

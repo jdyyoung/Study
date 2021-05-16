@@ -54,3 +54,48 @@ cmake version 3.16.0
 CMake suite maintained and supported by Kitware (kitware.com/cmake).
 ```
 
+
+
+------
+
+2021-05-11
+
+```
+young@young-vm:~/AWS_WebRTC/20200227/amazon-kinesis-video-streams-webrtc-sdk-c$ sudo apt install tree
+[sudo] young 的密码： 
+E: 无法获得锁 /var/lib/dpkg/lock-frontend - open (11: 资源暂时不可用)
+E: 无法获取 dpkg 前端锁 (/var/lib/dpkg/lock-frontend)，是否有其他进程正占用它？
+young@young-vm:~/AWS_WebRTC/20200227/amazon-kinesis-video-streams-webrtc-sdk-c$ sudo rm -r -f   /var/lib/dpkg/lock-frontend
+young@young-vm:~/AWS_WebRTC/20200227/amazon-kinesis-video-streams-webrtc-sdk-c$ sudo apt install tree
+E: 无法获得锁 /var/lib/dpkg/lock - open (11: 资源暂时不可用)
+E: 无法锁定管理目录(/var/lib/dpkg/)，是否有其他进程正占用它？
+young@young-vm:~/AWS_WebRTC/20200227/amazon-kinesis-video-streams-webrtc-sdk-c$ sudo rm /var/lib/dpkg/lock
+young@young-vm:~/AWS_WebRTC/20200227/amazon-kinesis-video-streams-webrtc-sdk-c$ sudo apt install tree
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+下列软件包是自动安装的并且现在不需要了：
+.....
+```
+
+解决方法：
+
+```
+sudo rm -r -f   /var/lib/dpkg/lock-frontend
+ sudo rm /var/lib/dpkg/lock
+```
+
+---
+
+---
+
+安装完Ubuntu 必做的事：
+
+```
+sudo apt install tree
+sudo apt install git
+sudo apt install gitk
+sudo apt install vim
+sudo apt install dos2unix
+```
+

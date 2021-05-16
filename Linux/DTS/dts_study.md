@@ -150,15 +150,31 @@ module_platform_driver(PS5268_driver);
 
 根节点 父节点 子节点 设备节点
 
+节点名字
+
 
 
 属性 值
 
 值的类型
 
+大括号{}
+
 尖括号<>
 
 方括号[]
+
+分号； //C语言语法
+
+逗号，
+
+冒号： //标签后面加：
+
+@: 后加单元地址
+
+&:
+
+#:在几个特殊属性上，#address-cells 和 #size-cells
 
 标签 引用
 
@@ -166,7 +182,188 @@ module_platform_driver(PS5268_driver);
 
 &
 
+```
+声明别名： 别名 : 节点名
+访问 ： &别名
+```
+
 常见特殊属性
 
+```
+compatible
+model
+status
+#address-cells 和 #size-cells
+reg
+name
+device_type
+```
+
+常用节点：
+
+```
+根节点
+CPU节点
+memory节点
+chosen节点  //虚拟节点，通过设备树文件给内核传入一些参数
+
+```
+
 IO地址，单元地址
+
+---
+
+操作设备树的函数：OF函数
+
+Linux 内核给我们提供了一系列的函数来获取设备树中的节点或者属性信息，这一系列的函数都有一个统一的前缀“of_”（“open firmware”即开放固件。）
+
+### 1、节点相关操作函数
+
+Linux 内核使用 device_node 结构体来描述一个节点，此结构体定义在文件 include/linux/of.h 中，定义如下：
+
+```C
+struct device_node {
+	const char *name;
+	const char *type;
+	phandle phandle;
+	const char *full_name;
+	struct fwnode_handle fwnode;
+
+	struct	property *properties;
+	struct	property *deadprops;	/* removed properties */
+	struct	device_node *parent;
+	struct	device_node *child;
+	struct	device_node *sibling;
+	struct	kobject kobj;
+	unsigned long _flags;
+	void	*data;
+#if defined(CONFIG_SPARC)
+	const char *path_component_name;
+	unsigned int unique_id;
+	struct of_irq_controller *irq_trans;
+#endif
+};
+```
+
+查找节点有关的OF函数5个：
+
+#### （1） of_find_node_by_name 函数C
+
+of_find_node_by_name 函数通过节点名字查找指定的节点，函数原型如下：
+
+```C
+struct device_node *of_find_node_by_name(struct device_node *from,const char *name);
+```
+
+#### （2） of_find_node_by_type 函数
+
+of_find_node_by_type 函数通过 device_type 属性查找指定的节点，函数原型如下：
+
+```C
+struct device_node *of_find_node_by_type(struct device_node *from, const char *type);
+```
+
+#### （3） of_find_compatible_node 函数
+
+of_find_compatible_node 函数根据 device_type 和 compatible 这两个属性查找指定的节点，函数原型如下：
+
+```C
+struct device_node *of_find_compatible_node(struct device_node *from,const char*type,const char *compatible);
+```
+
+#### （4）of_find_matching_node_and_match 函数
+
+of_find_matching_node_and_match 函数通过 of_device_id 匹配表来查找指定的节点，函数原型如下：
+
+```C
+struct device_node *of_find_matching_node_and_match(struct device_node *from,const struct of_device_id *matches,const struct of_device_id **match);
+```
+
+#### （5）of_find_node_by_path 函数
+
+of_find_node_by_path 函数通过路径来查找指定的节点，函数原型如下：
+
+```
+inline struct device_node *of_find_node_by_path(const char *path);
+```
+
+---
+
+### 2、提取属性值的 OF 函数
+
+Linux 内核中使用结构体 property 表示属性，此结构体同样定义在文件 include/linux/of.h 中，内容如下：
+
+```C
+struct property {
+	char	*name; 				/*属性名字*/
+	int	length;    				/*属性长度*/
+	void	*value; 			/*属性值*/
+	struct property *next;      /*下一个属性*/
+	unsigned long _flags;
+	unsigned int unique_id;
+	struct bin_attribute attr;
+};
+```
+
+Linux 内核也提供了提取属性值的 OF 函数 ：6个
+
+#### （1） of_find_property 函数C
+
+of_find_property 函数用于查找指定的属性，函数原型如下：
+
+```C
+property *of_find_property(const struct device_node *np,const char *name,int *lenp);
+```
+
+#### （2）of_property_count_elems_of_size 函数
+
+of_property_count_elems_of_size 函数用于获取属性中元素的数量，比如 reg 属性值是一个数组，那么使用此函数可以获取到这个数组的大小，此函数原型如下：
+
+```
+int of_property_count_elems_of_size(const struct device_node *np,const char *propname,int elem_size);
+```
+
+#### （3）读取 u8、 u16、 u32 和 u64 类型的数组数据
+
+```C
+int of_property_read_u8_array(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u8                       *out_values, 
+					    	  size_t                   sz)
+int of_property_read_u16_array(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u16                       *out_values, 
+					    	  size_t                   sz)					 int of_property_read_u32_array(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u32                       *out_values, 
+					    	  size_t                   sz)   
+int of_property_read_u64_array(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u64                       *out_values, 
+					    	  size_t                   sz)                   
+```
+
+#### （4）读取 u8、 u16、 u32 和 u64 类型属性值
+
+```
+int of_property_read_u8(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u8                       *out_values)
+int of_property_read_u16(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u16                       *out_values)		int of_property_read_u32(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u32                       *out_values)
+int of_property_read_u64(const struct device_node *np,
+					    	  const char               *propname,
+					    	  u64                       *out_values)
+```
+
+#### （5）of_property_read_string 函数
+
+of_property_read_string 函数用于读取属性中字符串值，函数原型如下：
+
+```C
+int of_property_read_string(struct device_node *np,const char *propname,const char **out_string)
+```
 
