@@ -2,6 +2,112 @@
 
 
 
+---
+
+---
+
+2021-06-03:
+
+把U盘当做远程仓库：
+
+*在U盘目录bash：*
+
+```
+mkdir 000_buf_repo && cd 000_buf_repo
+```
+
+```
+young@DESKTOP-6AN11J2 MINGW64 /g/000_buf_repo
+$ git init
+Initialized empty Git repository in G:/000_buf_repo/.git/
+```
+
+*在PC 硬盘目录bash：*
+
+```
+young@DESKTOP-6AN11J2 MINGW64 /f
+$ mkdir 000_buf_repo && cd 000_buf_repo
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo
+$ git init
+Initialized empty Git repository in F:/000_buf_repo/.git/
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (master)
+$ git remote add origin G:/000_buf_repo/.git
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (master)
+$ git remote -v
+origin  G:/000_buf_repo/.git (fetch)
+origin  G:/000_buf_repo/.git (push)
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (master)
+$ cp ../git_test_dir/002_skybell_analyse/*.md .
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (master)
+$ git checkout -b dev
+Switched to a new branch 'dev'
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (dev)
+$ ls
+ap_c_analyse.md     skybell_std.md      sta_analyse.md
+skybell_analyse.md  skybell-project.md  wifi_c_analyse.md
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (dev)
+$ git add -A
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (dev)
+$ git commit -m "init HP_2_U"
+[dev (root-commit) 6a9a832] init HP_2_U
+ 6 files changed, 1180 insertions(+)
+ create mode 100644 ap_c_analyse.md
+ create mode 100644 skybell-project.md
+ create mode 100644 skybell_analyse.md
+ create mode 100644 skybell_std.md
+ create mode 100644 sta_analyse.md
+ create mode 100644 wifi_c_analyse.md
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (dev)
+$ git push origin dev
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 11.79 KiB | 135.00 KiB/s, done.
+Total 8 (delta 0), reused 0 (delta 0), pack-reused 0
+To G:/000_buf_repo/.git
+ * [new branch]      dev -> dev
+
+young@DESKTOP-6AN11J2 MINGW64 /f/000_buf_repo (dev)
+
+```
+
+*在U盘的bash:*
+
+```
+young@DESKTOP-6AN11J2 MINGW64 /g/000_buf_repo (master)
+$ git checkout dev
+Switched to branch 'dev'
+
+young@DESKTOP-6AN11J2 MINGW64 /g/000_buf_repo (dev)
+$ git branch -a
+* dev
+
+young@DESKTOP-6AN11J2 MINGW64 /g/000_buf_repo (dev)
+$ ls
+ap_c_analyse.md     skybell_std.md      sta_analyse.md
+skybell_analyse.md  skybell-project.md  wifi_c_analyse.md
+
+young@DESKTOP-6AN11J2 MINGW64 /g/000_buf_repo (dev)
+$
+
+```
+
+**OK！**
+
+----
+
+---
+
 
 
 2021-03-26：

@@ -72,3 +72,10 @@ Thinkpad T480:
 ---
 
 解决 Windows 10 家庭版无法使用NFS服务的问题_zywvvd的博客-CSDN博客 - https://blog.csdn.net/zywvvd/article/details/106501200
+
+
+
+-----------------
+
+用secureCRT串口工具发送hex字符串的方法_zkw_1998的博客-CSDN博客_securecrt发送十六进制 - https://blog.csdn.net/zkw_1998/article/details/103889724
+

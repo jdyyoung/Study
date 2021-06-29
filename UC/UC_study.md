@@ -1,3 +1,21 @@
+
+
+
+
+---
+
+2021-06-16:
+
+在Linux中如何利用backtrace信息解决程序崩溃的问题_海阔天空的专栏-CSDN博客_backtrace - https://blog.csdn.net/gongmin856/article/details/79192259
+
+linux 多线程段错误,关于linux的段错误(Segmentation fault)_老少女王烦烦的博客-CSDN博客 - https://blog.csdn.net/weixin_35081955/article/details/116795427?utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8Blinux%E6%AE%B5%E9%94%99%E8%AF%AF&utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduweb~default-1-116795427&spm=3001.4430
+
+利用core文件对多线程和多进程进行调试_ZHY_xz的博客-CSDN博客 - https://blog.csdn.net/qq_35118894/article/details/72851733
+
+利用GDB调试多线程core文件 - 程序员大本营 - https://www.pianshen.com/article/67061206730/
+
+如何使用GDB调试多线程 - 程序员大本营 - https://www.pianshen.com/article/32211826367/
+
 ----
 
 2021-02-26:
@@ -147,3 +165,18 @@ echo "/skybell/misc/corefile-%e-%p-%t" > /proc/sys/kernel/core_pattern
 
 
 Linux下用文件IO的方式操作GPIO（/sys/class/gpio） - 嵌入式操作系统 - 博客园 - https://www.cnblogs.com/zym0805/p/5814351.html
+
+
+
+----
+
+
+
+```
+sem_t play_sem;
+sem_init()
+sem_post()
+sem_wait()
+sem_destroy()
+```
+
