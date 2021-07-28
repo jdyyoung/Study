@@ -1,4 +1,363 @@
-(1条消息)RTP协议分析_Java_蓝精灵的专栏-CSDN博客 - https://blog.csdn.net/u011006622/article/details/80675054
+
+
+//20210714:
+
+根据RTP协议，提供需要时间戳，数据，数据大小等参数，被自动打包，然后发出去。
+
+ ortp库使用入门_lishaoqi_scau的专栏-CSDN博客 - https://blog.csdn.net/lishaoqi_scau/article/details/7376997
+
+//20210705:
+
+ortp与srtp:
+
+1).video_start_streaming()
+
+```c
+// video_start_streaming(0, ipv4, atoi(m_video+8), 0xcafebe11, 96, (key_video != NULL) ? key_video+7 : NULL, NULL);
+//streaming的通道：通道0
+//IP地址：ipv4
+//数据类型：96 //H264
+//key_video:加密传输的key
+enum{
+    SRTP_AES_CM_128_HMAC_SHA1_80 = 0,
+    SRTP_AES_CM_256_HMAC_SHA1_80,
+    SRTP_DISABLED
+};
+
+typedef struct{
+    int streamNum;
+    char *remoteAddr;
+    uint16_t remotePort;
+    uint32_t ssrc;
+    uint8_t payloadType;
+    uint8_t crypto;
+    char *keyBase64;
+    uint8_t *keyMaster;
+    uint8_t keyMasterLen;
+    uint8_t *keySalt;
+    uint8_t keySaltLen;
+    void (*data_callback)(const void *data, int len);
+}video_session_config_t;
+
+uint32_t convertToRTPTimestamp(struct timeval tv){
+    //begin by converting from "struct timeval" units to RTP timestamp units
+    uint32_t timestampIncrement = (fTimestampFrequency*tv.tv_sec);
+    //add the microseconds
+    timestampIncrement += (uint32_t)(fTimestampFrequency*(tv.tv_usec/1000000.0) + 0.5);   //rounding
+    //then add this to our 'timestamp base'
+    if(fNextTimestampHasBeenPreset){
+        //make the returned timestamp as the current "FTimestampBase",
+        //so that timestamps begin with the value that was previously preset
+        fTimestampBase -= timestampIncrement;
+        fNextTimestampHasBeenPreset = FALSE;
+    }
+    uint32_t const rtpTimestamp = fTimestampBase + timestampIncrement;
+    return rtpTimestamp;
+}
+
+uint32_t presetNextTimestamp(){
+    struct timeval timeNow;
+    gettimeofday(&timeNow, NULL);
+
+    uint32_t tsNow = convertToRTPTimestamp(timeNow);
+    fTimestampBase = tsNow;
+    fNextTimestampHasBeenPreset = TRUE;
+    return tsNow;
+}
+
+
+//---------------------------------------------------------------------------------
+//之前应该要srtp 初始化
+if(cfg.srtp){
+    status = srtp_init();
+    if(status){
+        ALERT(0, "error: srtp initialization failed with error code %d\n", status);
+        return;
+    }else{
+        DBUG(1, "%s(): srtp init success\n", __FUNCTION__);
+    }
+    DBUG(0,"process_invite_ack() end srtp_init status[%d]\n",status);//Charles
+}
+
+#if SRTP_ENABLED
+static srtp_policy_t policy;
+static sec_serv_t sec_servs = sec_serv_none;
+static char key[MAX_KEY_LEN];
+static char key_hex[128];
+#endif
+
+#if SRTP_ENABLED
+//NOTE: assumes that srtp_init() has already been called!!!
+static int video_init_srtp(RtpSession *session, video_session_config_t *config){
+    int len = 0;
+    char key_tmp[128];
+    char *result;
+
+    memset(key, 0, sizeof(key));
+    memset(key_hex, 0, sizeof(key_hex));
+
+    if(config->keyBase64){
+        INFO("base64 key supplied\n");
+        //convert key from base64 to hex
+        len = Base64decode(key_tmp, config->keyBase64);
+    }
+    else if(config->keyMaster && config->keySalt){
+        INFO("hex master key and hex salt supplied\n");
+        memcpy(key_tmp, config->keyMaster, config->keyMasterLen);
+        memcpy(key_tmp+config->keyMasterLen, config->keySalt, config->keySaltLen);
+        len = config->keyMasterLen + config->keySaltLen;
+    }
+    else{
+        goto error;
+    }
+    result = bytesToHexString((uint8_t*)key_tmp, len*2);
+    if(result){
+        memcpy(key_hex, result, strlen(result));
+        free(result);
+    }
+    else{
+        goto error;
+    }
+
+    sec_servs |= sec_serv_conf;
+    sec_servs |= sec_serv_auth;
+    if(sec_servs){
+        /*
+         * create policy structure, using the default mechanisms but
+         * with only the security services requested using the right SSRC value
+         */
+        switch (sec_servs) {
+            case sec_serv_conf_and_auth:
+                if(config->crypto == SRTP_AES_CM_256_HMAC_SHA1_80){
+                    crypto_policy_set_aes_cm_256_hmac_sha1_80(&policy.rtp);
+                }
+                else{
+                    crypto_policy_set_rtp_default(&policy.rtp);    //128-bit
+                }
+                crypto_policy_set_rtcp_default(&policy.rtcp);
+                break;
+            case sec_serv_conf:
+                crypto_policy_set_aes_cm_128_null_auth(&policy.rtp);
+                crypto_policy_set_rtcp_default(&policy.rtcp);
+                break;
+            case sec_serv_auth:
+                crypto_policy_set_null_cipher_hmac_sha1_80(&policy.rtp);
+                crypto_policy_set_rtcp_default(&policy.rtcp);
+                break;
+            default:
+                DBUG(0,"error: unknown security service requested\n");
+                goto error;
+        }
+        policy.ssrc.type  = ssrc_specific;
+        policy.ssrc.value = config->ssrc;
+        policy.key  = (uint8_t *) key;
+        policy.ekt  = NULL;
+        policy.next = NULL;
+        policy.window_size = 128;
+        policy.allow_repeat_tx = 0;
+        policy.rtp.sec_serv = sec_servs;
+        policy.rtcp.sec_serv = sec_serv_none;  /* we don't do RTCP anyway */
+        uint8_t master_key_len = (config->crypto == SRTP_AES_CM_256_HMAC_SHA1_80) ? 46 : 30;
+        len = hex_string_to_octet_string(key, key_hex, master_key_len*2);
+        if(len < master_key_len*2){
+            ERR("error - too few digits in key (should be %d hexadecimal digits, found %d)\n", master_key_len*2, len);
+            ERROR(0, "error - too few digits in key (should be %d hexadecimal digits, found %d)\n", master_key_len*2, len);
+            goto error;
+        }
+        if(strlen(key_hex) > master_key_len*2){
+            ERR("error - too many digits in key (should be %d hexadecimal digits, found %u)\n", master_key_len*2, (unsigned)strlen(key_hex));
+            ERROR(0, "error - too many digits in key (should be %d hexadecimal digits, found %u)\n", master_key_len*2, (unsigned)strlen(key_hex));
+            goto error;
+        }
+    }
+    else{
+        //no security security services so set policy to null policy
+        //this has the effect of turning off SRTP
+        policy.key                 = (uint8_t *)key;
+        policy.ssrc.type           = ssrc_specific;
+        policy.ssrc.value          = config->ssrc;
+        policy.rtp.cipher_type     = NULL_CIPHER;
+        policy.rtp.cipher_key_len  = 0;
+        policy.rtp.auth_type       = NULL_AUTH;
+        policy.rtp.auth_key_len    = 0;
+        policy.rtp.auth_tag_len    = 0;
+        policy.rtp.sec_serv        = sec_serv_none;
+        policy.rtcp.cipher_type    = NULL_CIPHER;
+        policy.rtcp.cipher_key_len = 0;
+        policy.rtcp.auth_type      = NULL_AUTH;
+        policy.rtcp.auth_key_len   = 0;
+        policy.rtcp.auth_tag_len   = 0;
+        policy.rtcp.sec_serv       = sec_serv_none;
+        policy.window_size         = 0;
+        policy.allow_repeat_tx     = 0;
+        policy.ekt                 = NULL;
+        policy.next                = NULL;
+    }
+    int rc = rtp_session_init_srtp(session, &policy);
+    if(rc != err_status_ok){
+        ERR("rtp_session_init_srtp failed with code %d\n", rc);
+    }
+    return 0;
+error:
+    return -1;
+}
+#endif //#if SRTP_ENABLED
+
+//1.初始化与准备
+RtpSession *session = NULL;
+ortp_init();
+//ortp_scheduler_init();
+ortp_set_log_level_mask(ORTP_WARNING|ORTP_ERROR);
+session = rtp_session_new(RTP_SESSION_SENDONLY);
+
+//2.会话设置
+if (session != NULL) {
+  	rtp_session_set_scheduling_mode(session, 0);
+    rtp_session_set_blocking_mode(session, 0);
+    rtp_session_set_connected_mode(session, FALSE);
+    //set local address also
+    rtp_session_set_local_addr(session, "0.0.0.0", port, port+1);
+    rtp_session_set_remote_addr(session, destIPAddr, port);
+    rtp_session_set_payload_type(session, payloadType);//dynamic H.264:payloadType = 96
+    rtp_session_set_ssrc(session, ssrc);
+    rtp_session_enable_rtcp(session, TRUE);
+    //enable avpf
+    if(rtp_session_avpf_enabled(session) == TRUE){
+        rtp_session_enable_avpf_feature(session, ORTP_AVPF_FEATURE_TMMBR, TRUE);
+    }
+    //create and register event queue
+    OrtpEvQueue *evq = ortp_ev_queue_new();
+    if(evq != NULL)
+        rtp_session_register_event_queue(session, evq);
+    stream[streamNum].evq = evq;
+    if(!cfg.srtp){
+        //loss estimation
+        rtp_session_enable_loss_estimation(session, 100, 1000);
+    }
+    //preset RTP timestamp to correlate to wallclock
+    presetNextTimestamp();
+    if(cfg.srtp && key_base64){
+        video_session_config_t config;
+        video_session_config_init(&config);
+        video_session_config_set_ssrc(&config, ssrc);
+        video_session_config_set_crypto(&config, SRTP_AES_CM_128_HMAC_SHA1_80);
+        video_session_config_set_key_base64(&config, key_base64);
+        video_session_config_set_key_master(&config, NULL, 0);
+        video_session_config_set_key_salt(&config, NULL, 0);
+        video_init_srtp(session, &config);
+        DBUG(0,"video_start_streaming() end video_init_srtp ssrc[0x%x]\n",ssrc);//Charles
+    }
+}
+```
+
+
+
+2)video_for_streaming()
+
+```C
+ /**** for streaming ****/
+//NALU 分包与不分包
+if(stream[streamNum].session){
+    struct timeval tv = {.tv_sec = header[1], .tv_usec = header[2]};
+    user_ts = convertToRTPTimestamp(tv);
+
+    if (dwNALSize > dwMaxSize){
+        /**** NAL UNIT is greater than MTU so FU-A is required ****/
+        BYTE *pbyFragToSend = rtpPayload;
+        BYTE *pbyPayloadCur = pbyUBufPld;
+        DWORD dwBytesToSend;
+
+        DWORD dwPayloadOffset=0;
+        while (dwPayloadOffset < dwNALSize){
+            if (!dwPayloadOffset){
+                //DBUG(0,"%02X %02X %02X %02X %02X %02X %02X %02X\n", pbyPayloadCur[0],pbyPayloadCur[1],pbyPayloadCur[2],pbyPayloadCur[3],pbyPayloadCur[4],pbyPayloadCur[5],pbyPayloadCur[6],pbyPayloadCur[7]);
+                //this is the first packet of the FU-A picture
+                pbyFragToSend[0] = (pbyPayloadCur[0] & 0xE0) | 28;    //set type field to 11100 (28) FU-A (this is the FU identifier)
+                if(dwMaxSize == sizeof(rtpPayload)){
+                    dwMaxSize = sizeof(rtpPayload) - 1;
+                }
+                memcpy(pbyFragToSend+1, pbyPayloadCur, dwMaxSize);    //copy in NAL unit payload
+                pbyFragToSend[1] = 0x80 | (pbyFragToSend[1] & 0x1F);  //set start bit in FU header
+                dwBytesToSend = dwMaxSize+1;                          //we added the FU identifier
+
+                dwPayloadOffset += dwMaxSize;                         //increment how much we've covered
+                mark = 0;                                             //rtp mark bit should be false for this
+            }
+            else{
+                pbyFragToSend[0] = pbyFragToSend[0];
+                pbyFragToSend[1] = pbyFragToSend[1] & ~0x80;          //same structure but disable start bit
+
+                dwBytesToSend = dwNALSize-dwPayloadOffset+2;          //calculate how much we have left to send
+                if (dwBytesToSend > dwMaxSize){
+                    dwBytesToSend = dwMaxSize;                        //still too much, set to MTU
+                    mark = 0;                                         //rtp mark bit should still be 0
+                }
+                else{
+                    //this is the last fragment
+                    pbyFragToSend[1] |= 0x40;                         //set end bit in FU header
+                    mark = 1;                                         //set rtp mark bit
+                    dwBytesToSend = dwNALSize-dwPayloadOffset+2;
+                }
+                //copy the NAL unit into pbyFragToSend
+                memcpy(pbyFragToSend+2, pbyPayloadCur+dwPayloadOffset, dwBytesToSend-2);
+                dwPayloadOffset += dwBytesToSend-2;
+            }
+            //lock so video_stop_streaming can't disable session
+            MUTEX_LOCK(&stream_mutex);
+            if(stream[streamNum].session != NULL){
+
+                rtp_session_send_with_ts(stream[streamNum].session, pbyFragToSend, dwBytesToSend, user_ts, mark);
+            }
+            MUTEX_UNLOCK(&stream_mutex);
+        }
+    } 
+    else{
+        /**** no FU-A fragmentation is required ****/
+        mark = 1;
+        //lock so video_stop_streaming can't disable session
+        MUTEX_LOCK(&stream_mutex);
+        //since video_stop_streaming could have set session=NULL before this mutex
+        //is locked, check here for session
+        if(stream[streamNum].session != NULL){
+            rtp_session_send_with_ts(stream[streamNum].session, pbyUBufPld, dwNALSize, user_ts, mark);
+        }
+        MUTEX_UNLOCK(&stream_mutex);
+    }
+}
+```
+
+3)video_stop_streaming():
+
+```c
+RtpSession *session = stream[streamNum].session;
+if(session){
+    rtp_session_bye(session, "hangup");
+    if(!cfg.srtp){
+        //loss estimation
+        rtp_session_disable_loss_estimation(session);
+    }
+    //unregister event queue
+    OrtpEvQueue *evq = stream[streamNum].evq;
+    if(evq){
+        ortp_ev_queue_destroy(evq);
+        rtp_session_unregister_event_queue(session, evq);
+        stream[streamNum].evq = NULL;
+    }
+    //srtp shutdown
+    if(session->srtp_ctx)
+        rtp_session_deinit_srtp(session);
+
+    //djp - ortp deinit
+    rtp_session_destroy(session);
+    ortp_exit();
+    stream[streamNum].session = NULL;
+}
+
+```
+
+
+
+RTP协议分析_Java_蓝精灵的专栏-CSDN博客 - https://blog.csdn.net/u011006622/article/details/80675054
 
 # RTP协议分析
 

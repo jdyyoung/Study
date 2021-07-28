@@ -26,7 +26,7 @@ void rtpHeaderInit(struct RtpPacket* rtpPacket, uint8_t csrcLen, uint8_t extensi
     rtpPacket->rtpHeader.ssrc = ssrc;
 }
 
-int rtpSendPacket(int socket, char* ip, int16_t port, struct RtpPacket* rtpPacket, uint32_t dataSize)
+int rtpSendPacket(int socket, const char* ip, int16_t port, struct RtpPacket* rtpPacket, uint32_t dataSize)
 {
     struct sockaddr_in addr;
     int ret;
