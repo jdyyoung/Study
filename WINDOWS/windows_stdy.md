@@ -1,3 +1,9 @@
+
+
+vscode Downloading package ‘C/C++ language components (Windows)‘ Failed.问题解决_fuyuande的博客-CSDN博客 - https://blog.csdn.net/fuyuande/article/details/103449168
+
+---
+
 window10 删除系统启动项：
 
 如何删除其余操作系统的开机启动项 - Microsoft Community - https://answers.microsoft.com/zh-hans/windows/forum/windows8_1-performance/%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E5%85%B6/a26d22d7-d2ef-407b-960b-0e85ae224c2d

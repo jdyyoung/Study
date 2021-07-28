@@ -1,5 +1,93 @@
 
 
+20210709：
+
+```
+file(REMOVE_RECURSE ${OPEN_SRC_INSTALL_PREFIX}/lib${lib_name})
+```
+
+```
+file(WRITE filename "message to write"... )
+file(APPEND filename "message to write"... )
+file(READ filename variable [LIMIT numBytes] [OFFSET offset] [HEX])
+file(<MD5|SHA1|SHA224|SHA256|SHA384|SHA512> filename variable)
+file(STRINGS filename variable [LIMIT_COUNT num]
+     [LIMIT_INPUT numBytes] [LIMIT_OUTPUT numBytes]
+     [LENGTH_MINIMUM numBytes] [LENGTH_MAXIMUM numBytes]
+     [NEWLINE_CONSUME] [REGEX regex]
+     [NO_HEX_CONVERSION])
+file(GLOB variable [RELATIVE path] [globbing expressions]...)
+file(GLOB_RECURSE variable [RELATIVE path]
+     [FOLLOW_SYMLINKS] [globbing expressions]...)
+file(RENAME <oldname> <newname>)
+file(REMOVE [file1 ...])
+file(REMOVE_RECURSE [file1 ...])
+file(MAKE_DIRECTORY [directory1 directory2 ...])
+file(RELATIVE_PATH variable directory file)
+file(TO_CMAKE_PATH path result)
+file(TO_NATIVE_PATH path result)
+file(DOWNLOAD url file [INACTIVITY_TIMEOUT timeout]
+     [TIMEOUT timeout] [STATUS status] [LOG log] [SHOW_PROGRESS]
+     [EXPECTED_HASH ALGO=value] [EXPECTED_MD5 sum]
+     [TLS_VERIFY on|off] [TLS_CAINFO file])
+file(UPLOAD filename url [INACTIVITY_TIMEOUT timeout]
+     [TIMEOUT timeout] [STATUS status] [LOG log] [SHOW_PROGRESS])
+file(TIMESTAMP filename variable [<format string>] [UTC])
+file(GENERATE OUTPUT output_file
+     <INPUT input_file|CONTENT input_content>
+     [CONDITION expression])
+     
+file — CMake 3.0.2 Documentation - https://cmake.org/cmake/help/v3.0/command/file.html
+```
+
+
+
+```
+list(FIND supported_libs ${lib_name} index)
+if(${index} EQUAL -1)
+    message(WARNING "${lib_name} is not supported to build from source")
+    return()
+ endif()
+```
+
+```
+list(LENGTH <list><output variable>)
+list(GET <list> <elementindex> [<element index> ...]<output variable>)
+list(APPEND <list><element> [<element> ...])
+list(FIND <list> <value><output variable>)
+list(INSERT <list><element_index> <element> [<element> ...])
+list(REMOVE_ITEM <list> <value>[<value> ...])
+list(REMOVE_AT <list><index> [<index> ...])
+list(REMOVE_DUPLICATES <list>)
+list(REVERSE <list>)
+list(SORT <list>)
+```
+
+```
+LENGTH　　　　   　　　　 返回list的长度
+GET　　　　　　    　　　　返回list中index的element到value中
+APPEND　　　　    　　　　添加新element到list中
+FIND　　　　　　   　　　　返回list中element的index，没有找到返回-1
+INSERT 　　　　　　　　　 将新element插入到list中index的位置
+REMOVE_ITEM　　　　　　从list中删除某个element
+REMOVE_AT　　　　　　　从list中删除指定index的element
+REMOVE_DUPLICATES       从list中删除重复的element
+REVERSE 　　　　　　　　将list的内容反转
+SORT 　　　　　　　　　　将list按字母顺序排序
+```
+
+```
+	LIST与SET命令类似，即使列表本身是在父域中定义的，LIST命令也只会在当前域创建新的变量，
+要想将这些操作的结果向上传递，需要通过SET　PARENT_SCOPE， SET CACHE INTERNAL或运用其他值域扩展的方法。
+　　注意：cmake中的list是以分号隔开的一组字符串。
+　　可以使用set命令创建一个列表。例如：set(var a b c d e)创建了一个这样的列表：a;b;c;d;e。 
+　　set(var “a b c d e”)创建了一个字符串或只有一个元素的列表。
+　　当指定index时，如果<element index>为大于或等于0的值，它从列表的开始处索引，0代表列表的第一个元素。
+　　如果<element index>为小于或等于-1的值，它从列表的结尾处索引，-1代表列表的最后一个元素
+　　
+　　CMakeLists 关于List的使用方法_地表最强菜鸡的博客-CSDN博客 - https://blog.csdn.net/qq_19734597/article/details/101755468
+```
+
 
 
 ---

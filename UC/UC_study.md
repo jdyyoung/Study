@@ -21,6 +21,8 @@ i64 msec_monotonic_time(void){
 
 ---
 
+gdb调试多线程 - 程序员大本营 - https://www.pianshen.com/article/9902751244/
+
 (4条消息) 利用GDB调试多线程core文件_shaomingliang499的博客-CSDN博客 - https://blog.csdn.net/shaomingliang499/article/details/50536796/?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_baidulandingword-0&spm=1001.2101.3001.4242
 
 (4条消息) GDB调试多线程和多进程以及Core文件_icepeplo的博客-CSDN博客 - https://blog.csdn.net/icepeplo/article/details/100580300?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242

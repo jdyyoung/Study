@@ -1,3 +1,70 @@
+2021-07-28:
+
+RFC3489/STUN （Simple Traversal of User Datagram Protocol Through Network Address Translators），即简单的用UDP穿透NAT，是个轻量级的协
+议，是基于UDP的完整的穿透NAT的解决方案。它允许应用程序发现它们与公共互联网之间存在的NAT和防火墙及其他类型。它也可以让应用
+程序确定NAT分配给它们的公网IP地址和端口号。STUN是一种Client/Server的协议，也是一种Request/Response的协议，默认端口号是
+3478。（IETF官方文档RFC3489/STUN点此进入） 
+
+
+
+STUN协议在RFC5389中被重新命名为Session Traversal Utilities for NAT，即NAT会话穿透效用。在这里，NAT会话穿透效用被定位为一个用
+于其他解决NAT穿透问题协议的协议。它可以用于终端设备检查由NAT分配给终端的IP地址和端口号。同时，它也被用来检查两个终端之间的连
+接性，好比是一种维持NAT绑定表项的保活协议。STUN可以用于多种NAT类型，并不需要它们提供特殊的行为。 
+
+
+
+TURN，在RFC5766中定义，英文全称Traversal Using Relays around NAT（TURN）：Relay Extensions to Session Traversal Utilities for
+NAT（STUN），即使用中继穿透NAT：STUN的中继扩展。简单的说，TURN与STUN的共同点都是通过修改应用层中的私网地址达到NAT穿透
+的效果，异同点是TURN是通过两方通讯的“中间人”方式实现穿透。 
+
+ICE的全称Interactive Connectivity Establishment（互动式连接建立），由IETF的MMUSIC工作组开发出来的，它所提供的是一种框架，使各种
+NAT穿透技术可以实现统一 
+
+2021-07-27：
+
+```
+#国内免费可用的stun服务器：
+stun.xten.com   
+stun.voipbuster.com  
+stun.sipgate.net  
+stun.ekiga.net
+stun.ideasip.com
+stun.schlund.de
+stun.voiparound.com
+stun.voipbuster.com
+stun.voipstunt.com
+stun.counterpath.com
+stun.1und1.de
+stun.gmx.net
+stun.callwithus.com
+stun.counterpath.net
+stun.internetcalls.com
+numb.viagenie.ca 
+
+转自：https://gist.github.com/zziuni/3741933
+  # source : http://code.google.com/p/natvpn/source/browse/trunk/stun_server_list
+  # A list of available STUN server.
+  stun.l.google.com:19302
+  stun1.l.google.com:19302
+  stun2.l.google.com:19302
+  stun3.l.google.com:19302
+  stun4.l.google.com:19302
+  stun01.sipphone.com
+  stun.ekiga.net
+  stun.fwdnet.net
+  stun.ideasip.com
+  stun.iptel.org
+  stun.rixtelecom.se
+  stun.schlund.de
+  stunserver.org
+  stun.softjoys.com
+  stun.voiparound.com
+  stun.voipbuster.com
+  stun.voipstunt.com
+  stun.voxgratia.org
+  stun.xten.com
+```
+
 TUTK：
 
 基于IOTC平台的服务器搭建,台湾TUTK物联网平台
