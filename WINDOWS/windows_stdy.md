@@ -1,5 +1,13 @@
 
 
+20210730：
+
+问题：创建文件夹，拷贝剪切删除文件，不会自动刷新
+
+Windows10文件夹不自动刷新怎么办-百度经验 - https://jingyan.baidu.com/article/851fbc377ba0ea3e1f15ab9d.html
+
+----
+
 vscode Downloading package ‘C/C++ language components (Windows)‘ Failed.问题解决_fuyuande的博客-CSDN博客 - https://blog.csdn.net/fuyuande/article/details/103449168
 
 ---

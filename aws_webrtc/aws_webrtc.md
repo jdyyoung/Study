@@ -1,5 +1,9 @@
 
 
+WebRTC音视频同步详解_sonysuqin的专栏-CSDN博客_webrtc音视频同步 - https://blog.csdn.net/sonysuqin/article/details/107297157
+
+硬货专栏 ｜深入浅出 WebRTC AEC（声学回声消除） - 知乎 - https://zhuanlan.zhihu.com/p/335570792
+
 2021-07-21：
 
 测试 aws-webRTC需要访问:
@@ -18,6 +22,7 @@ github.io无法访问问题及解决（2020.8）：
 可将 DNS 修改为 114.114.114.114，一个良心 DNS 服务商。
 但大多数访客是不会进行上方操作的。作为站长，还是使用域名为好，服务器不稳定可以方便地更换服务商
 github.io无法访问问题及解决（2020.8） - 知乎 - https://zhuanlan.zhihu.com/p/168760260
+github_解决github.io无法访问的问题 - 咸月 - 博客园 - https://www.cnblogs.com/isXianYue/p/14083628.html
 ```
 
 ---
