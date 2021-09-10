@@ -1,5 +1,71 @@
 
 
+
+
+20210901：
+
+rsync:两台不同虚拟机同步内容：
+
+Linux rsync 命令学习 - Michael翔 - 博客园 - https://www.cnblogs.com/michael-xiang/p/10466887.html
+
+rsync配置两台服务器之间的文件备份(同步)_qinshengfei的专栏-CSDN博客 - https://blog.csdn.net/qinshengfei/article/details/103773438?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.control&spm=1001.2101.3001.4242
+
+rsync 服务端安装完成之后是没有生成rsync.conf文件的，需要手动创建rsyncd.conf
+
+```
+vim /etc/rsyncd.conf
+//----------------------------------------------------------------
+#先定义整体变量
+secrets file = /etc/rsyncd.secrets          #配置同步用户名和密码
+motd file = /etc/rsyncd.motd
+read only = yes
+list = yes
+#uid = nobody
+#gid = nobody
+uid = root
+gid = root
+hosts allow = *    #哪些电脑可以访问rsync服务
+hosts deny = 0.0.0.0/32    #哪些电脑不可以访问rsync服务
+max connections = 2
+log file = /var/log/rsyncd.log
+pid file = /var/run/rsyncd.pid
+lock file = /var/run/rsync.lock
+　　
+#再定义要rsync的目录
+[backup]
+path = /data/app/files
+list=yes
+ignore errors
+auth users = root
+comment = welcome
+exclude = file1/  file2/ 
+
+```
+
+测试：
+
+```
+rsync -arzvtopg --delete rck@192.168.37.144:/vtcs/0002_iCatch/svn2git/vi37/iCatOS ~/iCatOS
+```
+
+安装scp,ssh服务：
+
+```
+sudo apt-get install openssh-server
+```
+
+验证安装成功：
+
+```
+rck@rck:/vtcs/d3tech/skybell_m5s_app$ sshd -v
+unknown option -- v
+OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13, OpenSSL 1.0.1f 6 Jan 2014
+usage: sshd [-46DdeiqTt] [-b bits] [-C connection_spec] [-c host_cert_file]
+            [-E log_file] [-f config_file] [-g login_grace_time]
+            [-h host_key_file] [-k key_gen_time] [-o option] [-p port]
+            [-u len]
+```
+
 20210827：
 
 ubuntu crc32 安装与使用：

@@ -1,5 +1,6 @@
-<<<<<<< Updated upstream
+20210906：
 
+C语言再学习 -- 关键字volatile_不积跬步，无以至千里-CSDN博客_c语言 volatile - https://blog.csdn.net/qq_29350001/article/details/54024070
 
 ---
 

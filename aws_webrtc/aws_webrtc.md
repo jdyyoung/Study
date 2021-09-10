@@ -1,3 +1,25 @@
+20210904：
+
+```
+aws_webrtc 所需移植的库：
+libcrypto.so
+libdce.so
+libgtest.a
+libjsmn.a
+libgtest_main.a
+libkvsCommonLws.a
+libkvspic.a
+libkvspicClient.a
+libkvspicState.a
+libkvspicUtils.a
+libkvsWebrtcClient.so
+libkvsWebrtcSignalingClient.so
+libsrtp2.so
+libssl.so
+libusrsctp.so
+libwebsockets.so
+```
+
 
 
 WebRTC音视频同步详解_sonysuqin的专栏-CSDN博客_webrtc音视频同步 - https://blog.csdn.net/sonysuqin/article/details/107297157
