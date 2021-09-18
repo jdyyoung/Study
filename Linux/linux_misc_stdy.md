@@ -1,3 +1,13 @@
+202210916：
+
+```
+#alsa
+#调整音量
+amixer set 'Playback Volume Digital' 10%
+#播放音频
+aplay /skybell/config/ringtone/0_high.wav
+```
+
 20210910:
 
 ```

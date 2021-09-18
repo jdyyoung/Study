@@ -12,6 +12,48 @@ gpio 的相关编程：
 
 ---
 
+```
+SPK_SHDN --> 
+```
+
+![](..\md_att\1631786411144.png)
+
+M5S_SiP_Pin_Info.xlsx
+
+![](..\md_att\微信截图_20210916185436.png)
+
+GPIO_1_IO_D[9]:1*32 + 9 = 41
+
+ gpio引脚编号计算：
+
+引脚编号 = 控制引脚的寄存器基数 + 控制引脚寄存器位数
+
+```
+前面的數字代表group, 每個group都含32個pin.
+對系統來說是從group0的pin0開始算起
+gpio pin為GPIO_2_IO_D[12], 在系統對應的pin是gpio76 (即 2*32 + 12)
+```
+
+
+
+```
+gpio:硬件GPIO在linux内核中都有一个唯一的软件编号(类似身份证号)：
+  	例如：
+  	硬件GPIO,GPC0_3对应的软件编号为：S5PV210_GPC0(3);
+  	硬件GPIO,GPF1_5对应的软件编号为：S5PV210_GPF1(5)
+  	
+linux的GPIO驱动的使用（s5pv210）_kunkliu的博客-
+CSDN博客 - https://blog.csdn.net/kunkliu/article/details/78036658
+
+
+计算每个组的start编号，可以参考内核源码的两个文件：\arch\arm\mach-s5pv210\include\mach\Gpio.h    
+和arch\arm\mach-s5pv210\Gpiolib.c
+```
+
+
+
+---
+
 
 
 ```
@@ -33,3 +75,5 @@ fdt addr 0x1000000
 fdt print
 ```
 
+https://blog.csdn.net/mirkerson/article/details/8464231
+https://blog.csdn.net/q1070292175/article/details/17307381

@@ -1,3 +1,29 @@
+
+
+2021-0917：
+
+```
+sudo apt-get install device-tree-compiler
+#DCB转DTS：
+dtc -I dtb -O dts -o *.dts *.dtb
+
+#DTS转DTB：
+./dtc -I dts -O dtb -o test.dtb test.dts
+
+```
+
+
+
+基于设备树编写按键中断驱动程序 - 小小的番茄 - 
+博客园 - https://www.cnblogs.com/lztutumo/p/13340411.html
+Linux DTS中和中断相关属性的解释和用法_月出皎兮。 佼人僚兮。 舒窈纠兮。 劳心悄兮。
+
+CSDN博客 https://blog.csdn.net/rockrockwu/article/details/96461563
+
+> ./simple/linux_irq.c
+
+
+
 ```
 节点：用{}；
 	根节点：\

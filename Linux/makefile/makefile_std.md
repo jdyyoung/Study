@@ -1,3 +1,9 @@
+20210914:
+
+makefile eval函数详解 - merlindu - 博客园 - https://www.cnblogs.com/merlindu/p/6542805.html
+
+---
+
 makefile--函数定义 函数调用 - 简书 - https://www.jianshu.com/p/e2c78c8fb4a5
 
 ---

@@ -1,6 +1,270 @@
 
 
 ```C
+/*
+Camera Event Report
+POST URL: /v1/camera/event/report
+Content-Type : multipart/form-data
+Authorization : accessTokenRedbee Company Confidential 2020
+Request JSON example:
+{
+    "eventImage":"image file",
+    "eventType":1,
+    "eventTime":1591953011313,
+}
+eventImage: The first frame file.
+eventType: 1---Ring button, 2---Motion detected, 3---Liveview, 4---Alarm
+eventTime : Timestamp
+Response JSON example:
+{
+    "result": true,
+    "error": "",
+    "data": {
+        "reportId":"33c1568d80904e9daa5e230b852cff99AC"
+    }
+}
+*/
+
+/*
+	curl --location --request POST 'http://120.78.224.26:8080/DBC05/v1/camera/event/report' 
+	--header 'Authorization: eyJhbGciOiJIUzI1NiIsIlR5cGUiOiJKd3QiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJyZWRiZWUiLCJleHAiOjE2MDgyNjkwMDQsInR5cGUiOiJBY2Nlc3NUb2tlbiIsImRldmljZUlkIjoiZmE3M2ZjZjY0YzQzNDE1NTlkYjEwYzYyMGY5OTljMzUifQ.kR8A7PKO9P8Oz39W8lKySH4rjp2-5iUQX01ylyouCJY' 
+	--form 'eventImage=@"snap.jpg"' --form 'eventType="1"' --form 'eventTime=1591953011313'
+*/
+int event_push_report(int type)
+{
+	int ret = 0;
+	int seconds = time((time_t*)NULL);
+
+	CURL *curl;
+	CURLcode res;
+	struct curl_slist *hs=NULL;
+	struct MemoryStruct chunk;
+	char* authString = NULL;
+	cJSON* cjson_test = NULL;
+	cJSON* cjson_item = NULL;
+	cJSON* cjson_temp = NULL;
+	char* json_str = NULL;
+
+
+	DBUG(0,"event_push_report type = %d !\n",type);
+
+	curl = curl_easy_init();
+	if(!curl) {
+		WARN(0,"curl == NULL\n");
+		ret = -1;
+		goto _exit;
+	}
+
+	chunk.memory = malloc(1);
+	chunk.size = 0;
+
+	char url[256] = {0};
+	sprintf(url, "%s%s", CURRENT_BACKEND, "v1/camera/event/report");
+	curl_easy_setopt(curl, CURLOPT_URL, url);
+	
+	authString = (char*)malloc(strlen("Authorization: ") +1 +strlen(d3_kvs.access_token));
+	sprintf(authString, "Authorization: %s", d3_kvs.access_token);
+
+	struct curl_httppost* formpost = NULL;
+	struct curl_httppost* formlast = NULL;
+
+	char type_str[128] ={0};
+	sprintf(type_str,"%d",type);
+	char seconds_str[128] ={0};
+	sprintf(seconds_str,"%d",seconds);
+
+	curl_formadd(&formpost, &formlast, CURLFORM_COPYNAME, "eventImage",CURLFORM_FILE, "/mnt/diskc/Event.jpg", CURLFORM_END);
+	// curl_formadd(&formpost, &formlast, CURLFORM_COPYNAME, "msg",CURLFORM_COPYCONTENTS, json_str,CURLFORM_END);
+	curl_formadd(&formpost, &formlast, CURLFORM_COPYNAME, "eventType",CURLFORM_PTRCONTENTS, type_str,CURLFORM_END);
+	curl_formadd(&formpost, &formlast, CURLFORM_COPYNAME, "eventTime",CURLFORM_PTRCONTENTS, seconds_str,CURLFORM_END);
+
+	/* Set the form info */
+	curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+	//curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
+	// hs = curl_slist_append(hs, "Content-Type : multipart/form-data");
+	hs = curl_slist_append(hs, authString);
+	curl_easy_setopt(curl, CURLOPT_HEADER, 0);
+	curl_easy_setopt(curl,CURLOPT_TIMEOUT, 60);
+	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, hs);
+	// curl_easy_setopt(curl, CURLOPT_POSTFIELDS, str);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+
+	res = curl_easy_perform(curl);
+	ret = res;
+	event_report_result = false;
+	if(res != CURLE_OK){
+		WARN(0, "curl_easy_perform() failed: %s\n",curl_easy_strerror(res));
+		goto _exit;	
+	}
+	else {
+		DBUG(1,"%lu bytes retrieved\n", (unsigned long)chunk.size);
+		ALERT(0,"chunk.memory:\n%s\n\n", chunk.memory);	
+	}
+	
+	cjson_test=cJSON_Parse( chunk.memory);
+	if (!cjson_test){
+		WARN(0,"cjson_test == NULL! \n");
+		ret = -1;
+		goto _exit;
+	}
+		
+	cjson_item = cJSON_GetObjectItem(cjson_test, "data");
+	if(!cjson_item){
+		WARN(0,"response JSON no data item\n");
+		ret = -1;
+		goto _exit;
+	}
+	cjson_item = cJSON_GetObjectItem(cjson_item, "reportId");
+	if(!cjson_item){
+		WARN(0,"response JSON no reportId item\n");
+		ret = -1;
+		goto _exit;
+	}
+	// DBUG(1,"reportId = %s\n", cjson_item->valuestring);
+	strncpy(g_report_id,  cjson_item->valuestring,sizeof(g_report_id));
+	event_report_result = true;
+	
+	_exit:
+		if(chunk.memory){
+			free(chunk.memory);
+			chunk.memory = NULL;
+		}		
+		if(cjson_test){
+			cJSON_Delete(cjson_test);
+			cjson_test = NULL;
+		}
+		if(authString){
+			free(authString);
+			authString = NULL;
+		}
+		if(formpost){
+			curl_formfree(formpost);
+		}
+		if(curl){
+			curl_easy_cleanup(curl);
+		}
+		if(json_str){
+			free(json_str);
+			json_str = NULL;
+		}
+
+	return ret;
+}
+```
+
+
+
+```C
+/*
+Camera Avatar
+POST URL: /v1/camera/avatar
+Content-Type : multipart/form-data
+Authorization : accessToken
+Request JSON example:
+{
+	"avatarImage":"image file",
+} 
+avatarImage: The camera image file.
+Response JSON example:
+{
+    "result": true,
+    "error": "",
+    "data": { 
+    	"reportId":"33c1568d80904e9daa5e230b852cff99AC"
+	}
+}
+*/
+static int avatar_image_upload(const char* image_file)
+{
+	CURL *curl;
+	CURLcode res;
+	struct curl_slist *hs=NULL;
+	struct MemoryStruct chunk;
+	// char* str = NULL;
+	char* authString = NULL;
+
+	curl = curl_easy_init();
+	if( ! curl) {
+		WARN(0,"curl == NULL\n");
+		return -1;
+	}
+	
+	chunk.memory = (char*)malloc(1);
+	chunk.size = 0;
+	
+	char url[256] ={0};
+	sprintf(url, "%s%s", CURRENT_BACKEND, "v1/camera/avatar");
+	curl_easy_setopt(curl, CURLOPT_URL, url);
+		
+	authString = malloc(strlen("Authorization: ") +1 +strlen(d3_kvs.access_token));
+	sprintf(authString, "Authorization: %s", d3_kvs.access_token);
+
+	struct curl_httppost* formpost = NULL;
+	struct curl_httppost* formlast = NULL;
+
+	/* Add simple file section */
+	curl_formadd(&formpost, &formlast, CURLFORM_COPYNAME, "avatarImage",CURLFORM_FILE, image_file, CURLFORM_END);
+
+	/* Set the form info */
+	curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+	hs = curl_slist_append(hs, authString);
+	curl_easy_setopt(curl, CURLOPT_HEADER, 0);
+	curl_easy_setopt(curl,CURLOPT_TIMEOUT, 60);
+	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, hs);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);
+
+	res = curl_easy_perform(curl);
+	if(res != CURLE_OK){
+		WARN(0, "curl_easy_perform() failed: %s\n",curl_easy_strerror(res));	
+	}
+	else {
+		DBUG(0,"%lu bytes retrieved\n", (unsigned long)chunk.size);			
+		DBUG(0,"\n%s\n\n", chunk.memory);
+	}
+	free(chunk.memory);
+	curl_formfree(formpost);
+	curl_easy_cleanup(curl);
+	free(authString);
+
+	return res;
+}
+
+```
+
+
+
+---
+
+20210913：
+
+Libcurl实现断点续传 - chang290 - 博客园 - https://www.cnblogs.com/chang290/archive/2012/08/12/2634858.html
+
+HTTP多线程下载+断点续传（libcurl库） - 立超的专栏 - 博客园 - https://www.cnblogs.com/zlcxbb/p/6006861.html
+
+curl_easy_setopt-curl库的关键函数之一 - DoubleLi - 博客园 - https://www.cnblogs.com/lidabo/p/4583067.html
+
+使用libcurl遇到的坑_Swallow_he的博客-CSDN博客 - https://blog.csdn.net/Swallow_he/article/details/86648555
+
+libcurl使用easy模式阻塞卡死等问题的完美解决 - Bigben - 博客园 - https://www.cnblogs.com/bigben0123/p/3192978.html
+
+```
+设置curl_easy_setopt 的第二个参数为CURLOPT_RANGE，第三个参数为“X-Y”格式的字串，其中X为开始下载的字节，Y为结束下载的字节。
+例如，如果一个文件你已经下载了1000个字节，总长度为105200，
+如果你想接着下载，你就应该设置第三个参数为“1000-105200”，就可以实现从1000字节开始下载
+```
+
+
+
+---
+
+```C
 //多文件变成，使用一个全局变量curl_ready
 BOOL curl_ready = FALSE; 
 static int curl_system_post_event(char* payload,char *client_id,char *hmac_signature){
