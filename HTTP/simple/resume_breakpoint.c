@@ -37,6 +37,7 @@ size_t readfunc(void *ptr, size_t size, size_t nmemb, void *stream){
 	return n;
 }
  
+ //先通过lbcurl 获取到要下载文件的MD5和文件大小，下载的链接
 // 下载 或者上传文件函数
 int download(CURL *curlhandle, const char * remotepath, const char * localpath,
            long timeout, long tries)

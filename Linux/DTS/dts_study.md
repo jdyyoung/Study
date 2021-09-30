@@ -1,5 +1,129 @@
 
 
+
+
+Linux Platform驱动模型(二) _驱动方法 - Abnor - 博客园 - https://www.cnblogs.com/xiaojiang1025/archive/2017/02/06/6367910.html
+
+(11条消息) Linux设备驱动模型之platform总线深入浅出(加入设备树)_小白要学arm-CSDN博客_platform_get_irq - https://blog.csdn.net/qq_31505483/article/details/73718954
+
+(11条消息) Linux中断申请流程_pandy_gao的博客-CSDN博客_platform_get_irq - https://blog.csdn.net/pandy_gao/article/details/79309712
+
+---
+
+节点，子节点，单元地址
+
+属性名，属性值
+
+标签，引用，phandle
+
+节点名规则：
+
+属性名规则：
+
+```
+关键字节点：
+关键字属性：
+compatible, address, interrupt
+"mac_addr"，"gpio"，"clock"，"power"。"regulator"
+```
+
+- **#address-cells**，用来描述子节点**"reg"**属性的地址表中用来描述首地址的cell的数量，
+- **#size-cells**，用来描述子节点**"reg"**属性的地址表中用来描述地址长度的cell的数量。
+
+
+
+按key可以表述的数据类型，可以分为：
+
+字符串：string-prop = "a string";
+字符串列表：string-list = "hi","str","list";
+整型数据：cell-prop = <0xaa>;
+二进制数据：binary-prop = [aa bb f8];
+混合数据：mixed-prop = "str",<0x123>,[ff dd];
+布尔类型：bool-porp;
+引用类型：ref-prop = <&other-node>
+
+---
+
+Linux设备树语法详解 - Abnor - 博客园 - https://www.cnblogs.com/xiaojiang1025/p/6131381.html
+
+linux设备驱动(24)dts补充 - Action_er - 博客园 - https://www.cnblogs.com/xinghuo123/p/13238266.html
+
+Linux驱动篇(六)——设备树之DTS规则（一） - 知乎 - https://zhuanlan.zhihu.com/p/143167176
+
+DTS机制_随风的博客-CSDN博客 - https://blog.csdn.net/magicarm_lw/article/details/87722249
+
+Linux内核根据DTS创建设备过程分析（Android 5.1）_随风的博客-CSDN博客 - https://blog.csdn.net/magicarm_lw/article/details/88020798
+
+浅析Linux DeviceTree - ricks - 博客园 - https://www.cnblogs.com/ricks/p/9993245.html
+
+设备树详解 (借点引用, &... , 结构, 节点属性设置如gpio的上拉,下拉,io中断设置等 ) - Red_Point - 博客园 - https://www.cnblogs.com/tureno/articles/6603735.html
+
+Linux dts 设备树详解(一) 基础知识_GREYWALL-CSDN博客 - https://blog.csdn.net/u010632165/article/details/89847843
+
+Linux dts 设备树详解(二) 动手编写设备树dts_GREYWALL-CSDN博客 - https://blog.csdn.net/u010632165/article/details/91488811
+
+Linux设备树解析_smcdef的博客-CSDN博客_linux 设备树解析 - https://blog.csdn.net/smcdef/article/details/77387975
+
+---
+
+(11条消息) Linux设备树解析_smcdef的博客-CSDN博客_linux 设备树解析 - https://blog.csdn.net/smcdef/article/details/77387975
+
+Linux驱动篇(六)——设备树之DTS规则（一） - 知乎 - https://zhuanlan.zhihu.com/p/143167176
+
+linux设备驱动(24)dts补充 - Action_er - 博客园 - https://www.cnblogs.com/xinghuo123/p/13238266.html
+
+，添加了bootargs，memory，clock，interrupt等非platform_device的节点，这样就不能对所有的device_node转换成platform_device。memory，interrupt等虽然是硬件，但是不是platform_device。
+
+---
+
+Linux设备树语法详解 - Abnor - 博客园 - https://www.cnblogs.com/xiaojiang1025/p/6131381.html
+
+
+
+编译设备树的时候，**相同的节点的不同属性信息都会被合并，相同节点的相同的属性会被重写**，使用引用可以避免移植者四处找节点，直接在板级.dts增改即可。
+
+---
+
+设备树详解 (借点引用, &... , 结构, 节点属性设置如gpio的上拉,下拉,io中断设置等 ) - Red_Point - 博客园 - https://www.cnblogs.com/tureno/articles/6603735.html
+
+该设备节点中设置了reset-gpios = <&gpio1 15 1>;这格式是什么意思呢？&gpio1 15引用了gpio1节点，故此处含义为gpio1_15这个引脚；最后一个参数1则代表低电平有效，0则为高电平有效。至于gpio1_15具体对应哪个引脚，在imx6的手册上都有详细描述
+其实最后一个参数（高低电平有效）不是必须的，因为gpio1节点中设置了#gpio-cells = <2>;，所以才有两个参数；某些soc的gpio节点中会设置为#gpio-cells = <1>;，那么可以不写最后一个参数
+
+---
+
+浅析Linux DeviceTree - ricks - 博客园 - https://www.cnblogs.com/ricks/p/9993245.html
+
+标签和引用是为了方便编写dts文件，当标签用于节点时开发人员可在任意地方引用该标签而不用关注该标签的全路径；当标签应用于属性时，开发人员可以在其他属性中引用该标签，避免重复的工作。例如Label一个字符串，避免在每个需要的地方重复写同一个字符串。
+
+，也可以使用alias为标签定义别名，如：`alias { i2c_0 = &i2c0};`，这样在引用的地方就不用再写&号了，alias+label+reference是非常常用的做法。
+
+Skeleton DTSI
+Skeleton的作用是定义设备启动所需要的最小的组件，它定义了root-node下的最基本且必要的child-node类型，通常对应SoC上的基础设施如CPU,Memory等。
+
+/*
+ * Skeleton device tree in the 64 bits version; the bare minimum
+ * needed to boot; just include and add a compatible value.  The
+ * bootloader will typically populate the memory node.
+ */
+/ {
+    #address-cells = <2>;
+    #size-cells = <2>;
+    cpus { };
+    soc { };
+    chosen { };
+    aliases { };
+    memory { device_type = "memory"; reg = <0 0 0 0>; };
+};
+如上Code来源于skeleton64.dtsi，在root-node下一共定义了5个基本的child-node，cpus代表SoC上所有的cpu，具体cpu的个数以及参数定义在cpus的child-node下；soc代表平台上的所有片上外设以及片外外设，例如uart/clock/spi/i2c/display/...具体这些外设的定义在其他dts/dtsi文件中；chosen用于定义runtime configuration；aliases用于定义node的别名；memory用于定义设备上的物理内存。
+
+address-cells定义了根节点的所有子节点的地址空间属性（reg属性）中使用2个cell来表示启示地址
+
+size-cells定义了根节点的所有子节点的地址空间属性（reg属性）中使用2个cell来表示地址空间的长度
+
+---
+
+
+
 2021-0917：
 
 ```
@@ -21,6 +145,36 @@ Linux DTS中和中断相关属性的解释和用法_月出皎兮。 佼人僚兮
 CSDN博客 https://blog.csdn.net/rockrockwu/article/details/96461563
 
 > ./simple/linux_irq.c
+
+
+
+```
+# cat /proc/interrupts 
+           CPU0       
+ 16:    3257379     GIC-0  27 Edge      gt
+ 18:          0     GIC-0  30 Level     mpcore_wdt
+ 20:      10005     GIC-0  87 Level     serial
+ 22:        383     GIC-0  89 Level   
+ 23:        707     GIC-0  65 Level     b2d00000.i2c
+ 24:        424     GIC-0  66 Level     b2e00000.i2c
+ 25:          0     GIC-0  67 Level     b2f00000.i2c
+ 26:          0  VPL_MBC_INTC  15 Level     dw-mci
+ 27:     161539  VPL_MBC_INTC  17 Level     dw-mci
+ 33:      79358     GIC-0  37 Level     apb_dmac
+ 34:       4013  VPL_MBC_INTC  19 Level     b8300000.dwc2, b8300000.dwc2, dwc2_hsotg:usb1
+ 37:          0     GIC-0  39 Level     vpl_dmac0
+ 38:          5     GIC-0  40 Level     vpl_dmac1
+ 39:      12382     GIC-0  41 Level     vpl_vic
+ 45:          3     GIC-0  54 Level   
+ 46:      12381     GIC-0  55 Level     vma_ifpe
+ 47:      12379     GIC-0  56 Level     vma_ispe
+ 48:          0     GIC-0  57 Level     vma_rs
+ 50:         12     GIC-0  59 Level     vma_jebe
+ 52:       1398     GIC-0  52 Level     vma_h4ee
+ 53:          0     GIC-0  53 Level     VPU_CODEC_IRQ
+117:          0  VPL_GPIO  29 Edge      power-key
+Err:          0
+```
 
 
 
