@@ -1,6 +1,39 @@
+Git log 高级用法 - 张建斌 - 博客园 - https://www.cnblogs.com/zhangjianbin/p/7778625.html
+
+ git 跨分支搜索代码，确定commit 所属分支_杰_happy的博客-CSDN博客 - https://blog.csdn.net/liujiekkk123/article/details/78246662
+
+```
+git 跨分支搜索代码，确定commit 所属分支
+首先需要知道常用的搜索分支的 git 命令为何？
+
+git 查看日志搜索代码的语句
++ git log [分支名称] -S “代码关键字” （搜索指定分支的日志）
++ git log -S “代码关键字” 搜索当前分支的日志
++ git log -p “查看日志修改的详细信息”，然后通过 “/代码关键字” 搜索代码关键字，再通过向上查看此次修改的commit id。
+
+有了 commit id 我们就可以通过 id 获取到当前commit 对应的分之名称
+git branch –contains [commit id] （通过此命令查看当前id 所属分支名称）
+
+到此为止我们已经可以搜索某个确定的分之的上的代码了，问题是，如果当前本地和线上分支比较多的情况下，一个一个的去 git log 那就有点费事了。这时候我们要用到一个东西 xargs。
+这个东西在linux 或者mac 上都有，可能使用起来命令稍有不同，但是功能是一个样的。xargs 用于将 stdin 中的结果用作下一个命令的参数来进行多个命令的联合使用，类似我们常用的管道符 + grep 的用法。具体的使用方法请参考网上资料，不作过多介绍。
+这样我们有了一个新思路，把手动去搜索每个分支的这个过程用一个命令来实现，当前如果用shell 也是可以的，只不过麻烦点，没有命令来的快。
+示例：git branch -r | grep lj_ | xargs -n 1 -J % git log % -S “abc” >> result.log
+这里以 mac 下搜索远程分支代码为例，去搜索关键字为 abc 的代码为示例。这样就可以得到当前代码对应的 commit id，然后再通过 git branch -r –contains [commit id] 即可得到所查代码所在分支。
+以上需求常用在团队开发，团队中队员有事临时不再，却又不知道对方代码所在位置的时候，可以通过一些关键字来确定其代码的分支
+```
 
 
 
+----
+
+----
+
+恢复单个文件到某一个版本
+
+git reset commit_id -- path_to_file
+git checkout -- path_to_file
+
+---
 
 git diff 的简单使用（比较版本区别） - 暗恋桃埖源 - 博客园 - https://www.cnblogs.com/taohuaya/p/11107264.html
 
