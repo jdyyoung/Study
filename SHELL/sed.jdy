@@ -46,3 +46,13 @@ nl /etc/passwd | sed -e '3,$d' -e 's/bash/blueshell/'
 1  root:x:0:0:root:/root:/bin/blueshell
 2  daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 -e表示多点编辑，第一个编辑命令删除/etc/passwd第三行到末尾的数据，第二条命令搜索bash替换为blueshell。
+
+
+-----------------------------------------------------------------------------------------------------
+在文本REC_2021-10-20_03-29-50.txt 行首添加'REC_2021-10-20_03-29-50\' 字符串，执行以下命令出错：
+rck@rck:/vtcs/nn_test$ sed -i 's?^?REC_2021-10-20_03-29-50\?g' /tmp/REC_2021-10-20_03-29-50.txt
+sed: -e expression #1, char 30: unterminated `s' command
+rck@rck:/vtcs/nn_test$
+
+转义字符'\'没处理好的问题
+sed: -e expression #1, char 35: unterminated `s' command” - 简书 - https://www.jianshu.com/p/4cba044201b5
