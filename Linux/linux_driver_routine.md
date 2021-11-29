@@ -1,14 +1,26 @@
 
 
+readl()和writel() - 醉依危栏听松涛 - 博客园 - https://www.cnblogs.com/roger0212/p/4436722.html
+
+---
+
 static struct input_dev *gpio_key_dev;
 
 gpio_key_dev = input_allocate_device();
 
 
 
+----
+
+dts解析_wdjjwb的专栏-CSDN博客 - https://blog.csdn.net/wdjjwb/article/details/77297372
+
+DTS即Device Tree Source 设备树源码, Device Tree是一种描述硬件的数据结构，它起源于 OpenFirmware (OF)。
+
+device tree的基本单元是node。这些node被组织成树状结构，除了root node，每个node都只有一个parent。一个device tree文件中只能有一个root node。每个node中包含了若干的property/value来描述该node的一些特性。每个node用节点名字（node name）标识，节点名字的格式是node-name@unit-address.
+
+如果该node没有reg属性（后面会描述这个property），那么该节点名字中必须不能包括@和unit-address。unit-address的具体格式是和设备挂在那个bus上相关。例如对于cpu，其unit-address就是从0开始编址，以此加一。而具体的设备，例如以太网控制器，其unit-address就是寄存器地址。
 
 
-(12条消息) dts解析_wdjjwb的专栏-CSDN博客 - https://blog.csdn.net/wdjjwb/article/details/77297372
 
 Linux内核中的GPIO系统之（3）：pin controller driver代码分析 - http://www.wowotech.net/linux_kenrel/pin-controller-driver.html
 
@@ -98,18 +110,32 @@ linux late_initcall()
 
 
 
-(12条消息) 嵌入式linux mipi摄像头v4l2,ARM平台基于嵌入式Linux使用MIPI CSI-2接口_子清视界的博客-CSDN博客 - https://blog.csdn.net/weixin_28786193/article/details/116799887
+```
+platform_set_drvdata():
+platform_set_drvdata() platform_get_drvdata()_烟台 嵌入式产品开发-CSDN博客_platform_set_drvdata - https://blog.csdn.net/shell_albert/article/details/45893373
+```
 
-(12条消息) ㉓AW-H3 Linux驱动开发之mipi camera(CSI)驱动程序___毛豆的博客-CSDN博客 - https://blog.csdn.net/qq_23922117/article/details/85852586
+```
+regulator_get()
+(2条消息) regulator_get 调用过程_☆ 默默地牛逼着 -CSDN博客_regulator_get - https://blog.csdn.net/u012719256/article/details/52083961
+Linux regulator系统（1） - Hello-World3 - 博客园 - https://www.cnblogs.com/hellokitty2/p/9975711.html
+(2条消息) regulator(转）_lishuiwang的专栏-CSDN博客 - https://blog.csdn.net/lishuiwang/article/details/6130299
+```
 
-CSI-MIPI学习笔记 - Hello-World3 - 博客园 - https://www.cnblogs.com/hellokitty2/p/7912734.html
+```
+i2c_get_adapter()
+i2c_new_probed_device()
+i2c_put_adapter()
+```
 
-linux/imx6-mipi-csi2.c at master · torvalds/linux · GitHub - https://github.com/torvalds/linux/blob/master/drivers/staging/media/imx/imx6-mipi-csi2.c
 
-为什么将I.MX6作为ARM开发的首选 - 知乎 - https://zhuanlan.zhihu.com/p/72711575
 
-(12条消息) linux_驱动_总线协议_MIPI_camera_协议详细解析_笔记_专一的黄先生的博客-CSDN博客 - https://blog.csdn.net/weixin_40452895/article/details/106355754
+```
+request_threaded_irq()
+init_waitqueue_head()
+wake_up_interruptible()
 
-13. MIPI CSI-2 — The Linux Kernel documentation - https://www.kernel.org/doc/html/v4.10/media/kapi/csi2.html
+linux中断申请之request_threaded_irq - 随风飘落的雨滴 - 博客园 - https://www.cnblogs.com/dirt2/p/5632061.html
+在驱动程序中使用request_threaded_irq()为什么不使用request_irq()?两者之间有什么区别? - IT屋-程序员软件开发技术分享社区 - https://www.it1352.com/1526844.html
+```
 
-(12条消息) 嵌入式工程师必备：MIPI CSI-2 接口协议_yanglei0385的博客-CSDN博客 - https://blog.csdn.net/yanglei0385/article/details/85258122

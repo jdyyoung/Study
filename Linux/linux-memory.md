@@ -1,4 +1,80 @@
+2021-11-17:
 
+
+
+```c
+/**
+用kzalloc申请内存的时候， 效果等同于先是用 kmalloc() 申请空间 , 
+然后用 memset() 来初始化 ,所有申请的元素都被初始化为 0.
+*/
+/**
+ * kzalloc - allocate memory. The memory is set to zero.
+ * @size: how many bytes of memory are required.
+ * @flags: the type of memory to allocate (see kmalloc).
+ */
+static inline void *kzalloc(size_t size, gfp_t flags)
+{
+	return kmalloc(size, flags | __GFP_ZERO);
+}
+```
+
+ kzalloc 函数详解_J.A.Y的专栏-CSDN博客_kzalloc - https://blog.csdn.net/xujianqun/article/details/6715243
+
+----
+
+```c
+/**
+使用devm系列申请到的资源可以由系统自动释放，解放双手
+*/
+void * devm_kzalloc(struct device *dev, size_t size, gfp_t gfp)
+{
+    struct devres *dr;
+ 
+    /* use raw alloc_dr for kmalloc caller tracing */
+    dr = alloc_dr(devm_kzalloc_release, size, gfp);
+    if (unlikely(!dr))
+        return NULL;
+ 
+    set_node_dbginfo(&dr->node, "devm_kzalloc_release", size);
+    devres_add(dev, dr->data);
+    return dr->data;
+}
+```
+
+(14条消息) devm_kzalloc()_u010388659的博客-CSDN博客_devm_kzalloc - https://blog.csdn.net/u010388659/article/details/81265148
+
+---
+
+```
+of_iomap()与iounmap():
+void __iomem *of_iomap(struct device_node *node, int index);
+通过设备结点直接进行设备内存区间的 ioremap()，index是内存段的索引。
+若设备结点的reg属性有多段，可通过index标示要ioremap的是哪一段，只有1段的情况,index为0。
+采用Device Tree后，大量的设备驱动通过of_iomap()进行映射，而不再通过传统的ioremap。
+```
+
+
+
+```
+// 从虚拟地址读取4个字节数据
+unsigned int readl(unsigned int addr);
+// 往虚拟地址写入4个字节数据
+void writel(unsigned int data, unsigned int addr);
+
+// 从虚拟地址读取2个字节数据
+unsigned short readw(unsigned int addr);
+// 往虚拟地址写入2个字节数据
+void writew(unsigned short data, unsigned int addr);
+
+// 从虚拟地址读取1个字节数据
+unsigned char readb(unsigned int addr);
+// 往虚拟地址写入1个字节数据
+void writeb(unsigned char data, unsigned int addr);
+```
+
+Linux I/O 映射(ioremap)和writel/readl - LeeAaron - 博客园 - https://www.cnblogs.com/lialong1st/p/7756675.html
+
+嵌入式程序知识 1- uboot & kernel下操作CPU寄存器的区别(writel/readl/ioremap)_Clearfix_Xia-CSDN博客 - https://blog.csdn.net/csdnxmj/article/details/105753733
 
 ---
 
@@ -25,7 +101,7 @@
   物理地址		内核虚拟地址
   0x00000000		0xC0000000
   0x00000001		0xC0000001
-  0x00000002            0xC0000002
+  0x00000002        0xC0000002
   ...			...
   问题：如果采用一一映射,内核访问内存的效率得到提高,但是内核只能访问1G的物理内存,无法访问多余的物理内存,内核如何访问其余的物理内存或者任何一个设备的物理地址呢？
 

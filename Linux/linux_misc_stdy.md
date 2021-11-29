@@ -1,3 +1,25 @@
+
+
+
+
+```
+void __iomem *of_iomap(struct device_node *node, int index);
+通过设备结点直接进行设备内存区间的 ioremap()，index是内存段的索引。
+若设备结点的reg属性有多段，可通过index标示要ioremap的是哪一段，只有1段的情况，index为0。
+采用Device Tree后，大量的设备驱动通过of_iomap()进行映射，而不再通过传统的ioremap。
+ 
+```
+
+
+
+---
+
+Linux定时任务Crontab命令详解 - 再見理想 - 博客园 - https://www.cnblogs.com/intval/p/5763929.html
+
+linux服务之udevd - 阳光-源泉 - 博客园 - https://www.cnblogs.com/createyuan/archive/2014/07/13/3841623.html
+
+---
+
 202210916：
 
 ```
