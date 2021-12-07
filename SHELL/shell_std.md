@@ -1,4 +1,13 @@
 
+20210727：
+sed与正则表达式 - Lucky_7 - 博客园 - https://www.cnblogs.com/zd520pyx1314/p/6061339.html
+```
+#把小于等于5个字母的单词提取出来：
+$ sed -n '/^[a-zA-Z]\{1,5\}$/p' 6级单词.txt > less_than_5.txt
+#把6个字母的单词提取出来：
+$ sed -n '/^[a-zA-Z]\{6\}$/p' 6级单词.txt > only_6.txt
+```
+---
 
 #20210817
 
