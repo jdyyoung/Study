@@ -75,6 +75,24 @@ static char* severity_string(int severity)
     }
 }
 
+static char* debug_string(int severity){
+    switch (severity) {
+    case SKB_SERIAL:   return "SERIAL";
+    case SKB_MOTION:   return "MOTION";
+    case SKB_STA:      return "STA";
+    case SKB_AP:       return "AP";
+    case SKB_VEDIO:    return "VEDIO";
+    case SKB_AUDIO:    return "AUDIO";
+    case SKB_CFG:      return "CFG";
+    case SKB_BTN:      return "BTN";
+    case SKB_OTA:      return "OTA";
+    case SKB_WIFI:     return "WIFI";
+    case SKB_JPEG:     return "JPEG";
+    default:
+        return "OTHER";
+    }
+}
+
 #if 0
 char* signal_string(int signo)
 {
@@ -256,22 +274,26 @@ int system_recovery(int severity, const char* function, int lineno, int error,
 }
 
 
-int system_debug(int level, const char* comment, ...)
+int system_debug(int level, const char* function, int lineno,const char* comment, ...)
 {
-    if (level <= system_debug_level) {
+    if (level & system_debug_level) {
         va_list vargs;
         char buf[PRINT_BUF_MAX_SIZE];
         char* trim_buf;
+        int len;
 
         va_start(vargs, comment);
-        vsnprintf(buf, sizeof(buf), comment, vargs);
+        snprintf(buf, sizeof(buf), "%s().%d: ", function, lineno);
+        len = strlen(buf);
+        vsnprintf(buf+len, sizeof(buf)-len, comment, vargs);
+        // vsnprintf(buf, sizeof(buf), comment, vargs);
         va_end(vargs);
 
         trim_buf = trim_eol(buf);
         if (system_console_level > 0 ) {
-            console_output("DBUG%d: [%s]\n", level, trim_buf); 
+            console_output("[DBUG_%s: %s]\n", debug_string(level), trim_buf); 
         }
-        log_output("DBUG%d: [%s]\n", level, trim_buf);
+        log_output("[DBUG_%d: %s]\n", debug_string(level), trim_buf);
     }
 
     return 0;
