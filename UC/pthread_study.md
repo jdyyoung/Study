@@ -155,6 +155,20 @@ pthread_cond_wait(&q->cond, &q->lock.mutex);
 pthread_cond_timedwait(&q->cond, &q->lock.mutex, timeout);
 ```
 
+```
+信号量
+介绍一下POSIX(POSIX标准定义了操作系统应该为应用程序提供的接口标准，换句话说，为一个POSIX兼容的操作系统编写的程序，应该可以在任何其它的POSIX操作系统（即使是来自另一个厂商）上编译执行。)的信号量机制，定义在头文件/usr/include/semaphore.h
+1）初始化一个信号量:sem_init()
+int sem_init(sem_t* sem,int pshared,unsigned int value);
+pshared为0时表示该信号量只能在当前进程的线程间共享，否则可以进程间共享，value给出了信号量的初始值。
+2)阻塞线程
+sem_wait(sem_t* sem)直到信号量sem的值大于0，解除阻塞后将sem的值减一，表明公共资源经使用后减少;sem_trywait(sem_t* sem)是wait的非阻塞版本，它直接将sem的值减一，相当于P操作。
+3)增加信号量的值，唤醒线程
+sem_post(sem_t* sem)会使已经被阻塞的线程其中的一个线程不再阻塞，选择机制同样是由线程的调度策略决定的。相当于V操作。
+4)释放信号量资源
+sem_destroy(sem_t* sem)用来释放信号量sem所占有的资源
+```
+
 
 
 ----
@@ -167,7 +181,6 @@ https://www.cnblogs.com/venow/archive/2012/11/22/2779667.html
 
 Linux 线程挂起与唤醒功能 实例 - 吴英强的技术博客 - CSDN博客
 https://blog.csdn.net/waldmer/article/details/23422943
-
 
 //信号量：
 pthread_create()

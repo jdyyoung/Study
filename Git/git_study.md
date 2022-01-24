@@ -147,6 +147,8 @@ $
 
 2021-03-26：
 
+git丢弃、删除已经提交的commit_performance-CSDN博客_git 丢弃commit - https://blog.csdn.net/realDonaldTrump/article/details/85050779
+
 ```
 git删除中间某个commit：
 1.git log获取commit信息

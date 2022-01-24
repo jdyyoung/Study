@@ -1,4 +1,45 @@
+#2022-01-13
+
+```shell
+# 查看命令帮助
+wpa_cli help
+# 搜索可见wifi
+wpa_cli -i wlan0 scan
+# 获取搜索结果
+wpa_cli -i wlan0 scan_result
+# 获取已经配置的wifi设置
+wpa_cli -i wlan0 list_networks
+# 查看当前wifi状态
+wpa_cli -i wlan0 status
+# 新建wifi配置，会返回一个新的网络整数ID，比如：0
+wpa_cli -i wlan0 add_network
+# 假设新wifi的网络ID为0
+# 设置wifi的ssid
+# ssid需要添加双引号，双引号还要加斜杠或者单引号
+wpa_cli -i wlan0 set_network 0 ssid '"TP-LINK"'
+wpa_cli -i wlan0 set_network 0 ssid \"TP-LINK\"
+# 设置加密方式，WPA-PSK代表：WPA-PSK/WPA2-PSK
+wpa_cli -i wlan0 set_network 0 key_mgmt WPA-PSK
+# 设置wifi密码，和账号一样需要双引号
+wpa_cli -i wlan0 set_network 0 psk '"12345678"'
+wpa_cli -i wlan0 set_network 0 psk \"12345678\"
+# 新配置的wifi默认是禁用的，启用，启用后如果没有连接wifi，新增wifi可见就会自动连接的
+wpa_cli -i wlan0 enable_network 0
+# 如果有多个wifi，可以通过如下命令选择wifi
+wpa_cli -i wlan0 select_network 0
+# 再次查看状态，查看是否已经连接网络
+# wpa_state=COMPLETED表示完成连接，但是如果signal_level比较小时表示实际没有连接
+wpa_cli -i wlan0 status
+# 保存wifi配置，最好在启用wifi后再保存，否则保存的wifi是默认禁用的
+wpa_cli -i wlan0 save_config
+```
+
+ arm 使用wpa_cli连接wifi_坤仔的专栏-CSDN博客_wpa_cli 连接wifi - https://blog.csdn.net/chenjk10/article/details/90521093
+
+
+
 //查看wifi的一些信息
+
 ```
 [root@anyka ~]$ iwconfig wlan0
 wlan0     IEEE 802.11bgn  ESSID:"wifi520"  Nickname:"<WIFI@REALTEK>"

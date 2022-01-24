@@ -11,7 +11,7 @@
 	};
 };
 */
-
+(6条消息) 10.10、驱动开发 -- platform总线_feiffer·hu的博客-CSDN博客 - https://blog.csdn.net/qq_41110647/article/details/106733456?spm=1001.2014.3001.5501
 struct privatedata {
 	int val;
 	char str[36];

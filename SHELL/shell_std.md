@@ -9,6 +9,45 @@ $ sed -n '/^[a-zA-Z]\{6\}$/p' 6级单词.txt > only_6.txt
 ```
 ---
 
+#2022-01-13
+
+正则表达式/(^\s*)|(\s*$)/g意思
+包含以空格、回车符等字符开头 或者 空格、回车符等字符结尾 的字符串，可过滤出所有空格、回车符的字符。
+
+```shell
+#选出开头为CC 的行，CC前面可以有包含以空格、回车符等字符开头
+grep -E '^\s*CC' ${FILE_IN}
+```
+
+grep -E 选项可以用来扩展选项为正则表达式。
+
+grep -v、-e、-E_shadow_zed的博客-CSDN博客_grep-e - https://blog.csdn.net/shadow_zed/article/details/93888685
+
+#20211221
+
+```
+1. $$
+Shell本身的PID（ProcessID）
+2. $!
+Shell最后运行的后台Process的PID
+3. $?
+最后运行的命令的结束代码（返回值）
+4. $-
+使用Set命令设定的Flag一览
+5. $*
+所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。
+6. $@
+所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。
+7. $#
+添加到Shell的参数个数
+8. $0
+Shell本身的文件名
+9.$1～$n
+添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
+```
+
+Shell脚本中$0、$?、$!、$、$*、$#、$@ - 张大猛 - 博客园 - https://www.cnblogs.com/zhangjiansheng/p/8318042.html
+
 #20210817
 
 shell中的字母大小写转换_zzxuu的博客-CSDN博客_shell 大写转小写 - https://blog.csdn.net/enenand/article/details/78550678

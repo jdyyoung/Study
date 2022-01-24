@@ -1,3 +1,38 @@
+2021-12-27
+
+ 创建sysfs节点之device_create_file、sysfs_create_group_Hansomewang的博客-CSDN博客_device_create_file - https://blog.csdn.net/Hansomewang/article/details/78714236
+
+Linux驱动开发——pr_fmt的用法 - 摩斯电码 - 博客园 - https://www.cnblogs.com/pengdonglin137/p/6209424.html
+
+device_create_file创建多级目录-znw5566-ChinaUnix博客 - http://blog.chinaunix.net/uid-30458155-id-5692849.html
+
+(6条消息) Linux 设备创建 device_create() 和 device_create_file()_xiaoyu_wu的博客-CSDN博客_device_create_file() - https://blog.csdn.net/xiaoyu_wu/article/details/116030431
+
+linxu 驱动 DEVICE_ATTR和device_create_file 学习实例 - 灰信网（软件开发博客聚合） - https://www.freesion.com/article/8774867281/
+
+---
+
+2021-12-02：
+
+input 子系统：
+
+
+```
+在vatics:suspend.c -->{ .compatible = "vatics,power-button", }
+input_allocate_device()
+input_set_capability(gpio_key_dev, EV_KEY, KEY_POWER);
+input_register_device(gpio_key_dev)
+input 子系统
+```
+
+Creating an input device driver — The Linux Kernel documentation - https://www.kernel.org/doc/html/v4.12/input/input-programming.html
+
+Linux内核驱动学习（十）Input子系统详解 - 小麦大叔 - 博客园 - https://www.cnblogs.com/unclemac/p/12783389.html
+
+input子系统学习笔记五 按键驱动实例分析上-fychit-ChinaUnix博客 - http://blog.chinaunix.net/uid-20776117-id-3212088.html
+
+http://blog.chinaunix.net/uid/20776117.html
+
 
 
 
@@ -224,3 +259,16 @@ version - print monitor, compiler and linker version
 D3-Boot> 
 ```
 
+
+
+---
+
+1.dts 的修改与编写
+
+2.读主控datasheet 与驱动IC 的datasheet，linux kernel document
+
+3.相关接口协议掌握，I2C，SPI，MIPI...
+
+4.platform 机制的掌握
+
+5.相关驱动框架的掌握，V4L2

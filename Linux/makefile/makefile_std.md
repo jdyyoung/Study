@@ -1,3 +1,15 @@
+20211228:
+
+如何调试makefile - 灵聚 - 博客园 - https://www.cnblogs.com/perseus/articles/2480141.html
+
+```makefile
+$(warning In a command script)
+#1. make --debug=all (输出所有的调试信息)
+#2. make -n (只打印命令)
+```
+
+---
+
 20210914:
 
 makefile eval函数详解 - merlindu - 博客园 - https://www.cnblogs.com/merlindu/p/6542805.html

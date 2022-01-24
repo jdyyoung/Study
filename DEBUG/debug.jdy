@@ -1,3 +1,8 @@
+
+netifd 的log 系统：mask 掩码
+sunxi_vin 的log
+Linux驱动开发——pr_fmt的用法 - 摩斯电码 - 博客园 - https://www.cnblogs.com/pengdonglin137/p/6209424.html
+---------------------------------------------------------------------------
 //#define DEBUG
 #ifdef DEBUG
   #define Debug(fmt, ...)    printf("L(%d): "fmt"\n",__LINE__,##__VA_ARGS__)

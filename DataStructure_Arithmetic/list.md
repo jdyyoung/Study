@@ -1,6 +1,75 @@
 
 
+2022-01-18：
 
+```C
+//list 的客户端注册制应用
+//声明结构类型
+typedef struct {
+    struct list_head list;
+    int              refcnt;
+    void             (*handler)(int button_event);
+} CLIENT;
+
+//声明相关变量
+static MUTEX            client_mutex;
+static struct list_head client_list;
+static int              client_count;
+
+//初始化相关变量
+MUTEX_INIT(&client_mutex, "button_client");
+INIT_LIST_HEAD(&client_list);
+client_count = 0;
+
+void* button_register_client(void(*handler)(int button_event))
+{
+    CLIENT* client = (CLIENT*) HEAP_ALLOC(sizeof(CLIENT));
+
+    if (client) {
+        client->handler = handler;
+        MUTEX_LOCK(&client_mutex);
+        list_add_tail(&client->list, &client_list);
+        client_count++;
+        MUTEX_UNLOCK(&client_mutex);
+    }
+    return client;
+}
+
+int button_unregister_client(void* this)
+{
+    CLIENT* client = (CLIENT*)this;
+
+    if (client) {
+        if (client_count == 0 || client->refcnt)
+            return -1;
+        MUTEX_LOCK(&client_mutex);
+        list_del(&client->list);
+        client_count--;
+        heap_free(client);
+        MUTEX_UNLOCK(&client_mutex);
+    }
+    return 0;
+}
+
+static void route_to_clients(int button_event)
+{
+    MUTEX_LOCK(&client_mutex);
+    if (client_count) {
+        struct list_head* this;
+        list_for_each(this, &client_list) {
+            CLIENT* client = list_entry(this, CLIENT, list);
+            if (client->handler) {
+                client->handler(button_event);
+            }
+        }
+    }
+    MUTEX_UNLOCK(&client_mutex);
+}
+```
+
+
+
+----
 
 1.定义结构体：节点数据结构，是否首个成员要以struct list_head 定义？？？
 

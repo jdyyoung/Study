@@ -1,4 +1,4 @@
-
+Linux i2c子系统(一) _动手写一个i2c设备驱动 - Abnor - 博客园 - https://www.cnblogs.com/xiaojiang1025/p/6500540.html
 
 编译：
 
