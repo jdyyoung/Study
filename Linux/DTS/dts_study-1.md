@@ -1,5 +1,12 @@
 
 
+```
+# hexdump -C /sys/devices/platform/soc/soc:IMX327@0/of_node/reset_gpio_num 
+00000000  00 00 0f ff                                       |....|
+00000004
+#
+```
+
 2021-11-15：
 
 ```dts

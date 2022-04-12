@@ -1,4 +1,11 @@
-
+```
+zip 压缩方法：
+ 
+压缩当前的文件夹 zip -r ./xahot.zip ./* -r表示递归
+zip [参数] [打包后的文件名] [打包的目录路径]
+解压 unzip xahot.zip 不解释
+Linux下压缩某个文件夹命令 - Alan·Jones - 博客园 - https://www.cnblogs.com/Alan-Jones/p/7488179.html
+```
 
 2021-0516：
 
@@ -446,6 +453,12 @@ exclude = file1/  file2/
 测试：
 
 ```
+rsync  -avlK ./customization/ rck@192.168.37.152:/vtcs/0002_iCatch/svn2git/vi37/iCatOS/sphost/customization
+```
+
+
+
+```
 rsync -arzvtopg --delete rck@192.168.37.144:/vtcs/0002_iCatch/svn2git/vi37/iCatOS ~/iCatOS
 ```
 
@@ -466,6 +479,10 @@ usage: sshd [-46DdeiqTt] [-b bits] [-C connection_spec] [-c host_cert_file]
             [-h host_key_file] [-k key_gen_time] [-o option] [-p port]
             [-u len]
 ```
+
+Linux scp命令 | 菜鸟教程 - https://www.runoob.com/linux/linux-comm-scp.html
+
+----
 
 20210827：
 
