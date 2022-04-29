@@ -1,5 +1,7 @@
 Linux内核部件分析 - 连通世界的list_Linux教程_Linux公社-Linux系统门户网站 - https://www.linuxidc.com/Linux/2011-10/44627.htm
 
+kobject和kset之间的关系 - 灰信网（软件开发博客聚合） - https://www.freesion.com/article/4337775863/
+
 readl()和writel() - 醉依危栏听松涛 - 博客园 - https://www.cnblogs.com/roger0212/p/4436722.html
 
 ---
