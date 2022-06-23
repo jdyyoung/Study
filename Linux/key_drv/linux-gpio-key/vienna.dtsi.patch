@@ -1,0 +1,65 @@
+diff --git a/arch/arm/boot/dts/vienna.dtsi b/arch/arm/boot/dts/vienna.dtsi
+old mode 100644
+new mode 100755
+index 9eacb33..f13d7ea
+--- a/arch/arm/boot/dts/vienna.dtsi
++++ b/arch/arm/boot/dts/vienna.dtsi
+@@ -939,11 +939,57 @@
+ 			interrupt-names = "vpl_tmrc0_irq",
+ 					  "vpl_tmrc1_irq";
+ 		};
+-		power: power_keys@0 {
++		/*power: power_keys@0 {
+ 			status = "okay";
+ 			compatible = "vatics,power-button";
+ 			interrupt-parent = <&gpio1>;
+ 			interrupts = <29 IRQ_TYPE_EDGE_RISING>;
++		};*/
++		gpio-keys {
++		   compatible = "vatics,gpio-keys";
++		   status = "okay";
++		   #address-cells = <1>;
++		   #size-cells = <0>;
++		   autorepeat;
++
++		   //pinctrl-names = "default";
++		   //pinctrl-0 = <&pwrbtn>;
++
++		   /*button@0 {
++				gpios = <&gpio1 25 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <110>;
++				label = "gpio1 25 T5 R109 57";
++				linux,input-type = <1>;
++				gpio-key,wakeup = <1>;
++				debounce-interval = <100>;
++		   };
++		   */
++
++		   button@1 {
++				gpios = <&gpio1 26 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <111>;
++				label = "gpio1 26 W6 R140 58";
++				linux,input-type = <1>;
++				gpio-key,wakeup = <1>;
++				debounce-interval = <100>;
++		   };
++
++		   button@2 {
++				gpios = <&gpio1 27 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <112>;
++				label = "gpio1 27 T6 R146 59";
++				linux,input-type = <1>;
++				gpio-key,wakeup = <1>;
++				debounce-interval = <100>;
++		   };
++		   button@3 {
++				gpios = <&gpio1 29 IRQ_TYPE_EDGE_BOTH>;
++				linux,code = <113>;
++				label = "gpio1 29 U6 R147 61";
++				linux,input-type = <1>;
++				gpio-key,wakeup = <1>;
++				debounce-interval = <100>;
++		   };
+ 		};
+ 	};
+ };

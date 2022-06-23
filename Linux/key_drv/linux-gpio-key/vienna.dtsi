@@ -1,0 +1,995 @@
+/*
+ *  Device Tree Include file for VATICS Vienna SoC
+ *
+ * Copyright (C) 2015-2018 VATICS Inc.
+ *
+ * Author: ChangHsien Ho <vincent.ho@vatics.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/reset/vatics,vienna-reset.h>
+/*#include <dt-bindings/i2c/i2c.h>*/
+#include "skeleton.dtsi"
+
+/ {
+	model = "Vienna SoC";
+	compatible = "vatics,vienna-soc";
+	interrupt-parent = <&gic>;
+
+	aliases {
+		gpio0 = &gpio0;
+		gpio1 = &gpio1;
+		gpio2 = &gpio2;
+		spi0 = &spi0;
+		spi1 = &spi1;
+		spi2 = &spi2;
+		spi3 = &spi3;
+		i2c0 = &i2c0;
+		i2c1 = &i2c1;
+		i2c2 = &i2c2;
+		serial0 = &uart0;
+		serial1 = &uart1;
+		serial2 = &uart2;
+		serial3 = &uart3;
+		serial4 = &uart4;
+	};
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		cpu@0 {
+			compatible = "arm,cortex-a5";
+			device_type = "cpu";
+			reg = <0>;
+		};
+	};
+
+	cpu-pmu {
+		compatible = "arm,cortex-a5-pmu";
+		interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+		secure-reg-access;
+	};
+
+	clks: all_clock {
+		compatible = "vatics,vienna-clk";
+		#clock-cells = <1>;
+	};
+
+	pinmux:  vienna-pinmux {
+		compatible = "vatics,vienna-pinmux";
+	};
+
+	soc: soc {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		gic: interrupt-controller@b1f01000 {
+			compatible = "arm,cortex-a9-gic";
+			interrupt-controller;
+			#interrupt-cells = <3>;
+			#address-cells = <0>;
+			reg = <0xb1f01000 0x1000>,
+			      <0xb1f00100 0x100>;
+		};
+
+		scu@b1f00000 {
+			compatible = "arm,cortex-a5-scu";
+			reg = <0xb1f00000 0x58>;
+		};
+
+		timer@b1f00200 {
+			compatible = "arm,cortex-a9-global-timer";
+			reg = <0xb1f00200 0x100>;
+			interrupts = <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_EDGE_RISING)>;
+			clocks = <&clks 17>;
+		};
+
+		timer@b1f00600 {
+			status = "disable";
+			compatible = "arm,cortex-a5-twd-timer";
+			reg = <0xb1f00600 0x20>;
+			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
+			clocks = <&clks 17>;
+		};
+
+		watchdog@b1f00600 {
+			compatible = "arm,cortex-a5-twd-wdt";
+			reg = <0xb1f00600 0x40>;
+			interrupts = <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_HIGH)>;
+			clocks = <&clks 17>;
+		};
+
+		mbc_intc: interrupt-controller@b8500080 {
+			compatible = "vatics,vpl-mbc-intc";
+			interrupt-controller;
+			#interrupt-cells = <3>;
+			interrupt-parent = <&gic>;
+			reg = <0xb8500080 0x1000>;
+		};
+
+		spinand_list {
+			spinand_0: spinand@0 {
+				vatics,nand-name = "Mira PSU12S20 512MiB 3.3V SPI";
+				vatics,nand-info = <0xc8200000 0x0 0x800 0x40 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x1 0x7>;
+				vatics,nand-oob-free = <0x4 0x10 0x8 0x8>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+
+			spinand_1: spinand@1 {
+				vatics,nand-name = "Mira PSU1GS20 1G 3.3V SPI";
+				vatics,nand-info = <0xc8210000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x1 0x7>;
+				vatics,nand-oob-free = <0x4 0x10 0x8 0x8>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+
+			spinand_2: spinand@2 {
+				vatics,nand-name = "CFEON EN25LN512 512M 3.3V SPI";
+				vatics,nand-info = <0xc8200000 0x0 0x800 0x40 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x1 0x7>;
+				vatics,nand-oob-free = <0x4 0x10 0x8 0x8>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+
+			spinand_3: spinand@3 {
+				vatics,nand-name = "GigaDevice GD5F1GQ4UAYIG 1G 3.3V SPI";
+				vatics,nand-info = <0xc8f10000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0xc 0x4>;
+				vatics,nand-oob-free = <0x4 0x10 0x1 0xb>;
+				vatics,nand-bbt = <0x2392 0x8 0x4 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0x8>;
+			};
+
+			spinand_4: spinand@4 {
+				vatics,nand-name = "ATO ATO25D1GA 1G 3.3V SPI";
+				vatics,nand-info = <0x9b120000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x1 0x6>;
+				vatics,nand-oob-free = <0x4 0x10 0x8 0x8>;
+				vatics,nand-bbt = <0x2392 0xa 0x8 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+
+			spinand_5: spinand@5 {
+				vatics,nand-name = "Windbond W25N01GV 1G 3.3V SPI";
+				vatics,nand-info = <0xefaa0000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x8 0x8>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+			spinand_6: spinand@6 {
+				vatics,nand-name = "MXIC MX35LF1G 1G 3.3V SPI";
+				vatics,nand-info = <0xc2120000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x8 0x8>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x4>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+			spinand_7: spinand@7 {
+				vatics,nand-name = "HeYang HY5F1GQ4AACAE 1G 3.3V SPI";
+				vatics,nand-info = <0xc9510000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x20 0x8 0x18>;
+				vatics,nand-oob-free = <0x4 0x20 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0xe>;
+			};
+
+			spinand_8: spinand@8 {
+				vatics,nand-name = "HeYang HY5F2GQ4AACAE 2G 3.3V SPI";
+				vatics,nand-info = <0xc9520000 0x0 0x800 0x100 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x20 0x8 0x18>;
+				vatics,nand-oob-free = <0x4 0x20 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0xc>;
+				vatics,nand-ecc-ctrl = <0x200 0xe>;
+			};
+
+			spinand_9: spinand@9 {
+				vatics,nand-name = "GigaDevice GD5F1GQ4UB 1G 3.3V SPI";
+				vatics,nand-info = <0xc8d10000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x40 0x10>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0xe>;
+				vatics,nand-bbt = <0x2392 0x8 0x4 0x4 0x5>;
+				vatics,nand-ecc-ctrl = <0x200 0x8>;
+			};
+
+			spinand_10: spinand@10 {
+				vatics,nand-name = "Etron EM73C044 1G 3.3V SPI";
+				vatics,nand-info = <0xd5110000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x1e 0x10 0xe>;
+				vatics,nand-oob-free = <0x4 0x1e 0x2 0xe>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x5>;
+				vatics,nand-ecc-ctrl = <0x200 0x8>;
+			};
+
+			spinand_11: spinand@11 {
+				vatics,nand-name = "Etron EM73C044SNF 1G 3.3V SPI";
+				vatics,nand-info = <0xd5090000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x20 0x12 0xe>;
+				vatics,nand-oob-free = <0x4 0x20 0x2 0x10>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x5>;
+				vatics,nand-ecc-ctrl = <0x200 0x8>;
+			};
+
+			spinand_12: spinand@12 {
+				vatics,nand-name = "Etron EM73C044SNC 1G 3.3V SPI";
+				vatics,nand-info = <0xd5310000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0xe 0x48 0xe>;
+				vatics,nand-oob-free = <0x4 0x12 0x2 0x10>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0xc>;
+				vatics,nand-ecc-ctrl = <0x200 0x8>;
+			};
+
+			spinand_13: spinand@13 {
+				vatics,nand-name = "HeYang HY5F1GQ4DACAE 1G 3.3V SPI";
+				vatics,nand-info = <0xc9210000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x8 0x08>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+			spinand_14: spinand@14 {
+				vatics,nand-name = "FMSH FM25S01 1G 3.3V SPI";
+				vatics,nand-info = <0xa1a10000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x40 0x10>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0xe>;
+				vatics,nand-bbt = <0x2392 0x8 0xc 0x4 0x5>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+
+			spinand_15: spinand@15 {
+				vatics,nand-name = "Etron EM73C044VCD 1G 3.3V SPI";
+				vatics,nand-info = <0xd51c0000 0x0 0x800 0x80 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x8 0x8 0x8>;
+				vatics,nand-oob-free = <0x4 0x6 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+			spinand_16: spinand@16 {
+				vatics,nand-name = "Etron EM73D044VCE 2G 3.3V SPI";
+				vatics,nand-info = <0xd5200000 0x0 0x800 0x100 0x20000 0x0 0x2 0x40 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x8 0x20 0x8>;
+				vatics,nand-oob-free = <0x4 0x8 0x2 0x6>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+			spinand_17: spinand@17 {
+				vatics,nand-name = "HeYang HYF1GQ4UPA 1G 3.3V SPI";
+				vatics,nand-info = <0xc9a10000 0x0 0x800 0x80 0x20000 0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x40 0x10>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0xe>;
+				vatics,nand-bbt = <0x2392 0x4 0x2 0x4 0x8>;
+				vatics,nand-ecc-ctrl = <0x200 0x1>;
+			};
+			spinand_20: spinand@20 {
+				vatics,nand-name =
+					"GigaDevice GD5F1GQ5UE 1G 3.3V SPI";
+				vatics,nand-info =
+					<0xc8510000 0x0 0x800 0x80 0x20000
+					0x0 0x2 0x80 0x0 0x0 0x0>;
+				vatics,nand-oob-ecc = <0x4 0x10 0x40 0x10>;
+				vatics,nand-oob-free = <0x4 0x10 0x2 0xe>;
+				vatics,nand-bbt = <0x2392 0x8 0x4 0x4 0x5>;
+				vatics,nand-ecc-ctrl = <0x200 0x4>;
+			};
+
+		};
+
+		spi0: spi@b2100000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,dw-apb-ssi";
+			reg = <0xb2100000 0x1000>;
+			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 83>;
+			num-cs = <2>;
+			cs-gpios = <&gpio2 4 0>, <&gpio2 3 0>;
+			dmas = <&apbcdma 0 1 0>,
+			       <&apbcdma 1 1 0>;
+			dma-names = "rx", "tx";
+		};
+
+		spi1: spi@b2200000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,dw-apb-ssi";
+			reg = <0xb2200000 0x1000>;
+			interrupts = <GIC_SPI 41 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 84>;
+			num-cs = <2>;
+			cs-gpios = <&gpio2 9 0>, <&gpio2 8 0>;
+			dmas = <&apbcdma 2 2 0>,
+			       <&apbcdma 3 2 0>;
+			dma-names = "rx", "tx";
+		};
+
+		spi2: spi@b2300000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,dw-apb-ssi";
+			reg = <0xb2300000 0x1000>;
+			interrupts = <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 85>;
+			num-cs = <1>;
+			cs-gpios = <&gpio2 29 0>;
+			dmas = <&apbcdma 4 3 0>,
+			       <&apbcdma 5 3 0>;
+			dma-names = "rx", "tx";
+		};
+
+		spi3: spi@b2400000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,dw-apb-ssi";
+			reg = <0xb2400000 0x1000>;
+			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 86>;
+			num-cs = <1>;
+			cs-gpios = <&gpio0 14 0>;
+			dmas = <&apbcdma 6 4 0>,
+			       <&apbcdma 7 4 0>;
+			dma-names = "rx", "tx";
+		};
+
+		uart0: serial@b2700000 {
+			status = "disable";
+			compatible = "ns16550a";
+			reg = <0xb2700000 0x1000>;
+			interrupts = <GIC_SPI 55 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 89>;
+			reg-offset = <4>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			fifo-size = <32>;
+			auto-flow-control;
+			/* 4 character time for rx-timeout*/
+			rx-timeout = <0x2c2>;
+			/* use-dma; */
+                        dmas = <&apbcdma 10 7 0>,
+                               <&apbcdma 11 7 0>;
+                        dma-names = "rx", "tx";
+		};
+
+		uart1: serial@b2800000 {
+			status = "disable";
+			compatible = "ns16550a";
+			reg = <0xb2800000 0x1000>;
+			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 90>;
+			reg-offset = <4>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			fifo-size = <32>;
+			auto-flow-control;
+			/* use-dma; */
+                        dmas = <&apbcdma 12 8 0>,
+                               <&apbcdma 13 8 0>;
+                        dma-names = "rx", "tx";
+		};
+
+		uart2: serial@b3b00000 {
+			status = "disable";
+			compatible = "ns16550a";
+			reg = <0xb3b00000 0x1000>;
+			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 91>;
+			reg-offset = <4>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			fifo-size = <16>;
+			auto-flow-control;
+		};
+
+		uart3: serial@b3c00000 {
+			status = "disable";
+			compatible = "ns16550a";
+			reg = <0xb3c00000 0x1000>;
+			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 92>;
+			reg-offset = <4>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			fifo-size = <16>;
+		};
+
+		uart4: serial@b3d00000 {
+			status = "disable";
+			compatible = "ns16550a";
+			reg = <0xb3d00000 0x1000>;
+			interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 93>;
+			reg-offset = <4>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			fifo-size = <16>;
+		};
+
+		i2c0: i2c@b2d00000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,designware-i2c";
+			reg = <0xb2d00000 0x1000>;
+			interrupts = <GIC_SPI 33 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 42>;
+			i2c-tx-fifo-depth = <16>;
+			i2c-rx-fifo-depth = <16>;
+
+			giu:giu@2e{
+				compatible = "vpl,giuliani";
+				reg = <0x2e>;
+			};
+
+			giu-dummy-1@5c{
+				compatible = "vpl,giuliani";
+				reg = <0x5c>;
+				giu-dummy;
+			};
+
+			giu-dummy-2@5d{
+				compatible = "vpl,giuliani";
+				reg = <0x5d>;
+				giu-dummy;
+			};
+
+			stm32l0@1f{
+				status = "disable";
+				compatible = "st,stm32l0";
+				reg = <0x1f>;
+			};
+
+			ite_hdmi:it66121@4c {
+				status = "disable";
+				compatible = "ite,it66121";
+				reg = <0x4c>;
+			};
+		};
+
+		i2c1: i2c@b2e00000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,designware-i2c";
+			reg = <0xb2e00000 0x1000>;
+			interrupts = <GIC_SPI 34 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 43>;
+			i2c-tx-fifo-depth = <16>;
+			i2c-rx-fifo-depth = <16>;
+			/*
+			 *slave-24c02@42 {
+			 *	compatible = "slave-24c02";
+			 *	reg = <(I2C_OWN_SLAVE_ADDRESS | 0x42)>;
+			 *};
+			 */
+		};
+
+		i2c2: i2c@b2f00000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "snps,designware-i2c";
+			reg = <0xb2f00000 0x1000>;
+			interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 44>;
+			i2c-tx-fifo-depth = <16>;
+			i2c-rx-fifo-depth = <16>;
+		};
+
+		mmc0: dwmmc0@b8100000 {
+			status = "disable";
+			compatible = "vpl,vienna-dw_mshc";
+			reg = <0xb8100000 0x1000>;
+			interrupt-parent = <&mbc_intc>;
+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			clocks = <&clks 78>, <&clks 130>, <&clks 131> ;
+			clock-names = "vpl_mshc0_clk", "mshc_0_tx_phase",
+					"mshc_0_rx_phase";
+			num-slots = <1>;
+			fifo-depth = <0x80>;
+			card-detect-delay = <200>;
+			supports-highspeed;
+			tuning-highspeed;
+			/* supports-ultra-highspeed;  */
+			/* supports-set-blkcnt; */
+			/* uhs-gpio = <60>; */
+			/* oob-gpio = <51>; */
+			bus-width = <4>;
+
+			slot@0 {
+				reg = <0>;
+			};
+		};
+
+		mmc1: dwmmc1@b8200000 {
+			status = "disable";
+			compatible = "vpl,vienna-dw_mshc";
+			reg = <0xb8200000 0x1000>;
+			interrupt-parent = <&mbc_intc>;
+			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			clocks = <&clks 79>, <&clks 132>, <&clks 133> ;
+			clock-names = "vpl_mshc1_clk", "mshc_1_tx_phase",
+					"mshc_1_rx_phase";
+			num-slots = <1>;
+			fifo-depth = <0x80>;
+			card-detect-delay = <200>;
+			##supports-highspeed;
+			/* broken-cd; */
+			non-removable;
+			bus-width = <4>;
+			post-power-on-delay-ms = <1>;
+
+			slot@0 {
+				reg = <0>;
+				disable-wp;
+				broken-cd;
+			};
+		};
+
+		agpo: vpl-agpo@b3400000 {
+			status = "disable";
+			compatible = "vatics,vpl-agpo";
+			reg = <0xb3400000 0x1000>;
+			interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 10>;
+		};
+
+		gpio0: vpl-gpio@b3500000 {
+			status = "disable";
+			compatible = "vatics,vpl-gpio";
+			gpio-controller;
+			#gpio-cells = <2>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			reg = <0xb3500000 0x1000>;
+			interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 34>;
+		};
+
+		gpio1: vpl-gpio@b3600000 {
+			status = "disable";
+			compatible = "vatics,vpl-gpio";
+			gpio-controller;
+			#gpio-cells = <2>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			reg = <0xb3600000 0x1000>;
+			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 35>;
+		};
+
+		gpio2: vpl-gpio@b3700000 {
+			status = "disable";
+			compatible = "vatics,vpl-gpio";
+			gpio-controller;
+			#gpio-cells = <2>;
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			reg = <0xb3700000 0x1000>;
+			interrupts = <GIC_SPI 51 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 36>;
+		};
+
+		nand: nand@bc100000 {
+			status = "disable";
+			#address-cells = <1>;
+			#size-cells = <1>;
+			compatible = "evatronix,nandflash-ctrl";
+			reg = <0xbc100000 0x2000>;
+			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
+		};
+
+		eth: dw_eqos@bc200000 {
+			status = "disable";
+			compatible = "vatics,dweqos-v4.00a";
+			reg = <0xbc200000 0x2000>;
+			interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 32>;
+		/*	pinctrl-names = "default";
+			pinctrl-0 = <&pin_mac>;*/
+		};
+
+		apbcdma: vpl_apbcdma@0xb4100000 {
+			compatible = "vpl,dma-apbc";
+                        reg = <0xb4100000 0x1000>;
+			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+			dma-channels = <16>;
+			/* dma-cell [Channel], [Slave], [Swap_Data] */
+			#dma-cells = <3>;
+			dma-requests = <32>;
+			chan_allocation_order = <0>;
+			chan_priority = <1>;
+			block_size = <0xfff>;
+		};
+
+		usb: dwc2@b8300000 {
+			status = "disable";
+			compatible = "vatics,vienna-usb";
+			reg = <0xb8300000 0x1000>;
+			interrupt-parent = <&mbc_intc>;
+			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 97>, <&clks 95>, <&clks 94>;
+			clock-names = "core", "ahb", "adp";
+			dr_mode = "otg";
+			g-use-dma;
+			g-rx-fifo-size = <512>;
+			g-np-tx-fifo-size = <256>;
+			g-tx-fifo-size = <512 256 256 32 32>;
+		};
+
+		mipi_dsi: mipi@b3000400 {
+			status = "disable";
+			compatible = "snps,dw-mipi-dsi";
+			reg = <0xb3000200 0x200>, <0xb3000400 0x200>;
+			reg-names = "aux", "core";
+			interrupts = <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
+			resets = <&rstc MIPIC_RST>;
+			clocks = <&clks 72>, <&clks 73>, <&clks 75>;
+			clock-names = "mipi_apb", "mipi_phy","mipi_tx";
+		};
+
+		usbphy: usbphy@b3100000 {
+			status = "disable";
+			compatible = "vatics,vatics-usb2phy";
+			reg = <0xb3100000 0x10>;
+			clocks = <&clks 96>, <&clks 98>;
+			clock-names = "apb", "phy";
+		};
+
+		sysctrl@b3f00000 {
+			compatible = "simple-mfd", "syscon";
+			#address-cells = <1>;
+			#size-cells = <1>;
+			reg = <0xb3f00000 0x1000>;
+			ranges;
+			rstc: sysc-reset@10c {
+				compatible = "vatics,vienna-reset";
+				#reset-cells = <1>;
+			};
+		};
+
+		ceva: ceva_mm3101u@b2a00000 {
+			status = "okay";
+			compatible = "vatics,ceva_mm3101u";
+			reg = <0xb2a00000 0x1000>;
+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "ceva_irq_0", "ceva_irq_1";
+			clocks = <&clks 77>, <&clks 76>;
+			clock-names = "vpl_mm3101u_clk", "vpl_mm3101u_apb";
+		};
+
+		dmac0: vpl_dmac@b4200000 {
+			status = "okay";
+			compatible = "vatics,vpl_dmac";
+			reg = <0xb4200000 0x1000>;
+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 29>;
+			clock-names = "vpl_dmac_clk";
+			resets = <&rstc DMAC_0_RST>;
+		};
+
+		dmac1: vpl_dmac@b4300000 {
+			status = "okay";
+			compatible = "vatics,vpl_dmac";
+			reg = <0xb4300000 0x1000>;
+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 30>;
+			clock-names = "vpl_dmac_clk";
+			resets = <&rstc DMAC_1_RST>;
+		};
+
+		intc: vpl_intc@b4400000 {
+			status = "disable";
+			compatible = "vatics,vpl_intc";
+			reg = <0xb4400000 0x1000>;
+		};
+
+		vic: vpl_vic@b4500000 {
+			status = "okay";
+			compatible = "vatics,vpl_vic";
+			reg = <0xb4500000 0x1000>,
+			      <0xb3000000 0x1000>,
+			      <0xb3800000 0x1000>,
+			      <0xb8400000 0x1000>;
+			reg-names = "vpl_vic", "vpl_mipic", "vpl_hssic", "vpl_ddr_mmr";
+			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "vpl_vic_irq",
+					   "vpl_vic_0_vsync_irq", "vpl_vic_0_inv_vsync_irq",
+					   "vpl_vic_1_vsync_irq", "vpl_vic_1_inv_vsync_irq";
+			clocks = <&clks 99>, <&clks 100>,
+				 <&clks 74>, <&clks 73>, <&clks 72>,
+				 <&clks 41>, <&clks 40>, <&clks 39>,
+				 <&clks 38>, <&clks 37>;
+			clock-names = "vpl_vic_dev_0", "vpl_vic_dev_1",
+				      "vpl_mipi_rx", "vpl_mipi_phy", "vpl_mipi_apb",
+				      "vpl_hssic_pel", "vpl_hssic1_clk", "vpl_hssic0_ch1",
+				      "vpl_hssic0_ch0", "vpl_hssic_apb";
+			/*
+			 * resets = <&rstc >
+			 * many clk and reset,  no clk and reset related info
+			 * skip now
+			 */
+		};
+
+		voc: vpl_voc@b4600000 {
+			status = "okay";
+			compatible = "vatics,vpl_voc";
+			reg = <0xb4600000 0x1000>;
+			interrupts = <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 101>, <&clks 110>;
+			clock-names = "voc_clk", "voc_pclk";
+			resets = <&rstc VOC_RST>;
+		};
+
+		dce: vma_dce@b4700000 {
+			status = "okay";
+			compatible = "vatics,vma_dce";
+			reg = <0xb4700000 0x1000>;
+			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 23>;
+			clock-names = "vma_dce";
+			resets = <&rstc DCE_RST>;
+		};
+
+		ifpe: vma_ifpe@b4800000 {
+			status = "okay";
+			compatible = "vatics,vma_ifpe";
+			reg = <0xb4800000 0x1000>;
+			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 48>;
+			clock-names = "vma_ifpe";
+			resets = <&rstc IFPE_RST>;
+		};
+
+		ispe: vma_ispe@b4900000 {
+			status = "okay";
+			compatible = "vatics,vma_ispe";
+			reg = <0xb4900000 0x1000>;
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "vma_ispe_irq_0";
+			clocks = <&clks 52>, <&clks 53>, <&clks 51>;
+			clock-names = "vma_ispe", "vma_ispe_gtr", "vma_ispe_cache";
+			resets = <&rstc ISPE_RST>;
+		};
+		rs: vma_rs@b4900000 {
+			status = "okay";
+			compatible = "vatics,vma_rs";
+			reg = <0xb4900000 0x1000>;
+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "vma_ispe_irq_1";
+			clocks = <&clks 52>, <&clks 53>, <&clks 51>;
+			clock-names = "vma_ispe", "vma_ispe_gtr", "vma_ispe_cache";
+			resets = <&rstc ISPE_RST>;
+		};
+
+		jdbe: vma_jdbe@b4a00000 {
+			status = "okay";
+			compatible = "vatics,vma_jdbe";
+			reg = <0xb4a00000 0x1000>;
+			interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 54>;
+			clock-names = "vma_jdbe";
+			resets = <&rstc JDBE_RST>;
+		};
+
+		jebe: vma_jebe@b4b00000 {
+			status = "okay";
+			compatible = "vatics,vma_jebe";
+			reg = <0xb4b00000 0x1000>;
+			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 55>;
+			clock-names = "vma_jebe";
+			resets = <&rstc JEBE_RST>;
+		};
+
+		meae: vma_meae@b4c00000 {
+			status = "okay";
+			compatible = "vatics,vma_meae";
+			reg = <0xb4c00000 0x1000>;
+			interrupts = <GIC_SPI 28 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 71>;
+			clock-names = "vma_meae";
+			resets = <&rstc MEAE_RST>;
+		};
+
+		irrc: vpl_irrc@b3900000 {
+			status = "disable";
+			compatible = "vatics,vpl_irrc";
+			reg = <0xb3900000 0x1000>;
+			interrupts = <GIC_SPI 52 IRQ_TYPE_LEVEL_HIGH>;
+		};
+
+		cdce: vma_cdce@b0000000 { /*????seems no driver use?*/
+			status = "okay";
+			compatible = "vatics,vma_cdce";
+			reg = <0xb0000000 1000>;
+		};
+
+		cdce_h264: vma_cdce_h264@b0100000 {
+			status = "okay";
+			compatible = "vatics,vma_cdce_h264";
+			reg = <0xb0100000 1000>;
+			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 19>, <&clks 21>, <&clks 20>, <&clks 220>;
+			clock-names = "vpl_h264_clk", "vma_h4ee", "vma_h4de",
+				      "vpl_h264_mem";
+			/* resets = <&rstc ???>;
+			 * no H264_RST, ....
+			 * is related to CDCE_AMBA_RST,  CDCE_DAXI_RST or ....
+			 * skip now
+			 */
+		};
+
+		cdce_h265: vma_cdce_h265@b0200000 {
+			status = "okay";
+			compatible = "vatics,vma_cdce_h265";
+			reg = <0xb0200000 1000>;
+			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&clks 22>;
+			clock-names = "vcodec";
+			resets = <&rstc CDCE_H265_RST>;
+		};
+		pmic: vienna_regulator@b3f00000 {
+			status = "okay";
+			compatible = "vatics,regulator";
+			regulators {
+				pd0 {
+					regulator-name = "pd0";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd1 {
+					regulator-name = "pd1";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd2 {
+					regulator-name = "pd2";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd3 {
+					regulator-name = "pd3";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd4 {
+					regulator-name = "pd4";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd5 {
+					regulator-name = "pd5";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd6 {
+					regulator-name = "pd6";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+
+				pd7 {
+					regulator-name = "pd7";
+					regulator-min-microvolt = <1800000>;
+					regulator-max-microvolt = <3300000>;
+					regulator-always-on;
+				};
+			};
+		};
+		pmu_controller: pmu_controller@0 {
+			compatible = "vatics,pmu";
+			sysc_reg = <0xb3f00000>;
+			pub_reg = <0xb2c00000>;
+			pctl_reg = <0xb2b00000>;
+			i2c_reg = <0xb2d00000>;
+			i2c_clk_bit = <0>;
+		};
+		tmrc: vpl_tmrc_controller@b3a00000 {
+			status = "okay";
+			compatible = "vatics,vpl_tmrc";
+			reg = <0xb3a00000 1000>;
+			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 54 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "vpl_tmrc0_irq",
+					  "vpl_tmrc1_irq";
+		};
+		/*power: power_keys@0 {
+			status = "okay";
+			compatible = "vatics,power-button";
+			interrupt-parent = <&gpio1>;
+			interrupts = <29 IRQ_TYPE_EDGE_RISING>;
+		};*/
+		gpio-keys {
+		   compatible = "vatics,gpio-keys";
+		   status = "okay";
+		   #address-cells = <1>;
+		   #size-cells = <0>;
+		   autorepeat;
+
+		   //pinctrl-names = "default";
+		   //pinctrl-0 = <&pwrbtn>;
+
+		   /*button@0 {
+				gpios = <&gpio1 25 IRQ_TYPE_EDGE_BOTH>;
+				linux,code = <110>;
+				label = "gpio1 25 T5 R109 57";
+				linux,input-type = <1>;
+				gpio-key,wakeup = <1>;
+				debounce-interval = <100>;
+		   };
+		   */
+
+		   button@1 {
+				gpios = <&gpio1 26 IRQ_TYPE_EDGE_BOTH>;
+				linux,code = <111>;
+				label = "gpio1 26 W6 R140 58";
+				linux,input-type = <1>;
+				gpio-key,wakeup = <1>;
+				debounce-interval = <100>;
+		   };
+
+		   button@2 {
+				gpios = <&gpio1 27 IRQ_TYPE_EDGE_BOTH>;
+				linux,code = <112>;
+				label = "gpio1 27 T6 R146 59";
+				linux,input-type = <1>;
+				gpio-key,wakeup = <1>;
+				debounce-interval = <100>;
+		   };
+		   button@3 {
+				gpios = <&gpio1 29 IRQ_TYPE_EDGE_BOTH>;
+				linux,code = <113>;
+				label = "gpio1 29 U6 R147 61";
+				linux,input-type = <1>;
+				gpio-key,wakeup = <1>;
+				debounce-interval = <100>;
+		   };
+		};
+	};
+};
