@@ -462,6 +462,26 @@ rsync  -avlK ./customization/ rck@192.168.37.152:/vtcs/0002_iCatch/svn2git/vi37/
 rsync -arzvtopg --delete rck@192.168.37.144:/vtcs/0002_iCatch/svn2git/vi37/iCatOS ~/iCatOS
 ```
 
+---
+
+2022-06-22
+
+rsync免密的设置：ssh免密，rsync也就免密！
+
+添加公钥给客户端的.ssh下
+
+```
+[azuo1228@dest-server ~]$ mkdir .ssh
+[azuo1228@dest-server ~]$ cd .ssh/
+[azuo1228@dest-server .ssh]$ cat ../id_rsa.pub | tee -a authorized_keys
+```
+
+Rsync设置免输入密码定期同步文件文件夹 - 多客博图网 - http://www.doocr.com/articles/58c3aa9d827a1a6753add53b
+
+SSH配置key免密码登录 - 多客博图网 - http://www.doocr.com/articles/58c3a904827a1a6753add53a
+
+---
+
 安装scp,ssh服务：
 
 ```
