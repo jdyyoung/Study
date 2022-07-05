@@ -1,3 +1,15 @@
+
+
+```
+unzip把压缩文件解压到指定目录下 -d
+例如：
+unzip xxxx.zip  -d xxxxx2目录
+unzip -o 是解压时覆盖文件
+```
+
+
+
+
 ```
 zip 压缩方法：
  
