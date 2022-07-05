@@ -1,5 +1,7 @@
 
 
+SET(CMAKE_C_COMPILER "/opt/vtcs_toolchain/vienna/usr/bin/arm-linux-gcc")
+
 20210709：
 
 ```

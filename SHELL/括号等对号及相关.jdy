@@ -13,6 +13,17 @@ $echo"$a"
 $a=3
 $echo'$a'
 输出结果为 $a，可见在单引号中 $ 符是不起作用的。
+//2022-04-28:
+在单引号中要引用其他变量可以再用单引号来抵消单引号作用
+young@LAPTOP-40F97O7C MINGW64 /d/Study/SHELL (master)
+$ a=3
+young@LAPTOP-40F97O7C MINGW64 /d/Study/SHELL (master)
+$ echo '---$a---'
+---$a---
+young@LAPTOP-40F97O7C MINGW64 /d/Study/SHELL (master)
+$ echo '---'$a'---'
+---3---
+
 //jdy:可以使用花括号来告诉shell我们要打印的是num变量：
 num=2
 echo "this is the ${num}nd"

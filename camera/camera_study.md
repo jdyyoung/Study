@@ -1,3 +1,19 @@
+时分复用技术（time-division multiplexing, *TDM*）是将不同的信号相互交织在不同的时间段内，沿着同一个信道传输
+
+camera_chengwei_peng的博客-CSDN博客 - https://blog.csdn.net/weixin_41944449/category_7709947.html
+
+V4L2框架分析学习一 | 技术部落 - http://www.techbulo.com/1193.html
+
+V4L2框架分析学习二 | 技术部落 - https://www.techbulo.com/1198.html
+
+开启v4l2内核调试信息 - CSDN - https://www.csdn.net/tags/MtTaIgysMjk1NDM1LWJsb2cO0O0O.html
+
+V4L2调试之(一)_papaofdoudou的博客-CSDN博客_v4l2调试 - https://blog.csdn.net/tugouxp/article/details/118527582
+
+V4L2 调试之(四)_papaofdoudou的博客-CSDN博客_开启v4l2内核调试信息 - https://blog.csdn.net/tugouxp/article/details/118609113?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_ecpm_v1~rank_v31_ecpm-2-118609113.pc_agg_new_rank&utm_term=%E5%BC%80%E5%90%AFv4l2%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF&spm=1000.2123.3001.4430
+
+Linux系统v4l2编程详解之USB摄像头调试_战斗到永恒的博客-CSDN博客_linux usb摄像头调试 - https://blog.csdn.net/suh666888/article/details/87343580?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_ecpm_v1~rank_v31_ecpm-5-87343580.pc_agg_new_rank&utm_term=%E5%BC%80%E5%90%AFv4l2%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E4%BF%A1%E6%81%AF&spm=1000.2123.3001.4430
+
 
 
 图像格式与视频数字化 && sensor的类型（YUV sensor ，Raw sensor）&& RAW sensor预览碰到的颜色问题_zhandoushi的专栏-CSDN博客 - https://blog.csdn.net/zhandoushi1982/article/details/5011321
