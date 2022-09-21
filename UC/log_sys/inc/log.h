@@ -1,6 +1,7 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
+#include "recovery.h"
 #include "lib.h"
 #include "typedef.h"
 
@@ -93,9 +94,9 @@ extern int   log_create(const char* logname,
                         size_t bytes_per_file, int max_files, bool timestamp);
 extern int   log_delete(const char* logname);
 extern int   log_archive(const char* archive_name);
-extern int   log_zap(void);
+// extern int   log_zap(void);
 extern void* log_restart(char* logname, size_t bytes_per_file, 
                          int max_files, bool timestamp);
 // extern void  log_init(char* rootpath, void (*restore)(void));
-extern void  log_init(const char* rootpath);
+extern void  log_init(const char* rootpath,LOG_DEVICE_INFO *info_param);
 #endif

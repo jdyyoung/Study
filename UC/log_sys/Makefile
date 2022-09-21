@@ -5,7 +5,8 @@
 # define tools
 SHELL = /bin/sh
 #SHELL = /bin/bash
-CROSS?=arm-openwrt-linux-
+#CROSS?=arm-openwrt-linux-
+CROSS?=
 CC:=${CROSS}gcc
 AR:=${CROSS}ar
 #export CC:=/opt/vtcs_toolchain/vienna/usr/bin/arm-linux-gcc
@@ -115,7 +116,7 @@ info:
 	@echo $(SRVDEP)
 
 install:
-	@cp $(LIBTGT) ../omf_lib/
+	@cp $(LIBTGT) ../curl_lib/
 	@cp ${TOPDIR}/inc/recovery.h ../omf_include
 
 ###############################################################################

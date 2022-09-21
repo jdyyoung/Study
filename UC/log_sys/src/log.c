@@ -1,5 +1,8 @@
  #include "log.h"
 
+
+const char* XLOG_VER="XLOG_VER_2022-09-19";
+
 typedef struct {
     MUTEX mutex;              // makes logging thread-safe and atomic
     FILE* file;              // if non-null, the active log file
@@ -8,13 +11,14 @@ typedef struct {
 } LOG_CONTEXT;
 
 
+static LOG_DEVICE_INFO g_info_param;
 static char log_rootpathname[MAX_PATHNAME];
 static long log_session;
 static int  logging = 0;
-static void (*log_restore)(void) = NULL;
+//static void (*log_restore)(void) = NULL;
 
 
-void* system_log = NULL;
+// void* system_log = NULL;
 void* debug_log = NULL;
 
 
@@ -149,34 +153,16 @@ static void new_file(LOG_CONTEXT* ctxt)
              log_rootpathname, ctxt->name, next);
     ctxt->file = fopen(dst, "ae");
 
-    // if (ctxt->file != NULL) {
+    if (ctxt->file != NULL) {
         // char string[MAX_PATHNAME];
-        // wifi_info_t wifi;
-        // uuid_t uuid;
-        // u32 addr;
+        timestamp(ctxt);
+        fprintf(ctxt->file, "v%s [%s/%s] -- fw_version:%d,hw_version:%d,mcu_version:%d\n",
+                PROG_VERSION, __DATE__, __TIME__,  g_info_param.fw_ver,g_info_param.hw_ver,g_info_param.mcu_ver );
 
-        // if (wifi_get_info(&wifi, FALSE) != S_OK) {
-            // memset(&wifi, 0, sizeof(wifi));
-            // addr = 0;
-        // } else {
-            // addr = ntohl(wifi.ipv4.addr);
-        // }
-
-        // get the rootfs version -- this is the suffix of the '/firmware/version.*' file
-        // note that the skybell and linux versions can be derived from this (not uboot)
-        // timestamp(ctxt);
-        // fprintf(ctxt->file, "v%s [%s/%s] -- rootfs-%c[version.%d]\n",
-                // PROG_VERSION, __DATE__, __TIME__, which_rootfs(), get_rootfs_version());
-
-        // display the device-id, UUID, serialno, MAC and IP address to help verify the log file
+        // display the  serialno, MAC and IP address to help verify the log file
         // matches the device (when in doubt) 
-        // skybell_uuid(&uuid);
-        // uuid_tostring(uuid, string, sizeof(string));
-        // fprintf(ctxt->file, "Device-ID: '%s', UUID: '%s'\n", skybell_device_id(), string);
-        // fprintf(ctxt->file, "Serial-No: '%s', MAC: '" WIFI_MACSTR "' IP: '%ld.%ld.%ld.%ld'\n", 
-                // skybell_serialno(), WIFI_MAC(wifi.mac),
-                // (addr >> 24) & 0xFF, (addr >> 16) & 0xFF, (addr >> 8) & 0xFF, (addr) & 0xFF);
-    // }
+        fprintf(ctxt->file, "Serial-No: '%s', MAC: '%s' \n", g_info_param.device_sn, g_info_param.device_mac);
+    }
 }
 
 
@@ -321,20 +307,25 @@ int log_setconfig(const void* log, LOG_CONFIG* config)
     u32 crc;
 
     // if bogus log pointer return failure
-    if (log == NULL || strlen(ctxt->name) == 0)
+    if (log == NULL || strlen(ctxt->name) == 0){
+        printf("log == NULL || strlen(ctxt->name");
         return -1;
+    }
 
     MUTEX_LOCK(&ctxt->mutex);
 
     // set the new configuration and close any active log files
     // (so they can adhere to the new config settings)
+    if(NULL ==config){
+        printf("%d:NULL ==config\n",__LINE__);
+        return -1;
+    }
     strcpy(config->version, LOG_VERSION);
     ctxt->config = *config;
     if (ctxt->file) {
         fclose(ctxt->file);
         ctxt->file = NULL;
     }
-
     // write the new log config to flash (persistent)
     snprintf(filename, sizeof(filename), "%s/%s/%s",
              log_rootpathname, ctxt->name, ctxt->name);
@@ -383,20 +374,26 @@ void* log_open(const char* logname)
     u32 computed_crc, file_crc;
 
     // if bogus logname, return failure (NULL)
-    if (logname == NULL || strlen(logname) == 0)
+    if (logname == NULL || strlen(logname) == 0){
+        printf("logname == NULL || strlen(logname) == 0\n");
         return NULL;
+    }
 
     // if the log directory does not exist return failure (NULL)
     snprintf(dirname, sizeof(dirname), "%s/%s", log_rootpathname, logname);
-    if (stat(dirname, &stbuf) || !S_ISDIR(stbuf.st_mode))
+    if (stat(dirname, &stbuf) || !S_ISDIR(stbuf.st_mode)){
         return NULL;
+    }
 
     // read the log context file into heap context
     strncat(dirname, "/", strlen("/"));
     strncat(dirname, logname, strlen(logname));
+    //open: /tmp/logs/debug/debug
     file = fopen(dirname, "re");
-    if (file == NULL)
+    if (file == NULL){
+        printf("%d:file == NULL\n",__LINE__);
         return NULL;
+    }
 
     // allocate heap for the log context and initialize
     ctxt = (LOG_CONTEXT*) malloc(sizeof(*ctxt));
@@ -548,12 +545,12 @@ int log_delete(const char* logname)
 //
 int log_archive(const char* archive_name)
 {
-    LOG_CONTEXT* sys = system_log;
+    // LOG_CONTEXT* sys = system_log;
     LOG_CONTEXT* dbg = debug_log;
     char tar_command[MAX_PATHNAME];
     int rc;
 
-    if (sys != NULL) MUTEX_LOCK(&sys->mutex); 
+    // if (sys != NULL) MUTEX_LOCK(&sys->mutex); 
     if (dbg != NULL) MUTEX_LOCK(&dbg->mutex); 
 
     // note we intentionally did not use "do_system()" here because we have locked the log mutexes
@@ -569,45 +566,34 @@ int log_archive(const char* archive_name)
     }
 
     if (dbg != NULL) MUTEX_UNLOCK(&dbg->mutex); 
-    if (sys != NULL) MUTEX_UNLOCK(&sys->mutex); 
+    // if (sys != NULL) MUTEX_UNLOCK(&sys->mutex); 
 
     return rc;
 }
 
 
-int log_zap(void)
-{
-    if (log_restore != NULL) {
-        if (debug_log != NULL) {
-            void* log = debug_log;
-            debug_log = NULL;
-            log_close(log);
-            log_delete("debug");
-        }
-        // if (system_log != NULL) {
-        //     void* log = system_log;
-        //     system_log = NULL;
-        //     log_close(log);
-        //     log_delete("system");
-        // }
+// int log_zap(void)
+// {
+//     if (log_restore != NULL) {
+//         if (debug_log != NULL) {
+//             void* log = debug_log;
+//             debug_log = NULL;
+//             log_close(log);
+//             log_delete("debug");
+//         }
+//         if (system_log != NULL) {
+//             void* log = system_log;
+//             system_log = NULL;
+//             log_close(log);
+//             log_delete("system");
+//         }
 
-        log_restore();
-        return 0;
-    }
+//         log_restore();
+//         return 0;
+//     }
 
-    return -1;
-}
-
-static char which_rootfs(void)
-{
-    return 1? 'A':'B';
-}
-
-static u16 get_rootfs_version(void)
-{
-    static u16 cached_version = 8888;
-    return cached_version;
-}
+//     return -1;
+// }
 
 // log_restart
 //
@@ -622,7 +608,6 @@ void* log_restart(char* logname, size_t bytes_per_file,
     void* log;
     LOG_CONTEXT* ctxt;
     bool dirty = FALSE;
-
     log = log_open(logname);
     if (log == NULL) {
         if (log_create(logname, bytes_per_file, max_files, timestamp) < 0)
@@ -650,28 +635,28 @@ void* log_restart(char* logname, size_t bytes_per_file,
 
     log_printf(log, LOG_MAX_LEVEL, LOG_ANY_MASK,
                "%s(%s): session 0x%lx\n", __FUNCTION__, logname, log_session);
-    log_printf(log, LOG_MAX_LEVEL, LOG_ANY_MASK, 
-               "v%s [%s/%s] -- rootfs-%c[version.%d]\n",
-               PROG_VERSION, __DATE__, __TIME__, which_rootfs(), get_rootfs_version());
+    log_printf(log, LOG_MAX_LEVEL, LOG_ANY_MASK, "v%s [%s/%s] -- [fw_version=%d]\n",
+               PROG_VERSION, __DATE__, __TIME__,  g_info_param.fw_ver);
     return log;
 }
 
-static void restore(void) 
-{
-    // system_log = log_restart("system", 0x20000ul, 10, TRUE);
-    debug_log = log_restart("debug", 0xa0000ul, 10, TRUE);
-}
+// static void restore(void) 
+// {
+//     // system_log = log_restart("system", 0x20000ul, 10, TRUE);
+//     debug_log = log_restart("debug", 0x80000ul, 10, TRUE);
+// }
 
 // create all of the component directories in log_rootpathname,
 // this routine must be called if *ANY* logging is to take place
 // 
 // void log_init(char* rootpath, void (*restore)(void))
-void  log_init(const char* rootpath)
+void  log_init(const char* rootpath,LOG_DEVICE_INFO *info_param)
 {
     struct timeval tv;
     char* slash = log_rootpathname;
+    // log_restore = restore;
 
-    log_restore = restore;
+    memcpy(&g_info_param,info_param,sizeof(LOG_DEVICE_INFO));
     gettimeofday(&tv, NULL);
     srandom(tv.tv_usec);
     log_session = random();
@@ -699,7 +684,5 @@ void  log_init(const char* rootpath)
     //     log_restore(); 
     // }
 
-    // system_log = log_restart("system", args.s_bytes_per_file, args.s_max_files, TRUE);
-    // debug_log = log_restart("debug", args.d_bytes_per_file, args.d_max_files, TRUE);
-    log_restore();
+    debug_log = log_restart("debug", g_info_param.bytes_per_file, g_info_param.max_files, TRUE);
 }
