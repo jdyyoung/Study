@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+#2022-09-19
+
+Shell获取字符串长度的多种方法总结 - 51core - 博客园 - https://www.cnblogs.com/51core/articles/15661987.html
+
+---
+
 #2022-02-17 
 
 shell 脚本中 echo 显示内容带颜色显示，格式如下：

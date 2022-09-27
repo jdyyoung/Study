@@ -1,0 +1,52 @@
+前提虚拟机的网络连接设置成：NAT模式
+
+samba:安装说明
+如何在Ubuntu 17.10上使用System-Config-Samba_服务器应用_Linux公社-Linux系统门户网站
+- https://www.linuxidc.com/Linux/2018-01/150493.htm
+sudo apt-get install samba samba-common-bin
+
+samba --version
+
+sudo apt-get install system-config-samba
+
+sudo touch /etc/libuser.conf
+sudo system-config-samba
+
+mkdir ~/share
+cd ~
+sudo chgrp young share/
+sudo chown young share/
+
+//ubuntu重启samba服务
+sudo service smbd restart
+------------------
+young@young-vm:~$ sudo apt-get install samba samba-common-bin
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
+因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
+包尚未被创建或是它们已被从新到(Incoming)目录移出。
+下列信息可能会对解决问题有所帮助：
+
+下列软件包有未满足的依赖关系：
+ samba : 依赖: python (>= 2.7) 但是它将不会被安装
+         依赖: python-dnspython 但是它将不会被安装
+         依赖: python-samba 但是它将不会被安装
+         依赖: samba-common (= 2:4.3.11+dfsg-0ubuntu0.14.04.20) 但是 2:4.3.11+dfsg-0ubuntu0.16.04.34 正要被安装
+         依赖: python (< 2.8) 但是它将不会被安装
+         依赖: samba-libs (= 2:4.3.11+dfsg-0ubuntu0.14.04.20) 但是它将不会被安装
+         推荐: samba-dsdb-modules 但是它将不会被安装
+         推荐: samba-vfs-modules 但是它将不会被安装
+ samba-common-bin : 依赖: python 但是它将不会被安装
+                    依赖: python-samba 但是它将不会被安装
+                    依赖: samba-common (= 2:4.3.11+dfsg-0ubuntu0.14.04.20) 但是 2:4.3.11+dfsg-0ubuntu0.16.04.34 正要被安装
+                    依赖: samba-libs (= 2:4.3.11+dfsg-0ubuntu0.14.04.20) 但是它将不会被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+young@young-vm:~$ 
+
+
+sudo mv /etc/aptsources.list.raw /etc/aptsources.list
+sudo apt-get update
+如何解决ubuntu18.04安装smb的依赖问题 - 简书 - https://www.jianshu.com/p/d2fe0bf0d90a
+
