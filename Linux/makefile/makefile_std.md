@@ -1,3 +1,33 @@
+
+
+20220811：
+
+```
+$(addprefix PREFIX,NAMES…)
+addprefix 是makefile中的函数,是添加前缀的函数
+例如：
+$(addprefix src/,foo bar)
+
+返回值为“src/foo src/bar”.
+所以上面的意思是为dirver_dirs变量添加前缀,$(DRIVERS_DIR)/
+```
+
+```
+notdir
+```
+
+```
+wildcard
+```
+
+```
+$@ $^ $* $$? $<
+```
+
+
+
+-----
+
 20211228:
 
 如何调试makefile - 灵聚 - 博客园 - https://www.cnblogs.com/perseus/articles/2480141.html

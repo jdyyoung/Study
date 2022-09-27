@@ -1,3 +1,9 @@
+
+
+Linux内核驱动之GPIO子系统API接口概述 - 走看看 - http://t.zoukankan.com/Cqlismy-p-11891789.html
+
+----
+
 GPIO:
 
 上拉，开漏

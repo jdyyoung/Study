@@ -86,3 +86,11 @@ USB中采用了Bit-Stuffing位填充处理，即在连续发送6个1后面会插
 
 
 Linux 下usb万能调试驱动-lpven-ChinaUnix博客 - http://blog.chinaunix.net/uid-27083042-id-3278847.html
+
+
+
+usb 传输协议_秋绘の枫的博客-CSDN博客_简述usb传输协议 - https://blog.csdn.net/qq_44760112/article/details/126088772
+二十四、USB协议 - 轻轻的吻 - 博客园 - https://www.cnblogs.com/yuanqiangfei/p/15831243.html
+USB 2.0 协议规范（中文版） - https://baijiahao.baidu.com/s?id=1722011805731207192&wfr=spider&for=pc
+USB中文网 - USB技术开发交流 - https://www.usbzh.com/
+USB协议详解_浩雪峰的博客-CSDN博客_usb通信协议 - https://blog.csdn.net/leho666/article/details/88532614

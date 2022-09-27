@@ -1,3 +1,13 @@
+
+
+2022-0825：
+
+printf打印的字符串显示不同颜色 - 走看看 - http://t.zoukankan.com/jikexianfeng-p-13807231.html
+
+linux终端字体颜色_使用printf打印出各种颜色字体_棒棒糖半糖的博客-CSDN博客_printf打印红色字体 - https://blog.csdn.net/qq_37388044/article/details/120173968
+
+
+
 20210906：
 
 C语言再学习 -- 关键字volatile_不积跬步，无以至千里-CSDN博客_c语言 volatile - https://blog.csdn.net/qq_29350001/article/details/54024070

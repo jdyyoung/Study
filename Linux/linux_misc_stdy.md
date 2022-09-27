@@ -1,3 +1,23 @@
+
+
+2022-07-06
+
+```
+linux kernel devm
+devm简介
+在驱动代码中我们经常会见到一些以devm开头的函数，这一类的函数都是和
+设备资源管理（Managed Device Resource）相关的，驱动中提供这些函数主要是为了
+方便对于申请的资源进行释放，比如：irq、regulator、gpio等等。
+在驱动进行初始化的时候如果失败，那么通常会goto到某个地方释放资源，
+这样的标签多了之后会让代码看起来不简洁，devm就是为来处理这种情况。
+```
+
+Linux设备模型(9)_device resource management - http://www.wowotech.net/device_model/device_resource_management.html
+
+ linux中以devm开头的一些函数（设备资源管理）_Sunnie_ge的博客-CSDN博客_devm linux - https://blog.csdn.net/u013377887/article/details/118659149
+
+---
+
 2021-12-27
 
  创建sysfs节点之device_create_file、sysfs_create_group_Hansomewang的博客-CSDN博客_device_create_file - https://blog.csdn.net/Hansomewang/article/details/78714236

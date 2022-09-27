@@ -1,3 +1,13 @@
+
+
+解决server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none
+
+```
+git config --global http.sslverify false
+```
+
+---
+
 Git log 高级用法 - 张建斌 - 博客园 - https://www.cnblogs.com/zhangjianbin/p/7778625.html
 
  git 跨分支搜索代码，确定commit 所属分支_杰_happy的博客-CSDN博客 - https://blog.csdn.net/liujiekkk123/article/details/78246662

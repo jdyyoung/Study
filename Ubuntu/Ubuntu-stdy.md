@@ -1,5 +1,29 @@
 
 
+
+
+```
+问题一：ifconfig之后只显示lo,没有看到eth0 ?
+eth0设置不正确，导致无法正常启动，修改eth0配置文件就好 
+ubuntu 12.04的网络设置文件是/etc/network/interfaces，打开文件，会看到 
+auto lo 
+iface lo inet loopback 
+这边的设置是本地回路。在后面加上 
+auto eth0 
+iface eth0 inet static 
+address 192.168.1.230 //（ip地址） 
+netmask 255.255.255.0 //（子网掩码） 
+gateway 192.168.1.1 //（网关） 
+其中eth0就是电脑的网卡，如果电脑有多块网卡，比如还会有eth1，都可以在这里进行设置。iface eth0 inet 设置为dhcp是动态获取IP，设置为static则用自定义的IP。这边要自定义IP地址，所以选择static选项。
+
+ubuntu ifconfig 不显示IP地址 - 走看看 - http://t.zoukankan.com/Jesse-Li-p-8944669.html
+
+auto eth0 
+iface eth0 inet dhcp
+```
+
+
+
 ```
 unzip把压缩文件解压到指定目录下 -d
 例如：
