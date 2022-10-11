@@ -1,0 +1,44 @@
+Linux下I2C驱动架构全面分析 - https://mp.weixin.qq.com/s/tqv8nvC5WiPK9Q1JuRg_jg
+Linux I2C设备驱动基本规范 - https://mp.weixin.qq.com/s/JmBvNVWY-A-OgWdPAjat7g
+Linux驱动|rtc-hym8563移植笔记 - https://mp.weixin.qq.com/s/Ko-P8kdyst_pWCFZ5bIWwA
+[网友问答5]i2c的设备树和驱动是如何匹配以及何时调用probe的？ - https://mp.weixin.qq.com/s/2XtjhwA33Zexk01i6xVYCA
+I2C最全干货-（2）驱动篇-之基于linux的mpu6050驱动 - https://mp.weixin.qq.com/s/u6uGAdXVHh_IvJagvBL0sw
+rx8010为EPSON公司的一款RTC芯片
+drivers/rtc/rtc-rx8010.c
+
+HYM8563是一款低功耗CMOS实时时钟/日历芯片，由武汉昊昱公司设计生产。
+drivers/rtc/rtc-hym8563.c
+Documentation/devicetree/bindings/rtc/haoyu,hym8563.txt
+
+Bma250驱动为例子，详细介绍Gsensor设计的一个模板
+./drivers/input/sensor/bma250.c
+linux驱动及g-sensor学习心得_文档之家 - http://www.doczj.com/doc/2813373307.html
+(10条消息) linux Gsensor驱动（bma250为例子）_laohuang1122的博客-CSDN博客 - https://blog.csdn.net/laohuang1122/article/details/8773517
+
+几个I2C的驱动内核例子：
+Documentation\devicetree\bindings\i2c\i2c-s3c2410.txt
+drivers/i2c/busses/i2c-mv64xxx.c
+mpu6050驱动
+mpu6050陀螺仪
+Linux驱动 | MPU6050驱动(I2C)_★_仰望星空_★的博客-CSDN博客_mpu6050驱动 - 
+https://blog.csdn.net/qq_36413982/article/details/123400692
+Linux驱动开发06：【I2C驱动】写一个MPU6050驱动 - 灰信网（软件开发博客聚合） - 
+https://www.freesion.com/article/2399125202/
+
+OPT3002：OPT3002 光数字传感器
+drivers/iio/light/opt3001.c
+
+./drivers/misc/eeprom/at24.c
+
+12_DRV\resources
+drivers/video/backlight/adp8860_bl.c
+include/linux/i2c/adp8860.h
+linux/Documentaion/leds-class.txt
+ADP8860.pdf
+
+AT24C02.pdf
+HMC6352.pdf
+lm77.pdf
+mcp79412_rtcc.pdf
+
+V536\Tina3.5文档\V5_DOC\Sunxi I2C总线驱动使用文档.pdf

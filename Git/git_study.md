@@ -6,28 +6,6 @@
 git config --global http.sslverify false
 ```
 
-
-
- git报错：git@gitee.com: Permission denied (publickey)_soldier_jw的博客-CSDN博客_nodejs - https://blog.csdn.net/soldier_jw/article/details/106183099
-
-`vi config`
-
-```
- # gitee
-Host gitee.com
-HostName gitee.com
-PreferredAuthentications publickey
-IdentityFile ~/.ssh/gitee/id_rsa
- 
-# github
-Host github.com
-HostName github.com
-PreferredAuthentications publickey
-IdentityFile ~/.ssh/github/id_rsa
-```
-
-
-
 ---
 
 Git log 高级用法 - 张建斌 - 博客园 - https://www.cnblogs.com/zhangjianbin/p/7778625.html

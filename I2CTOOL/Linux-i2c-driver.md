@@ -565,3 +565,9 @@ Linux驱动开发05：【I2C驱动】I2C总线驱动和设备驱动_卡咖喱的
 Linux i2c子系统源码分析--Apple的学习笔记 - 简书 - https://www.jianshu.com/p/e5096bc65bae
 
  I2C API——Linux内核文档中文翻译_W维的自留地的博客-CSDN博客 - https://blog.csdn.net/weixin_36114752/article/details/109393343
+
+linux设备驱动程序-i2c(0)-i2c设备驱动源码实现 - 牧野星辰 - 博客园 - https://www.cnblogs.com/downey-blog/p/10493289.html
+
+linux设备驱动程序-i2c(1):i2c总线的添加与实现 - 牧野星辰 - 博客园 - https://www.cnblogs.com/downey-blog/p/10493216.html
+
+linux设备驱动程序-i2c(2)-adapter和设备树的解析 - 牧野星辰 - 博客园 - https://www.cnblogs.com/downey-blog/p/10516969.html
